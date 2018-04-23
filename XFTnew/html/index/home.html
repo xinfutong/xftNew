@@ -136,6 +136,17 @@
 		    margin-top: 13px;padding: 12px 0;
 		}
 		.home_logo img{height: 22px;}
+		.home_type-4{
+			color: #FFFFFF;
+			background-color: #FFFFFF;
+    			font-size: 18px;
+    			/*background: url(../../images/chioce@2x.png)no-repeat;background-size: 24px;*/
+    			text-align: center;
+    			padding: 14px 0;
+    			height: 93px;
+    			background-position-y: 11px;
+    			margin-top: 8px;
+		}
 	</style>
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent" style="background-color: rgba(247, 247, 247, 0);">
@@ -247,12 +258,12 @@
 		        </div>
 	        </ul>
 
-			<div class="home_type-1">				
-				<div class="head-type">						
-					<span class="inte-repay">分享赚钱</span>
-				</div>
-				<img id="home-1" src="../../images/home-1@2x.png" />				
-			</div>	
+			<div class="home_type-4">
+	       	 	<div style="margin-top: 10px; text-align: left; margin-left: 17px;">
+	       	 		<span style="color: #3e4d54; font-size: 20px; text-align: left;">分享就能</span><span style="color: #ff7e4d; font-size: 20px;">赚大钱</span>
+	       	 	</div>
+	       		<div style="color: #88898a; margin-top: 5px; font-size: 12px; text-align: left; margin-left: 17px;">超高佣金率等你来拿</div>
+	       	</div>
 			<!--<div class="home_type-3">
 				<div class="credit-card">
 					<div class="head-type">						
@@ -732,7 +743,7 @@
 						openMore = 'no';
 					}
 				});
-				document.querySelector('.home_type-1').addEventListener('tap',function(){
+				document.querySelector('.home_type-4').addEventListener('tap',function(){
 					if (uid!=null && token!=null) {
 						mui.openWindow({
 							url: 'share_money.html',
