@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="../../css/Card_management.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-bar-nav~.mui-content{padding-top: 0;}
+		#hank_img{
+    		/*height:36px;*/
+		    width: 4rem;z-index: 999;
+		    position: absolute;top: 15px;left: 1rem;		    
+		    /*background-position-y: center;background-repeat:no-repeat;*/
+    	}
+    	.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">信用卡管理</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">	
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="section_two">
+								<ul class="mui-table-view" style="border-radius: 5px 5px 0 0;margin-top:0.65rem;padding-top:1rem;">
+							    	<li class="mui-table-view-cell mui-media" style="height:1.75rem;position:relative;">
+								        <a href="javascript:;" class="mui-navigate-right">
+								        	<!--<div id="hank_img" style="background-image: url(http://auth.apis.la/bank/13_HXBANK.png);"></div>-->
+								            <!--<img id="hank_img" class="mui-media-object mui-pull-left" src="../../images/zgyh@3x.png" style="position:absolute;top:0.25rem;line-height:1.75rem;
+				max-width: 1.25rem;height: 1.25rem;left:5.8%;">-->
+								            <div class="mui-media-body" style="font-size:16px;color:#505050;">
+								                <span style="position:absolute;top:0.13rem;left:6rem;" id="hank_name">
+								                	中国银行<label id="card_number" style="margin-left: 10px;"><!--尾号(8888)--></label>
+								                </span> 
+								                <!--<span id="card_number" style="position:absolute;top:0.13rem;left:44%;">尾号(8888)</span>-->
+								                <!--<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>-->
+								            </div>
+								        </a>
+								    </li>
+								</ul>
+								<img id="hank_img" src="http://www.zhxft.com/static/yinhang/pingan.png"></img>
+								<ul class="mui-table-view" style="border-radius: 0 0 5px 5px;margin-top:-4px;">
+				<!--					<div style="width:4rem;height:4rem;position:absolute;right:7.2%;top:1.56rem;background:url(../../images/xzhk@3x.png) 0 0 no-repeat;background-size:100% 100%;"></div>-->
+								    <li class="mui-table-view-cell mui-table-view-cell-p1" style="color:#505050;">
+								    	<span style="margin-left:5.1rem;">持卡人:</span>
+								    	<span id="card_name" style="margin-left:3%;"><!--李**--></span>
+								    	<span id="repay_state" style="margin-left:9%;display: inline-block;width:18%;height:1.28rem;background:#DDDDDD;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;display: none;">待还款</span></li>
+								    <li class="mui-table-view-cell total_mony">
+								    	<div>
+								    		<p id="Quota" class="total_mony_p1"><!--0.8%--></p>
+								    		<p class="total_mony_p2">费率</p>
+								    	</div>
+								    	<div>
+								    		<p id="bill_day" class="total_mony_p1"><!--10月--></p>
+								    		<p class="total_mony_p2">账单日</p>
+								    	</div>
+								    	<div>
+								    		<p id="last_repay" class="total_mony_p1" style="text-align: center;"><!--30日--></p>
+								    		<p class="total_mony_p2">最后还款日</p>
+								    	</div>
+								    </li>
+								</ul>
+							</div>
+							<!--解绑卡片区域-->
+							<ul class="Unbundling_card">
+								<li id="repay_info" style="margin-left:5%;">
+									<div class="hk"></div>
+									<p>还款记录</p>
+								</li>
+								<li id="modify_info">
+									<div class="xg"></div>
+									<p>修改信息</p>
+								</li>
+								<a href="#picture">
+									<li>
+										<div class="jb"></div>
+										<p>解绑卡片</p>
+									</li>
+								</a>
+				
+							</ul>
+							
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<!--弹出提示-->
+			<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#" style="font-size:12px;color:#777777">以后使用信付通APP可以继续绑定</a>
+					</li>
+					<li id="Unbundling" class="mui-table-view-cell jiechu">
+						<a href="#picture" style="color:red;">确定解除绑定</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#picture" style="color:#333333;"><b>取消</b></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					swipeBack:true, //启用右滑关闭功能					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var card_id=plus.webview.getWebviewById('Card_management').card_id;
+				card_id=parseInt(card_id);
+				mui.ajax('http://www.zhxft.com/app/creditCard/cardDetail',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						cardId:card_id						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+//						document.getElementById('hank_img').style.backgroundImage="url("+arrParse.bankLogo+")";
+						document.getElementById('hank_img').src=arrParse.bankLogo;
+						document.getElementById('hank_name').innerHTML=''+arrParse.bankName+'<label id="card_number" style="margin-left: 10px;">尾号('+arrParse.endNum+')</label>';
+//						document.getElementById('card_number').innerText='尾号('+arrParse.endNum+')';
+						document.getElementById('card_name').innerText=arrParse.accountName;
+						document.getElementById('Quota').innerText=arrParse.feeRate+'%';
+						document.getElementById('bill_day').innerText=arrParse.accountDay;
+						document.getElementById('last_repay').innerText=arrParse.repaymentDay;
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				window.addEventListener('card_info',function(event){
+					location.reload();
+				});
+				
+				mui('body').on('shown', '.mui-popover', function(e) {
+					//console.log('shown', e.detail.id);//detail为当前popover元素
+				});
+				mui('body').on('hidden', '.mui-popover', function(e) {
+					//console.log('hidden', e.detail.id);//detail为当前popover元素
+				});
+				var info = document.getElementById("info");
+				mui('body').on('tap', '.mui-table-view-span', function() {
+					var a = this,
+						parent;
+					//根据点击按钮，反推当前是哪个actionsheet
+					for (parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+						if (parent.classList.contains('mui-popover-action')) {
+							break;
+						}
+					}
+					//关闭actionsheet
+					mui('#' + parent.id).popover('toggle');
+	//					info.innerHTML = "你刚点击了\"" + a.innerHTML + "\"按钮";
+				})
+				
+				document.getElementById('modify_info').addEventListener('tap',function(){
+					mui.ajax('http://www.zhxft.com/app/creditCard/editCard',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							cardId:card_id
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.code!='0009'){
+								mui.openWindow({
+									url: 'modify_card.html',
+									id: 'modify_card',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},styles:{
+//										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+								    extras:{
+								      	cardId:card_id
+								    },
+									waiting: {
+										autoShow: true
+									}
+								});
+							}else{
+								mui.alert('当前卡号任务计划正进行中，不允许修改','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+					
+				})
+				document.getElementById('repay_info').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'payment_history.html',
+						id: 'payment_history',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},
+					    extras:{
+					      	card_id:card_id
+					    },
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				document.getElementById('Unbundling').addEventListener('tap',function(){
+					mui.ajax('http://www.zhxft.com/app/creditCard/unbundling',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							cardId:card_id						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.code=='0000'){
+								var detailPage = plus.webview.getWebviewById('repay');
+								mui.fire(detailPage,'repay_customEvent1',{
+									card_id:card_id,
+								});
+								plus.nativeUI.alert("解绑成功！",function(){ 
+                                	mui.back();
+	                            });
+//								mui.alert('解绑成功！','提示','','','div');
+							}else if(arrParse.code=='0005'){
+								mui.alert('计划正在进行不能解绑！','提示','','','div');
+							}else if(arrParse.code=='0009'){
+								mui.alert('当前卡号任务计划正进行中，不允许修改','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+				
+				mui('.mui-table-view').on('tap', '.jiechu', function(){					
+					mui('#popover').popover('hidden');
+				});
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,610 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/wallet.css" />
+	</head>
+	<style>
+		.mui-segmented-control .mui-control-item.mui-active{
+			background-color: #FFFFFF;color: #505050;
+			border-bottom: 2px solid #108EE9;
+		}
+		.mui-segmented-control{border: 0;position: fixed;z-index: 999;background-color: #FFFFFF;}
+		.mui-segmented-control .mui-control-item{
+			border-left: 0;color: #505050;
+			width: 33.3333333%;
+		    display: inline-block;border-bottom: 1px solid #DDDDDD;
+		    /*margin: 0 5%;*/
+		}
+		.mui-table-view-cell>.mui-badge{right: 34px;}
+		.mui-badge{background-color: #FFFFFF;border-radius:0;color: #505050;font-size: 15px;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{height: auto;margin-top: 2px;}
+		.mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 26px;height: 28px;
+		}
+		.billboard{margin: 9px 0;}
+		.mui-media-body{font-size: 16px;color: #000000;margin-top: 7px;display: inline-block;}
+		.mui-pull-right{border-radius: 50%;width: 29px;}
+		.mui-table-view-chevron .mui-table-view-cell{padding-right: 35px;}
+		.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){margin-right: -35px;}
+		
+		#item1 .mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 24px;height: auto;
+		}
+		#item1 .mui-media-body{margin-top: 3px;}
+		
+		#header{box-shadow: none;border-bottom: 1px solid #DDDDDD;}
+		.mui-title{color: #010101;}
+		.mui-icon-back:before, .mui-icon-left-nav:before{color: #108EE9;}
+		.user_list{margin-top: 0;}
+		.icon_wallet{
+			background:url(../../images/one@3x.png)no-repeat;
+			background-size:24px;	
+		}
+		.the_first{
+			background: url(../../images/the_first.png)no-repeat;
+		    min-height: 178px;
+		    background-size: 178px;
+		    background-position-x: 50%;
+		    background-position-y: 22px;
+		}
+		#the_one{
+			width: 62px;border-radius: 75%;height: 62px;
+			position: absolute;
+		    /*top: 63px;
+		    left: 41.999989999999999%;*/
+		   	margin: auto;
+		    top: -22px;
+		    left: 0;
+		    bottom: 0;
+		    right: 0;
+		}
+		#first_one{
+			width: 76px;
+		    position: absolute;
+		    /*top: 117px;
+		    left: 40%;*/
+		  	margin: auto;
+		    top: 33px;
+		    left: 0;
+		    bottom: 0;
+		    right: 0;
+		}
+		.the_first h5{
+			text-align: center;
+		    margin-top: 142px;
+		    color: #3E3E3E;
+		    font-size: 17px;
+		}
+		.agent_one{
+			background: url(../../images/bill-agant1@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_two{
+			background: url(../../images/bill-agant2@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_three{
+			background: url(../../images/bill-agant3@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_four{
+			background: url(../../images/bill-agant4@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_five{
+			background: url(../../images/bill-agant5@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_six{
+			background: url(../../images/bill-agant6@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_seven{
+			background: url(../../images/bill-agant7@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		.agent_eight{
+			background: url(../../images/bill-agant8@3x.png)no-repeat;
+			background-size: 44px;background-position-x: 83%;
+		}
+		p{text-align: center;font-size: 12px;color: #999999;}
+		p label{color: #FF1E00;}
+		
+		.the_two{
+			background: url(../../images/the-two@3x.png)no-repeat;
+		    background-size: 52px;
+		    min-height: 100px;
+		    background-position-x: 16.5%;
+		    background-position-y: 14%;
+		}
+		#the_two{    
+			width: 46.9px;height: 46.9px;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 22%;
+		    left: 14.8%;
+		}
+		#two{
+			width: 62px;
+		    position: absolute;
+		    top: 65%;
+    		left: 12.5%;
+		}
+		.the_two h5{
+			text-align: center;
+		    margin-top: 22px;
+		    color: #3E3E3E;
+		    font-size: 17px;
+		}
+		
+		.the_three{
+			background: url(../../images/the-three@3x.png)no-repeat;
+		    background-size: 52px;
+		    min-height: 100px;
+		    background-position-x: 16.5%;
+		    background-position-y: 14%;
+		}
+		#the_three{    
+			width: 46.9px;height: 46.9px;
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 22%;
+		    left: 14.8%;
+		}
+		#three{
+			width: 62px;
+		    position: absolute;
+		    top: 65%;
+    		left: 12.5%;
+		}
+		.the_three h5{
+			text-align: center;
+		    margin-top: 22px;
+		    color: #3E3E3E;
+		    font-size: 17px;
+		}
+		h5{
+			text-align: center;
+		    margin-top: 5px;
+		    color: #3E3E3E;
+		    font-size: 17px;
+		}
+		.other{			
+		    border-radius: 50%;
+		    position: absolute;
+		    top: 22%;
+		    left: 15.8%;
+		    height: 59.8%;
+		}
+		.ranking{
+			margin-top: 14px;
+		    position: absolute;
+		    color: #505050;
+		    font-size: 12px;
+		}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">龙虎榜</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="user_list">
+								<div>
+									<div id="segmentedControl" class="mui-segmented-control">
+										<a class="mui-control-item mui-active" href="#item1">
+											日榜
+										</a>
+										<a class="mui-control-item" href="#item2">
+											周榜
+										</a>
+										<a class="mui-control-item" href="#item3">
+											月榜
+										</a>
+									</div>
+								</div>
+								<div style="padding-top: 45px;">
+									<div id="item1" class="mui-control-content mui-active">					
+										<ul id="item1_list" class="mui-table-view">
+											<!--<li class="mui-table-view-cell the_first">
+												<img src="../../images/one@3x.png" style="width: 14px;top: 45%;" />
+										       	<img id="the_one" src="../../images/the-one@3x.png" />
+										       	<img id="first_one" src="../../images/first-one@3x.png" />
+										       	<h5 class="agent_one">138******1243</h5>
+										       	<p>推荐好友<label>180</label>位</p>
+										    </li>
+										    <li class="mui-table-view-cell the_two">
+										        <img src="../../images/two@3x.png" style="width: 14px;top: 40%;" />
+										       	<img id="the_two" src="../../images/two3@3x.png" />
+										       	<img id="two" src="../../images/two2@3x.png" />
+										       	<h5 class="agent_two">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell the_three">
+										        <img src="../../images/three@3x.png" style="width: 14px;top: 40%;" />
+										       	<img id="the_three" src="../../images/three2@3x.png" />
+										       	<img id="three" src="../../images/three1@3x.png" />
+										       	<h5 class="agent_three">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										    	<span class="ranking">NO.4</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_four">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <span class="ranking">NO.5</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_five">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <span class="ranking">NO.6</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_six">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>					    -->
+										</ul>
+									</div>
+									<div id="item2" class="mui-control-content">
+										<ul id="item2_list" class="mui-table-view">
+										    <!--<li class="mui-table-view-cell">
+										        <a class="mui-navigate-right">
+										        	<img class="mui-media-object mui-pull-left" src="../../images/1@3x.png">
+										        	<span class="mui-media-body">大掌柜</span>
+										        </a>
+										        <span class="mui-badge">33人</span>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <a class="mui-navigate-right">
+										        	<img class="mui-media-object mui-pull-left" src="../../images/2@3x.png">
+										        	<span class="mui-media-body">二掌柜</span>
+										        </a>
+										        <span class="mui-badge">33人</span>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <a class="mui-navigate-right">
+										        	<img class="mui-media-object mui-pull-left" src="../../images/3@3x.png">
+										        	<span class="mui-media-body">三掌柜</span>
+										        </a>
+										        <span class="mui-badge">20人</span>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <a class="mui-navigate-right">
+										        	<img class="mui-media-object mui-pull-left" src="../../images/4@3x.png">
+										        	<span class="mui-media-body">四掌柜</span>
+										        </a>
+										        <span class="mui-badge">20人</span>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <a class="mui-navigate-right">
+										        	<img class="mui-media-object mui-pull-left" src="../../images/5@3x.png">
+										        	<span class="mui-media-body">五掌柜</span>
+										        </a>
+										        <span class="mui-badge">20人</span>
+										    </li>					    -->
+										</ul>
+									</div>	
+									<div id="item3" class="mui-control-content">
+										<ul id="item3_list" class="mui-table-view">
+											<!--<li class="mui-table-view-cell the_first">
+												<img src="../../images/one@3x.png" style="width: 14px;top: 45%;" />
+										       	<img id="the_one" src="../../images/the-one@3x.png" />
+										       	<img id="first_one" src="../../images/first-one@3x.png" />
+										       	<h5 class="agent_one">138******1243</h5>
+										       	<p>推荐好友<label>180</label>位</p>
+										    </li>
+										    <li class="mui-table-view-cell the_two">
+										        <img src="../../images/two@3x.png" style="width: 14px;top: 40%;" />
+										       	<img id="the_two" src="../../images/two3@3x.png" />
+										       	<img id="two" src="../../images/two2@3x.png" />
+										       	<h5 class="agent_two">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell the_three">
+										        <img src="../../images/three@3x.png" style="width: 14px;top: 40%;" />
+										       	<img id="the_three" src="../../images/three2@3x.png" />
+										       	<img id="three" src="../../images/three1@3x.png" />
+										       	<h5 class="agent_three">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										    	<span class="ranking">NO.4</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_four">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <span class="ranking">NO.5</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_five">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>
+										    <li class="mui-table-view-cell">
+										        <span class="ranking">NO.6</span>
+										       	<img style="width: 41.9px;top: 22%;" class="other" src="../../images/three2@3x.png" />
+										       	<h5 class="agent_six">138******1243</h5>
+										       	<p>推荐好友<span>180</span>位</p>
+										    </li>					    -->
+										</ul>
+									</div>
+								</div>				
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>						
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({ 
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.paddingBottom=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed+25)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/wallet/billboard',{
+					async:false,
+					data:{
+												
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						var list1=document.getElementById('item1_list');
+						var list2=document.getElementById('item2_list');
+						var list3=document.getElementById('item3_list');
+						for (var i=0;i<arrParse.datas.length;i++) {
+							var jy_type;
+							switch (arrParse.datas[i].type_id){							
+//								case '2':
+//									jy_type='agent_eight';
+//									break;
+//								case '3':
+//									jy_type='agent_seven';
+//									break;
+//								case '4':
+//								    jy_type='agent_six';
+//									break;
+								case '2':
+									jy_type='agent_five';
+									break;								
+								case '3':
+									jy_type='agent_four';
+									break;
+								case '4':
+									jy_type='agent_three';
+									break;
+								case '5':
+									jy_type='agent_two';
+									break;	
+								case '6':
+									jy_type='agent_one';
+									break;		
+							}
+							if(i==0){
+								list3.innerHTML+='<li class="mui-table-view-cell the_first">'
+									+'<img src="../../images/one@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_one" src="'+arrParse.datas[i].head_portrait+'" />'
+							       	+'<img id="first_one" src="../../images/first-one@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas[i].total+'</label>位</p>'
+							    +'</li>';
+							}else if(i==1){
+								list3.innerHTML+='<li class="mui-table-view-cell the_two">'
+									+'<img src="../../images/two@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_two" src="'+arrParse.datas[i].head_portrait+'" />'
+							       	+'<img id="two" src="../../images/two2@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas[i].total+'</label>位</p>'
+							    +'</li>';
+							}else if(i==2){
+								list3.innerHTML+='<li class="mui-table-view-cell the_three">'
+									+'<img src="../../images/three@3x.png" style="width: 14px;top: 40%;" />'
+							       	+'<img id="the_three" src="'+arrParse.datas[i].head_portrait+'" />'
+							       	+'<img id="three" src="../../images/three1@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas[i].total+'</label>位</p>'
+							    +'</li>'
+							}else{
+								list3.innerHTML+='<li class="mui-table-view-cell">'
+							        +'<span class="ranking">NO.'+parseInt(i+1)+'</span>'
+							       	+'<img style="width: 41.9px;top: 22%;" class="other" src="'+arrParse.datas[i].head_portrait+'" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<span>'+arrParse.datas[i].total+'</span>位</p>'
+							   +'</li>';
+							}						
+						}
+						for (var j=0;j<arrParse.datas_week.length;j++) {
+							var jy_type;
+							switch (arrParse.datas_week[j].type_id){							
+//								case '2':
+//									jy_type='agent_eight';
+//									break;
+//								case '3':
+//									jy_type='agent_seven';
+//									break;
+//								case '4':
+//								    jy_type='agent_six';
+//									break;
+								case '2':
+									jy_type='agent_five';
+									break;								
+								case '3':
+									jy_type='agent_four';
+									break;
+								case '4':
+									jy_type='agent_three';
+									break;
+								case '5':
+									jy_type='agent_two';
+									break;	
+								case '6':
+									jy_type='agent_one';
+									break;	
+							}
+							if(j==0){
+//								console.log(arrParse.datas_week[j].head_portrai)
+								list2.innerHTML+='<li class="mui-table-view-cell the_first">'
+									+'<img src="../../images/one@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_one" src="'+arrParse.datas_week[j].head_portrait+'" />'
+							       	+'<img id="first_one" src="../../images/first-one@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_week[j].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_week[j].total+'</label>位</p>'
+							    +'</li>';
+							}else if(j==1){
+								list2.innerHTML+='<li class="mui-table-view-cell the_two">'
+									+'<img src="../../images/two@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_two" src="'+arrParse.datas_week[j].head_portrait+'" />'
+							       	+'<img id="two" src="../../images/two2@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_week[j].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_week[j].total+'</label>位</p>'
+							    +'</li>';
+							}else if(j==2){
+								list2.innerHTML+='<li class="mui-table-view-cell the_three">'
+									+'<img src="../../images/three@3x.png" style="width: 14px;top: 40%;" />'
+							       	+'<img id="the_three" src="'+arrParse.datas_week[j].head_portrait+'" />'
+							       	+'<img id="three" src="../../images/three1@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_week[j].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_week[j].total+'</label>位</p>'
+							    +'</li>'
+							}else{
+								list2.innerHTML+='<li class="mui-table-view-cell">'
+							        +'<span class="ranking">NO.'+parseInt(j+1)+'</span>'
+							       	+'<img style="width: 41.9px;top: 22%;" class="other" src="'+arrParse.datas_week[j].head_portrait+'" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_week[j].phoneNum+'</h5>'
+							       	+'<p>推荐好友<span>'+arrParse.datas_week[j].total+'</span>位</p>'
+							   +'</li>';
+							}
+						}
+						for (var i=0;i<arrParse.datas_day.length;i++) {
+							var jy_type;
+							switch (arrParse.datas_day[i].type_id){							
+//								case '2':
+//									jy_type='agent_eight';
+//									break;
+//								case '3':
+//									jy_type='agent_seven';
+//									break;
+//								case '4':
+//								    jy_type='agent_six';
+//									break;
+								case '2':
+									jy_type='agent_five';
+									break;								
+								case '3':
+									jy_type='agent_four';
+									break;
+								case '4':
+									jy_type='agent_three';
+									break;
+								case '5':
+									jy_type='agent_two';
+									break;	
+								case '6':
+									jy_type='agent_one';
+									break;	
+							}
+							if(i==0){
+								list1.innerHTML+='<li class="mui-table-view-cell the_first">'
+									+'<img src="../../images/one@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_one" src="'+arrParse.datas_day[i].head_portrait+'" />'
+							       	+'<img id="first_one" src="../../images/first-one@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_day[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_day[i].total+'</label>位</p>'
+							    +'</li>';
+							}else if(i==1){
+								list1.innerHTML+='<li class="mui-table-view-cell the_two">'
+									+'<img src="../../images/two@3x.png" style="width: 14px;top: 45%;" />'
+							       	+'<img id="the_two" src="'+arrParse.datas_day[i].head_portrait+'" />'
+							       	+'<img id="two" src="../../images/two2@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_day[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_day[i].total+'</label>位</p>'
+							    +'</li>';
+							}else if(i==2){
+								list1.innerHTML+='<li class="mui-table-view-cell the_three">'
+									+'<img src="../../images/three@3x.png" style="width: 14px;top: 40%;" />'
+							       	+'<img id="the_three" src="'+arrParse.datas_day[i].head_portrait+'" />'
+							       	+'<img id="three" src="../../images/three1@3x.png" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_day[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<label>'+arrParse.datas_day[i].total+'</label>位</p>'
+							    +'</li>'
+							}else{
+								list1.innerHTML+='<li class="mui-table-view-cell">'
+							        +'<span class="ranking">NO.'+parseInt(i+1)+'</span>'
+							       	+'<img style="width: 41.9px;top: 22%;" class="other" src="'+arrParse.datas_day[i].head_portrait+'" />'
+							       	+'<h5 class="'+jy_type+'">'+arrParse.datas_day[i].phoneNum+'</h5>'
+							       	+'<p>推荐好友<span>'+arrParse.datas_day[i].total+'</span>位</p>'
+							   +'</li>';
+							}
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+										
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})			
+		</script>
+	</body>
+
+</html>

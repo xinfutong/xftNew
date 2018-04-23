@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<style>
+			body,html{font-family:"微软雅黑";font-size:15px;list-style: none;text-decoration: none;}
+			
+			.list-wrapper{width:96%;height:auto;margin:0 auto;border-radius:5px;}
+			.mui-table-view{border-radius: 5px;}
+			.mui-table-view-cell p{text-align: center;font-size:15px;}
+			.mui-table-view-cell p:nth-child(1){font-size:14px;}
+			.mui-table-view-cell p:nth-child(2){font-size:36px;margin-top:1.53rem;margin-bottom:2.15rem;color:#000000;letter-spacing: 2px;}
+			
+			.ul_list{width:100%;height:8.34rem;list-style: none;padding-left:10px;padding-top:1.09rem;}
+			.ul_list li{line-height: 25px;}
+			.ul_list_li_one{width:30%;height:100%;float:left;} 
+			
+			.ul_list_li_two{width:70%;height:100%;float:right;text-align: right;padding-right:10px;}
+			.mui-table-view:after {
+			    position: absolute;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    height: 1px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			}
+			.mui-table-view-cell:after {
+			    position: absolute;
+			    right: 0;
+			    bottom: 0;
+			    left: 15px;
+			    height: 1px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			}
+			.mui-table-view:before {
+			    position: absolute;
+			    right: 0;
+			    left: 0;
+			    height: 0px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			    top: -1px;
+			}
+			.mui-table-view:before {
+			    position: absolute;
+			    right: 0;
+			    left: 0;
+			    height: 0px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			    top: -1px;
+			}
+			.mui-table-view:after {
+			    position: absolute;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    height: 0px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			}
+			.mui-table-view-cell:after {
+				width:92%;
+			    position: absolute;
+			    right: 0;
+			    bottom: 0;
+			    left: 15px;
+			    height: 1px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			}
+			.mui-table-view{margin-bottom: 10px;}
+			.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">已还款列表</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<!--<div class="list-wrapper" id="Repayments">		               
+	                <ul class="mui-table-view">
+					    <li class="mui-table-view-cell">
+					    	<p>还款金额</p>
+					    	<p>1000.00</p>
+					    </li>
+						<ul class="ul_list">
+							<li class="ul_list_li_one">
+								<p>还款期数</p>
+								<p>还款方式:</p>
+								<p>还款时间:</p>
+								<p>还款单号:</p>
+							</li>
+							<li class="ul_list_li_two">
+								<p>第一期</p>
+								<p>自动还款</p>
+								<p>2017-10-24 11:20:20</p>
+								<p>HKWY1324567489</p>
+							</li>
+						</ul>
+					</ul>
+	            </div>
+	        </div>-->
+		<div class="list-t-wrap">
+		    <div id="pullrefresh" style="margin-top: 55px;" class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="list-wrapper" id="Repayments">		               
+		                <!--<ul class="mui-table-view">
+						    <li class="mui-table-view-cell">
+						    	<p>还款金额</p>
+						    	<p>1000.00</p>
+						    </li>
+							<ul class="ul_list">
+								<li class="ul_list_li_one">
+									<p>还款期数</p>
+									<p>还款方式:</p>
+									<p>还款时间:</p>
+									<p>还款单号:</p>
+								</li>
+								<li class="ul_list_li_two">
+									<p>第一期</p>
+									<p>自动还款</p>
+									<p>2017-10-24 11:20:20</p>
+									<p>HKWY1324567489</p>
+								</li>
+							</ul>
+						</ul>-->
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--<div class="mui-content">
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell">
+			    	<p>还款金额</p>
+			    	<p>1000.00</p>
+			    </li>
+				<ul class="ul_list">
+					<li class="ul_list_li_one">
+						<p>还款期数</p>
+						<p>还款方式:</p>
+						<p>还款时间:</p>
+						<p>还款单号:</p>
+					</li>
+					<li class="ul_list_li_two">
+						<p>第一期</p>
+						<p>自动还款</p>
+						<p>2017-10-24 11:20:20</p>
+						<p>HKWY1324567489</p>
+					</li>
+				</ul>
+			</ul>
+		</div>-->
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+//				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速
+					
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed+10)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+10)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var plan_id=plus.webview.getWebviewById('Have_money_list').plan_id;
+				plan_id=parseInt(plan_id);
+				mui.ajax('http://www.zhxft.com/app/wallet1/publication',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						mid:plan_id,
+						type:1
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var result = JSON.parse(data);
+						var list=document.getElementById('Repayments');
+						for (var i=0;i<result.length;i++) {
+							list.innerHTML+='<ul class="mui-table-view">'
+							    +'<li class="mui-table-view-cell">'
+							    	+'<p>消费金额</p>'
+							    	+'<p>'+result[i].money+'</p>'
+							    +'</li>'
+								+'<ul class="ul_list">'
+									+'<li class="ul_list_li_one">'
+										+'<p>还款期数</p>'
+										+'<p>还款方式:</p>'
+										+'<p>还款时间</p>'
+										+'<p>还款单号</p>'										
+									+'</li>'
+									+'<li class="ul_list_li_two">'
+										+'<p>第'+result[i].num+'期</p>'
+										+'<p>自动还款</p>'
+										+'<p>'+result[i].time+'</p>'
+										+'<p>'+result[i].formNo+'</p>'
+									+'</li>'
+								+'</ul>'
+							+'</ul>';	
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

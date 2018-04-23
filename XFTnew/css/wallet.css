@@ -1,0 +1,125 @@
+body{font-family: "微软雅黑";}
+.user_head{
+	background-color: #ff5a00;
+	color: #F5F5F5;
+}
+.user_head h5{
+	margin: 0;
+	text-align: center;
+	font-size: 42px;
+	color: #F5F5F5;
+	padding-top: 17px;
+}
+.user_head h5 span{
+	font-size: 24px;
+}
+.user_head p{
+	text-align: center;
+	font-size: 12px;
+	color: #A7D4F7;
+	padding: 15px 0;
+}
+.mui-bar{
+	background-color: #ff5a00;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before,.mui-title{color: #F5F5F5;}
+.mui-grid-view.mui-grid-9{
+	background-color: #ff5a00;
+	border: none;
+	color: #F5F5F5;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	border: none;
+	color: #F5F5F5;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	color: #F5F5F5;
+	font-size: 15px;
+}
+.mui-grid-view.mui-grid-9 .mui-media .mui-icon{
+	font-size: 14px;color: #FFFFFF;height: auto;
+}
+/*.mui-media-body label{
+	padding: 7px 18px;
+    border-radius: 14px;
+    background-color: #F5F5F5;
+    display: inline-block;
+    color: #108EE9;
+}*/
+.remind_news{
+	padding: 13px 16px;
+	position: relative;
+	background-color: #D3E9FF;
+}
+.remind_news img{
+	width: 18px;
+}
+.remind_news span{
+	color: #007EFF;
+	font-size: 15px;
+	position: absolute;
+	top: 14px;
+	margin-left: 12px;
+}
+#withdrawals{
+	position: absolute;
+	right: 15px;
+	top: 7px;
+}
+.mui-table-view-cell img{
+	width: 24px;
+	position: absolute;
+    top: 10px;
+}
+.mui-table-view-cell>a:not(.mui-btn){
+	/*padding-left: 48px;*/
+	color: #3E3E3E;font-size: 16px;
+}
+.mui-table-view-cell:after{
+	left: 0;
+}
+.mui-table-view{
+	/*margin-top: 15px;*/
+}
+.mui-table-view:before,.mui-table-view:after{
+	left: auto;
+}
+.icon_home{
+	background:url(../img/home-1@3x.png)no-repeat;
+	background-size:24px;	
+}
+.icon_city{
+	background:url(../img/city@3x.png)no-repeat;
+	background-size:24px;	
+}
+.icon_user{
+	background:url(../img/user@3x.png)no-repeat;
+	background-size:24px;	
+}
+.mui-active>#home{
+	background:url(../img/home@3x.png)no-repeat;
+	background-size:24px;
+	/*color:#ff9500;*/	
+}
+.mui-active>#city{
+	background:url(../img/city-1@3x.png)no-repeat;
+	background-size:24px;
+	/*color:#ff9500;*/	
+}
+.mui-active>#user{
+	background:url(../img/user-1@3x.png)no-repeat;
+	background-size:24px;
+	/*color:#ff9500;*/	
+}
+.user_head h6{
+	text-align: center;
+	color: #F5F5F5;
+	font-size: 15px;
+	padding-top: 15px;
+	margin: 0;
+}
+.user_list{
+	margin-top: 10px;
+	background-color: #FFFFFF;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{padding: 11px 0;}

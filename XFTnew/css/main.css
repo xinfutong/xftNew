@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+*{ margin: 0; padding: 0; }
+table { border-collapse: collapse; border-spacing: 0; }
+li { list-style: none; }
+:focus { outline: 0; }
+i{font-style: normal;}
+input, select { font-size: 12px; font-family: Arial, Tahoma, SimSun; }
+select, input, button, button img, label { vertical-align: middle; }
+a { /*color: #969ca6;*/ text-decoration: none; outline: none; font-size: 17px;}
+a:hover { color: #45b8ef; text-decoration: none; }
+a:visited { text-decoration: none; outline: none; }
+input, select, textarea { font-size: 12px; vertical-align: middle; }
+.clearfix:after { content: "."; clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; }
+body{ font: 14px/1.5 Microsoft YaHei, '微软雅黑', Arial, Verdana, \5b8b\4f53;}
+

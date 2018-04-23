@@ -1,0 +1,412 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content{margin-bottom: 40px;}
+		.vip-user,.agent{text-align: center;background-color: #FFFFFF;}
+		.vip-user img{width: 33.3333%;}
+		.vip-user h5{color: #000000;font-size: 15px;padding: 16px 0;margin: 0;}
+		.agent{margin-top: 12px;}
+		.agent h4{font-weight: 400;padding: 9px 0;margin: 0;border-bottom: 1px solid #DDDDDD;}
+		.agent img{width: 22px;margin-right: 8px;}
+		.agent h3{padding: 25px 0;color: #FF1E00;font-size: 35px;font-weight: 400;}
+		.agent h5{color: #505050;font-size: 14px;margin-bottom: 13px;}
+		.agent p{font-size: 12px;color: #808080;margin-bottom: 20px;}
+		.agent button{font-size: 14px;padding: 9px 40px;border-radius: 30px;margin-bottom: 16px;}
+		.area_agent{
+			background:url(../../images/area_agent@3x.png)no-repeat;
+			background-size:22px;	
+			background-position: 34%;
+		}
+		.city_agent{
+			background:url(../../images/city-agent@3x.png)no-repeat;
+			background-size:22px;	
+			background-position: 34%;
+		}
+		.province_agent{
+			background:url(../../images/province_agent@3x.png)no-repeat;
+			background-size:22px;	
+			background-position: 34%;
+		}
+		.country-agent{
+			background:url(../../images/country-agent@3x.png)no-repeat;
+			background-size:22px;	
+			background-position: 34%;
+		}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}        
+        /*.mui-scroll,.list-wrapper{height: 100%;}*/    
+        /*.mui-scroll-wrapper{position: inherit;}*/
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;border-bottom: 1px solid #DDDDDD;">			
+			<h1 class="mui-title">我的等级</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="vip-user" style="padding-top: 26px;">
+								<img id="grade_img" src="../../images/vip-user@3x.png" />
+								<h5>我的等级：<span id="user_grade">普通会员</span></h5>
+							</div>
+							<div class="agent">
+								<h4><img src="../../images/vip_agent@3x.png" /><span>VIP会员</span></h4>
+								<h3 id="vip_money">￥100.00</h3>
+								<h5>升级金额(元)</h5>
+								<p>您目前级别可以升级</p>
+								<button id="vip_btn" type="button" title="1" value="3" class="mui-btn mui-btn-outlined" style="color: #FF1E00;border-color: #FF1E00;background-color: #FFFFFF;">立刻升级</button>
+							</div>
+							<!--<div class="agent" title="3">
+								<h4 class="area_agent"><span>区级代理</span></h4>
+								<h3 id="area_money" style="color: #00AAEE;">￥100.00</h3>
+								<h5>升级金额(元)</h5>
+								<p>您目前级别可以升级</p>
+								<button id="area_btn" type="button" title="2" value="4" class="mui-btn mui-btn-outlined" style="color: #00AAEE;border-color: #00AAEE;background-color: #FFFFFF;">查看详情</button>
+							</div>-->
+							<div class="agent">
+								<h4 class="city_agent"><span>市级代理</span></h4>
+								<h3 id="city_money" style="color: #00AAEE;">￥100.00</h3>
+								<h5>升级金额(元)</h5>
+								<p>您目前级别可以升级</p>
+								<button id="city_btn" type="button" title="2" value="4" class="mui-btn mui-btn-outlined" style="color: #00AAEE;border-color: #00AAEE;background-color: #FFFFFF;">查看详情</button>
+							</div>
+							<div class="agent">
+								<h4 class="province_agent"><span>省级代理</span></h4>
+								<h3 id="province_money" style="color: #00AAEE;">￥100.00</h3>
+								<h5>升级金额(元)</h5>
+								<p>您目前级别可以升级</p>
+								<button id="province_btn" type="button" title="2" value="5" class="mui-btn mui-btn-outlined" style="color: #00AAEE;border-color: #00AAEE;background-color: #FFFFFF;">查看详情</button>
+							</div>
+							<div class="agent">
+								<h4 class="country-agent"><span>合伙人</span></h4>
+								<h3 id="country_money" style="color: #00AAEE;">￥100.00</h3>
+								<h5>升级金额(元)</h5>
+								<p>您目前级别可以升级</p>
+								<button id="country_btn" type="button" title="2" value="6" class="mui-btn mui-btn-outlined" style="color: #00AAEE;border-color: #00AAEE;background-color: #FFFFFF;">查看详情</button>
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速		
+					
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+//				plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+//				plus.webview.currentWebview().setStyle( {statusbar:{style:'UIStatusBarStyleDefault'}} );
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var grade;
+				window.addEventListener('agent_back',function(event){	
+					mui.back();
+				});	
+				
+				mui.ajax('http://www.zhxft.com/app/customer/my_grade',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						grade=arrParse.data.type_id;
+						if(arrParse.data.type_id==2){
+							document.getElementById('user_grade').innerText='会员';
+							document.getElementById('vip_btn').title=1;
+							document.getElementById('vip_btn').innerText='立刻升级';
+//							document.getElementById('area_btn').title=1;
+//							document.getElementById('area_btn').innerText='立刻升级';
+							document.getElementById('city_btn').title=2;
+							document.getElementById('city_btn').innerText='查看详情';
+							document.getElementById('province_btn').title=2;
+							document.getElementById('province_btn').innerText='查看详情';
+							document.getElementById('country_btn').title=2;
+							document.getElementById('country_btn').innerText='查看详情';
+							
+							document.getElementById('city_btn').style.color='#FF1E00';
+							document.getElementById('city_btn').style.borderColor='#FF1E00';
+//							document.getElementById('area_btn').style.color='#FF1E00';
+//							document.getElementById('area_btn').style.borderColor='#FF1E00';
+							document.getElementById('city_btn').style.color='#00AAEE';
+							document.getElementById('city_btn').style.borderColor='#00AAEE';
+							document.getElementById('province_btn').style.color='#00AAEE';
+							document.getElementById('province_btn').style.borderColor='#00AAEE';
+							document.getElementById('country_btn').style.color='#00AAEE';
+							document.getElementById('country_btn').style.borderColor='#00AAEE';
+							
+							document.getElementById('vip_money').style.color='#FF1E00';
+//							document.getElementById('area_money').style.color='#FF1E00';
+							document.getElementById('city_money').style.color='#00AAEE';
+							document.getElementById('province_money').style.color='#00AAEE';
+							document.getElementById('country_money').style.color='#00AAEE';
+						}else if(arrParse.data.type_id==3){
+							document.getElementById('grade_img').src='../../images/grade_vip.png'
+							document.getElementById('user_grade').innerText='VIP会员';
+							document.getElementById('vip_btn').title=2;
+							document.getElementById('vip_btn').innerText='查看详情';
+//							document.getElementById('area_btn').title=1;
+//							document.getElementById('area_btn').innerText='立刻升级';
+							document.getElementById('city_btn').title=1;
+							document.getElementById('city_btn').innerText='立刻升级';
+							document.getElementById('province_btn').title=2;
+							document.getElementById('province_btn').innerText='查看详情';
+							document.getElementById('country_btn').title=2;
+							document.getElementById('country_btn').innerText='查看详情';
+							
+							document.getElementById('vip_btn').style.color='#00AAEE';
+							document.getElementById('vip_btn').style.borderColor='#00AAEE';
+//							document.getElementById('area_btn').style.color='#FF1E00';
+//							document.getElementById('area_btn').style.borderColor='#FF1E00';
+							document.getElementById('city_btn').style.color='#FF1E00';
+							document.getElementById('city_btn').style.borderColor='#FF1E00';
+							document.getElementById('province_btn').style.color='#00AAEE';
+							document.getElementById('province_btn').style.borderColor='#00AAEE';
+							document.getElementById('country_btn').style.color='#00AAEE';
+							document.getElementById('country_btn').style.borderColor='#00AAEE';
+							
+							document.getElementById('vip_money').style.color='#00AAEE';
+//							document.getElementById('area_money').style.color='#FF1E00';
+							document.getElementById('city_money').style.color='#FF1E00';
+							document.getElementById('province_money').style.color='#00AAEE';
+							document.getElementById('country_money').style.color='#00AAEE';
+						}else if(arrParse.data.type_id==4){
+							document.getElementById('grade_img').src='../../images/grade_city.png';
+							document.getElementById('user_grade').innerText='市级代理';
+							document.getElementById('vip_btn').title=2;
+							document.getElementById('vip_btn').innerText='查看详情';
+//							document.getElementById('area_btn').title=2;
+//							document.getElementById('area_btn').innerText='查看详情';
+							document.getElementById('city_btn').title=2;
+							document.getElementById('city_btn').innerText='查看详情';
+							document.getElementById('province_btn').title=1;
+							document.getElementById('province_btn').innerText='立刻升级';
+							document.getElementById('country_btn').title=2;
+							document.getElementById('country_btn').innerText='查看详情';
+							
+							document.getElementById('vip_btn').style.color='#00AAEE';
+							document.getElementById('vip_btn').style.borderColor='#00AAEE';
+//							document.getElementById('area_btn').style.color='#00AAEE';
+//							document.getElementById('area_btn').style.borderColor='#00AAEE';
+							document.getElementById('city_btn').style.color='#00AAEE';
+							document.getElementById('city_btn').style.borderColor='#00AAEE';
+							document.getElementById('province_btn').style.color='#FF1E00';
+							document.getElementById('province_btn').style.borderColor='#FF1E00';
+							document.getElementById('country_btn').style.color='#00AAEE';
+							document.getElementById('country_btn').style.borderColor='#00AAEE';
+							
+							document.getElementById('vip_money').style.color='#00AAEE';
+//							document.getElementById('area_money').style.color='#00AAEE';
+							document.getElementById('city_money').style.color='#00AAEE';
+							document.getElementById('province_money').style.color='#FF1E00';
+							document.getElementById('country_money').style.color='#00AAEE';														
+						}else if(arrParse.data.type_id==5){
+							document.getElementById('grade_img').src='../../images/grade_pro.png';
+							document.getElementById('user_grade').innerText='省级代理';
+							document.getElementById('vip_btn').title=2;
+							document.getElementById('vip_btn').innerText='查看详情';
+//							document.getElementById('area_btn').title=2;
+//							document.getElementById('area_btn').innerText='查看详情';
+							document.getElementById('city_btn').title=2;
+							document.getElementById('city_btn').innerText='查看详情';
+							document.getElementById('province_btn').title=2;
+							document.getElementById('province_btn').innerText='查看详情';
+							document.getElementById('country_btn').title=1;
+							document.getElementById('country_btn').innerText='立刻升级';
+							
+							document.getElementById('vip_btn').style.color='#00AAEE';
+							document.getElementById('vip_btn').style.borderColor='#00AAEE';
+//							document.getElementById('area_btn').style.color='#00AAEE';
+//							document.getElementById('area_btn').style.borderColor='#00AAEE';
+							document.getElementById('city_btn').style.color='#00AAEE';
+							document.getElementById('city_btn').style.borderColor='#00AAEE';
+							document.getElementById('province_btn').style.color='#00AAEE';
+							document.getElementById('province_btn').style.borderColor='#00AAEE';
+							document.getElementById('country_btn').style.color='#FF1E00';
+							document.getElementById('country_btn').style.borderColor='#FF1E00';
+							
+							document.getElementById('vip_money').style.color='#00AAEE';
+//							document.getElementById('area_money').style.color='#00AAEE';
+							document.getElementById('city_money').style.color='#00AAEE';
+							document.getElementById('province_money').style.color='#00AAEE';
+							document.getElementById('country_money').style.color='#FF1E00';														
+						}else if(arrParse.data.type_id==6){
+							document.getElementById('grade_img').src='../../images/grade_courty.png'
+							document.getElementById('user_grade').innerText='合伙人';
+							document.getElementById('vip_btn').title=2;
+							document.getElementById('vip_btn').innerText='查看详情';
+//							document.getElementById('area_btn').title=2;
+//							document.getElementById('area_btn').innerText='查看详情';
+							document.getElementById('city_btn').title=2;
+							document.getElementById('city_btn').innerText='查看详情';
+							document.getElementById('province_btn').title=2;
+							document.getElementById('province_btn').innerText='查看详情';
+							document.getElementById('country_btn').title=2;
+							document.getElementById('country_btn').innerText='查看详情';
+							
+							document.getElementById('vip_btn').style.color='#00AAEE';
+							document.getElementById('vip_btn').style.borderColor='#00AAEE';
+//							document.getElementById('area_btn').style.color='#00AAEE';
+//							document.getElementById('area_btn').style.borderColor='#00AAEE';
+							document.getElementById('city_btn').style.color='#00AAEE';
+							document.getElementById('city_btn').style.borderColor='#00AAEE';
+							document.getElementById('province_btn').style.color='#00AAEE';
+							document.getElementById('province_btn').style.borderColor='#00AAEE';
+							document.getElementById('country_btn').style.color='#00AAEE';
+							document.getElementById('country_btn').style.borderColor='#00AAEE';
+							
+							document.getElementById('vip_money').style.color='#00AAEE';
+//							document.getElementById('area_money').style.color='#00AAEE';
+							document.getElementById('city_money').style.color='#00AAEE';
+							document.getElementById('province_money').style.color='#00AAEE';
+							document.getElementById('country_money').style.color='#00AAEE';														
+						}
+						document.getElementById('vip_money').innerText='￥'+arrParse.super_vip;
+//						document.getElementById('area_money').innerText='￥'+arrParse.area_pay;
+						document.getElementById('city_money').innerText='￥'+arrParse.service;
+						document.getElementById('province_money').innerText='￥'+arrParse.gold_service;
+						document.getElementById('country_money').innerText='￥'+arrParse.agent_pay;
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+								
+				
+				//立刻升级
+				mui('.agent').on('tap','button',function(){
+					var i=$(this).attr('title');
+					var val=$(this).attr('value');					
+					if(i==1){						
+						if(parseInt(grade)+1==val){
+							mui.openWindow({
+								url: 'upgrade.html',
+								id: 'upgrade',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},extras:{agent_id:val},
+								createNew:true,
+								styles:{
+//									bounce: 'vertical',bounceBackground:'#fc1',
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+						}else{
+							alert('不能越级升级，只能升级当前等级的上级！');
+						}
+					}else{
+						mui.openWindow({
+							url: 'agent_details.html',
+							id: 'agent_details',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{agent_id:val},
+							createNew:true,
+							styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}
+				});
+				
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

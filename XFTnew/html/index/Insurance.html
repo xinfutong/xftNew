@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">安全保障</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>		
+		<div class="mui-content">
+		</div>	
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			// 创建加载内容窗口
+			
+			mui.plusReady(function(){
+				var topoffset='45px';
+			if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+				topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+			} 
+			document.getElementById('header').style.height=(immersed+44)+'px';
+			var url=plus.webview.getWebviewById('Insurance').url;
+				mui.init({
+					subpages:[{
+						url:''+url+'',
+						id:''+url+'',
+						styles:{
+							top:''+(immersed+44)+'px',//mui标题栏默认高度为45px；
+							bottom:'0'//默认为0px，可不定义；
+						}
+					}]
+				});
+				mui.init({  
+					hardwareAccelerated:true //开启硬件加速			
+				});
+
+				//（跳转到的页面）关闭页面跳转动画
+//				var cur=plus.webview.currentWebview();
+//				cur.addEventListener('loaded',function(e){
+//					plus.nativeUI.closeWaiting();
+//					//显示当前页面
+//					var self = plus.webview.currentWebview();
+//					self.show('pop-in',350);
+//				});
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+					//显示当前页面
+					var self = plus.webview.currentWebview();
+					self.show('pop-in',350);
+				},2500);
+			})
+		</script>
+	</body>
+
+</html>

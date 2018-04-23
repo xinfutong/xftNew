@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content{}
+		.kf_wx{text-align: center;padding-top: 10.5%;}
+		.kf_wx img{width: 86%;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">客服微信</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="kf_wx">
+				<img src="../../images/kf-wx@3x.png" />
+			</div>		
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true, //开启硬件加速
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				}); 
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

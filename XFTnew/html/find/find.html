@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css">
+		<link rel="stylesheet" href="../../css/mui.picker.min.css" />
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			.mui-control-content {
+				/*height: 150px;*/
+			}
+			
+			/*主体内容区域样式*/
+			.hkjh_yes{width:100%;position:relative;padding-left:0;}
+			.mui-table-view-cell{}
+			.section_hk{
+				border-radius:10px;
+				background:#fff;
+				width:92%;
+				margin:0.93rem auto 0.75rem;
+				/*display: none;*/
+			}
+			.mui-navigate-right-left{
+				width:12%;
+				height:2.875rem;
+				float:left;
+				padding-top:0.53rem;
+			}
+			p{color:#505050;}
+			.bank_type{font-size:16px;margin-top:-5px;}
+			.Plan_date{margin-top:0.35rem;font-size:14px;}
+			.Plan_date_span{margin-left:3%;}
+			.mui-navigate-right-right{
+				width:80%;
+				height:2.875rem;
+			}
+			.mui-navigate-right-left-logo{
+				width:2rem;
+				height:2rem;
+				margin-left:-5px;
+				margin-top:-0.25rem;
+			}
+			/*底部区域样式*/
+			.mui-table-view-cell-div{
+				width:100%;
+				height:auto;
+			}
+			.mui-table-view-cell-div div{
+				width:33%;
+				height:4rem;
+				float:left;
+				text-align: center;
+			}
+			.mui-table-view-cell>a:not(.mui-btn) {
+			    position: relative;
+			    display: block;
+			    overflow: hidden;
+			    margin: -11px 0px;
+			    padding: inherit;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    color: inherit;padding-left: 0;
+			}
+			.pOne{font-size:16px;margin-top:0.55rem;}
+			.pTwo{font-size:12px;}
+			.cardNumber{margin-left:3%;}
+			.mui-table-view-cell:after {
+				width:85%;
+			    position: absolute;
+			    right: 0;
+			    bottom: 0;
+			    left: 15px;
+			    height: 1px;
+			    content: '';
+			    -webkit-transform: scaleY(.5);
+			    transform: scaleY(.5);
+			    background-color: #DDDDDD;
+			}
+			.right_jt{width:20px;height:20px;position:absolute;right:15px;top:43%;z-index: 1000;}
+			.box-shadow-2{  
+			  -webkit-box-shadow:0 0 10px #c3c3c3;  
+			  -moz-box-shadow:0 0 10px #c3c3c3;  
+			  box-shadow:0 0 10px #c3c3c3;  
+			}
+			/*暂无还款样式*/
+			.hk_logo{
+				width:100%;
+				height:auto;
+				border:1px solid #f5f5f5;
+				padding-top:3.28rem;
+				position:absolute;
+				z-index: 998;
+				/*background:#fff;*/
+			}
+			.hk_logo div{
+				width:33.4%;
+				height:6.5625rem;
+				margin:0 auto;
+			}
+			.hk_logo p{text-align: center;font-size:14px;color:#999999;margin-top:1.25rem;margin-bottom: 5.8rem;}
+			/*头部日期图标样式*/
+			.hkjl{
+			    /* right: 40px; */
+			    /*left: 40px;*/
+			    display: inline-block;
+			    overflow: hidden;
+			    width: auto;
+			    margin: 11.25px;
+			    text-overflow: ellipsis;
+			    line-height: 2.78125rem;
+			    position:absolute;
+			}
+			#calendar{
+				width:1.43rem;height:1.43rem;background:url(../../images/rl.png) 0 0 no-repeat;
+				background-size:100% 100%;position: absolute;float:right;right:1%;
+			}
+			.hank_img{
+	    		height: 40px;
+			    width: 30px;position: absolute;top: 10px;		    
+			    background-position-y: center;background-repeat:no-repeat;
+	    	}
+	    	/*.mui-scroll{height: 100%;}*/
+	    	.repay-a{
+	    		position: absolute;
+			    top: 14px;
+			    display: inline-block;
+			    right: 7.2%;
+	    	}
+	    	.add_repay{
+				width:45px;height:45px;position:absolute;right:7.2%;top:0.56rem;z-index: 999;
+				background:url(../../images/xzhk@3x.png) 0 0 no-repeat;background-size:100% 100%;
+			}
+			.repaying{
+				width:45px;height:45px;position:absolute;right:7.2%;top:0.56rem;z-index: 999;
+				background:url(../../images/zzhk@3x.png) 0 0 no-repeat;background-size:100% 100%;
+			}
+			.mui-navigate-right:after, .mui-push-right:after{right: -2px;}
+			.hk-img{
+				background: url(../../images/hk-ing-img@3x.png)no-repeat;background-size:20px;
+				background-position-y: 8px;color: #108EE9;
+    			background-position-x: 14px;
+			}
+			.complete-img{
+				background: url(../../images/complete@3x.png)no-repeat;background-size:20px;
+				background-position-y: 8px;color: #1CC900;
+    			background-position-x: 14px;
+			}
+			.fail-img{
+				background: url(../../images/fail-img@3x.png)no-repeat;background-size:20px;
+				background-position-y: 8px;color: #FF542A;
+    			background-position-x: 14px;
+			}
+			h5{
+				padding-left: 44px;margin: 0;
+			    padding-top: 11px;font-size: 15px;
+			    padding-bottom: 11px;
+			}
+			#picture .mui-table-view-cell:after{width: 100%;}
+			.mui-segmented-control .mui-control-item.mui-active{background-color: #FF5A00;}
+			.mui-segmented-control .mui-control-item,.mui-segmented-control{
+				border-color: #FF5A00;color: #000000;
+    			border-left: 1px solid #FF5A00;
+			}
+			#look_all{color: #FF5A00;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="position:fixed;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">还款计划</h1>
+			<button id="look_all" class="mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				查看所有</button>
+			<div  id="calendar" data-options='{"type":"date"}' class="hkjl" style=""></div>
+		</header>
+		<!--<div class="mui-content">-->	
+			<div id="find_head" style="padding: 10px 10px;background:#f5f5f5;z-index: 99;position: fixed;top: 64px;">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1" style="height:2.06rem;">
+						全部还款
+					</a>
+					<a class="mui-control-item" href="#item2" style="height:2.06rem;">
+						还款中
+					</a>
+					<a class="mui-control-item" href="#item3" style="height:2.06rem;">
+						已完成
+					</a>
+					<a class="mui-control-item" href="#item4" style="height:2.06rem;">
+						还款失败
+					</a>
+				</div>
+			</div>
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" style="" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper" style="">
+			            	
+							<div id="item1" class="list-wrapper mui-control-content mui-active">
+								<!--<div class="section_hk box-shadow-2"  style="display: none;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="../../images/zgyh@3x.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="repay" class="add_repay" title="1"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									</ul>
+								</div>-->
+								<!--无还款计划状态-->
+								<div class="hk_logo">
+									<div>
+										<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>
+									</div>
+									<p>暂无还款计划</p>
+								</div>
+							</div>
+							<div id="item2" class="mui-control-content">	
+								<!--无还款计划状态-->
+								<div class="hk_logo">
+									<div>
+										<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>
+									</div>
+									<p>暂无还款计划</p>
+								</div>
+								<!--<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="" style="position: relative;">
+									        	<div class="mui-navigate-right-left">
+										        	<div class="hank_img" style="background-image: url(http://www.zhxft.com/static/yinhang/pingan.png);"></div>										        											        		
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type"><span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>								        	
+									        	<div class="add_repay" title="1"></div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="hk-img">还款中</h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>
+								<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="http://www.zhxft.com/static/yinhang/pingan.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="" class="repaying" title="2"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>
+								<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="http://www.zhxft.com/static/yinhang/pingan.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="" class="repaying" title="2"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>
+								<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="http://www.zhxft.com/static/yinhang/pingan.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="" class="repaying" title="2"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>
+								<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="http://www.zhxft.com/static/yinhang/pingan.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="" class="repaying" title="2"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>
+								<div class="section_hk box-shadow-2"  style="display: block;">
+									<ul class="hkjh_yes" style="border-radius:5px;">
+										<div class="right_jt mui-navigate-right"></div>
+									    <li class="mui-table-view-cell">
+									        <a class="">
+									        	<div class="mui-navigate-right-left">
+									        		<div class="mui-navigate-right-left-logo">
+									        			<img src="http://www.zhxft.com/static/yinhang/pingan.png"/ style="width:100%;height:100%;">
+									        		</div>
+									        	</div>
+									        	<div class="mui-navigate-right-right">
+									        		<p class="bank_type">
+									        			<span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span>
+									        			<div id="" class="repaying" title="2"></div>
+									        			
+									        		</p>
+									        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<div id="one_div">
+									        		<p class="pOne">12000</p>
+									        		<p class="pTwo">还款金额</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">10月</p>
+									        		<p class="pTwo">还款笔数</p>
+									        	</div>
+									        	<div>
+									        		<p class="pOne">30元</p>
+									        		<p class="pTwo">手续费</p>
+									        	</div>
+									        </a>
+									    </li>
+									    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+									        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+									        	<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>
+									        </a>
+									    </li>
+									</ul>
+								</div>									-->
+							</div>
+							<div id="item3" class="mui-control-content">
+								<!--无还款计划状态-->
+								<div class="hk_logo">
+									<div>
+										<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>
+									</div>
+									<p>暂无还款计划</p>
+								</div>
+								
+							</div>
+							<div id="item4" class="mui-control-content">
+								<!--无还款计划状态-->
+								<div class="hk_logo">
+									<div>
+										<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>
+									</div>
+									<p>暂无还款计划</p>
+								</div>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			<!--</div>-->
+			<!--弹出提示-->
+			<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#" style="font-size:12px;color:#777777">计划是从明天开始终止，今天正常还款</a>
+					</li>
+					<li id="Unbundling" class="mui-table-view-cell jiechu">
+						<a href="#picture" style="color:red;">终止计划</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#picture" style="color:#333333;"><b>取消</b></a>
+					</li>
+				</ul>
+			</div>
+			<!--<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                
+			            </div>
+			        </div>
+			    </div>
+			</div>				-->
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script>
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},		
+//				   	swipeBack:true, //启用右滑关闭功能
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+//				function pulldownRefresh() {
+//					setTimeout(function() {
+//					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+//					})
+//				}
+				
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				if(immersed>25){
+					document.querySelector('#find_head').style.top='90px';
+				}
+//				document.querySelector('.mui-content').style.marginTop=(immersed+10)+'px';
+				if(mui.os.ios){
+//					document.querySelector('.mui-content').style.marginTop=(immersed+1)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.marginTop=(immersed+98)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed)+'px';
+				}else if(mui.os.android){
+					document.querySelector('.mui-scroll-wrapper').style.marginTop=(immersed+98)+'px';
+//					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+//					document.querySelector('#pullrefresh').style.marginTop=(immersed+94)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed+30)+'px';
+				}
+//				document.querySelector('#pullrefresh').style.position='inherit';
+//				document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+//				document.querySelector('#pullrefresh').style.paddingBottom=(immersed+44)+'px';
+				
+				window.addEventListener('find_load',function(event){
+					console.log(22222)
+					location.reload();
+				});
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/wallet1/morePlan',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:50000,//超时时间设置为10秒；
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						load_len=(parseInt(arrParse.count)/10);
+						var list1=document.getElementById('item1');
+						var list2=document.getElementById('item2');
+						var list3=document.getElementById('item3');
+						var list4=document.getElementById('item4');
+						var show4=true;
+						var show2=true;
+						var show3=true;
+						if(arrParse.planInfo.length<1){
+							return;
+						}
+						list1.innerHTML='';
+						var plan_state;
+						var repay_img;
+						for (var i=0;i<arrParse.planInfo.length;i++) {
+							if(arrParse.planInfo[i].state==2){
+								plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<h5 class="complete-img">已完成</h5>'
+									        +'</a>'
+									    +'</li>';
+								repay_img='<div id="" class="repaying" title="2"></div>';
+							}else if(arrParse.planInfo[i].state==1){
+								plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<h5 id="repay_state_'+arrParse.planInfo[i].id+'" class="hk-img">还款中</h5>'
+									        +'</a>'
+									    +'</li>';
+								repay_img='<div id="repaying_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>';
+							}else if(arrParse.planInfo[i].state==3){
+								plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>'
+									        +'</a>'
+									    +'</li>';
+								repay_img='<div id="" class="repaying" title="2"></div>';
+							}
+							if(arrParse.planInfo[i].state==1){
+								if(show2){
+									list2.innerHTML='';
+									show2=false
+								}								
+								list2.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+									+'<ul class="hkjh_yes" style="border-radius:5px;">'
+										+'<div class="right_jt mui-navigate-right"></div>'
+									    +'<li class="mui-table-view-cell">'
+									        +'<a class="" style="position: relative;">'
+									        	+'<div class="mui-navigate-right-left">'
+									        		+'<div class="mui-navigate-right-left-logo">'
+									        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+									        		+'</div>'
+//										        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+									        	+'</div>'
+									        	+'<div class="mui-navigate-right-right">'
+									        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+									        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+									        	+'</div>'
+									        	+'<div id="repaying2_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>'
+//									        	+repay_img
+									        +'</a>'
+									    +'</li>'
+									    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<div id="one_div">'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+									        		+'<p class="pTwo">还款金额</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+									        		+'<p class="pTwo">还款笔数</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+									        		+'<p class="pTwo">手续费</p>'
+									        	+'</div>'
+									        +'</a>'
+									    +'</li>'
+									    +plan_state
+									+'</ul>'
+								+'</div>'
+							}else if(arrParse.planInfo[i].state==2){
+								if(show3){
+									list3.innerHTML='';
+									show3=false
+								}
+								list3.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+									+'<ul class="hkjh_yes" style="border-radius:5px;">'
+										+'<div class="right_jt mui-navigate-right"></div>'
+									    +'<li class="mui-table-view-cell">'
+									        +'<a class="" style="position: relative;">'
+									        	+'<div class="mui-navigate-right-left">'
+									        		+'<div class="mui-navigate-right-left-logo">'
+									        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+									        		+'</div>'
+//										        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+									        	+'</div>'
+									        	+'<div class="mui-navigate-right-right">'
+									        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+									        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+									        	+'</div>'								        	
+									        	+repay_img
+									        +'</a>'
+									    +'</li>'
+									    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<div id="one_div">'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+									        		+'<p class="pTwo">还款金额</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+									        		+'<p class="pTwo">还款笔数</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+									        		+'<p class="pTwo">手续费</p>'
+									        	+'</div>'
+									        +'</a>'
+									    +'</li>'
+									    +plan_state
+									+'</ul>'
+								+'</div>';
+							}else if(arrParse.planInfo[i].state==3){
+								if(show4){
+									list4.innerHTML='';
+									show4=false
+								}
+								list4.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+									+'<ul class="hkjh_yes" style="border-radius:5px;">'
+										+'<div class="right_jt mui-navigate-right"></div>'
+									    +'<li class="mui-table-view-cell">'
+									        +'<a class="" style="position: relative;">'
+									        	+'<div class="mui-navigate-right-left">'
+									        		+'<div class="mui-navigate-right-left-logo">'
+									        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+									        		+'</div>'
+//										        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+									        	+'</div>'
+									        	+'<div class="mui-navigate-right-right">'
+									        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+									        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+									        	+'</div>'								        	
+									        	+repay_img
+									        +'</a>'
+									    +'</li>'
+									    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<div id="one_div">'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+									        		+'<p class="pTwo">还款金额</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+									        		+'<p class="pTwo">还款笔数</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+									        		+'<p class="pTwo">手续费</p>'
+									        	+'</div>'
+									        +'</a>'
+									    +'</li>'
+									    +plan_state
+									+'</ul>'
+								+'</div>';
+							}
+							list1.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+									+'<ul class="hkjh_yes" style="border-radius:5px;">'
+										+'<div class="right_jt mui-navigate-right"></div>'
+									    +'<li class="mui-table-view-cell">'
+									        +'<a class="" style="position: relative;">'
+									        	+'<div class="mui-navigate-right-left">'
+									        		+'<div class="mui-navigate-right-left-logo">'
+									        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+									        		+'</div>'
+//										        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+									        	+'</div>'
+									        	+'<div class="mui-navigate-right-right">'
+									        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+									        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+									        	+'</div>'								        	
+									        	+repay_img
+									        +'</a>'
+									    +'</li>'
+									    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+									        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+									        	+'<div id="one_div">'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+									        		+'<p class="pTwo">还款金额</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+									        		+'<p class="pTwo">还款笔数</p>'
+									        	+'</div>'
+									        	+'<div>'
+									        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+									        		+'<p class="pTwo">手续费</p>'
+									        	+'</div>'
+									        +'</a>'
+									    +'</li>'
+									    +plan_state
+									+'</ul>'
+								+'</div>';
+						}						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				document.getElementById('look_all').addEventListener('tap',function(){
+					location.reload();
+				})
+				
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+			  function pullupRefresh() 
+			  {
+			    setTimeout(function() {
+			      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+			      if(count > load_len){
+			      	mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' }) 
+//			      	mui.alert('已经没有更多可加载的了','提示','','','div');
+			      }
+			      var cells = document.body.querySelectorAll('.section_hk');
+			      page++;
+			      var num=page*10;
+					mui.ajax('http://www.zhxft.com/app/wallet1/morePlan',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+//							type_id:list_id,
+							limit:num
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.code=='0006'){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							load_len=(parseInt(arrParse.count)/10);
+							var list1=document.getElementById('item1');
+							var list2=document.getElementById('item2');
+							var list3=document.getElementById('item3');
+							var list4=document.getElementById('item4');
+//							var show4=true;
+//							var show2=true;
+//							var show3=true;
+							if(arrParse.planInfo.length<1){
+								return;
+							}							
+							var plan_state;
+							var repay_img;
+							for (var i=0;i<arrParse.planInfo.length;i++) {
+								if(arrParse.planInfo[i].state==2){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 class="complete-img">已完成</h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="" class="repaying" title="2"></div>';
+								}else if(arrParse.planInfo[i].state==1){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 id="repay_state_'+arrParse.planInfo[i].id+'" class="hk-img">还款中</h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="repaying_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>';
+								}else if(arrParse.planInfo[i].state==3){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="" class="repaying" title="2"></div>';
+								}
+								if(arrParse.planInfo[i].state==1){
+//									if(show2){
+//										list2.innerHTML='';
+//										show2=false
+//									}								
+									list2.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'
+										        	+'<div id="repaying2_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>'
+	//									        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>'
+								}else if(arrParse.planInfo[i].state==2){
+//									if(show3){
+//										list3.innerHTML='';
+//										show3=false
+//									}
+									list3.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'								        	
+										        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>';
+								}else if(arrParse.planInfo[i].state==3){
+//									if(show4){
+//										list4.innerHTML='';
+//										show4=false
+//									}
+									list4.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'								        	
+										        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>';
+								}
+								list1.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'								        	
+										        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>';
+								}
+//							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+			    }, 500);
+			  }
+
+//				终止计划刷新
+				function stop_plan(){
+					page=0;
+					mui.ajax('http://www.zhxft.com/app/wallet1/morePlan',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							limit:page
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							load_len=(parseInt(arrParse.count)/10);
+//							var list1=document.getElementById('item1');
+							var list2=document.getElementById('item2');
+//							var list3=document.getElementById('item3');
+							var list4=document.getElementById('item4');
+							var show4=true;
+							var show2=true;
+							var show3=true;
+							if(arrParse.code=='0006'){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							if(arrParse.planInfo.length<1){
+								return;
+							}							
+							var plan_state;
+							var repay_img;
+							list2.innerHTML='<div class="hk_logo">'
+									+'<div>'
+										+'<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>'
+									+'</div>'
+									+'<p>暂无还款计划</p>'
+								+'</div>';							
+							for (var i=0;i<arrParse.planInfo.length;i++) {
+								if(arrParse.planInfo[i].state==2){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 class="complete-img">已完成</h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="" class="repaying" title="2"></div>';
+								}else if(arrParse.planInfo[i].state==1){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 id="repay_state_'+arrParse.planInfo[i].id+'" class="hk-img">还款中</h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="repaying_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>';
+								}else if(arrParse.planInfo[i].state==3){
+									plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>'
+										        +'</a>'
+										    +'</li>';
+									repay_img='<div id="" class="repaying" title="2"></div>';
+								}
+								if(arrParse.planInfo[i].state==1){
+									if(show2){
+										list2.innerHTML='';
+										show2=false
+									}								
+									list2.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'
+										        	+'<div id="repaying2_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>'
+	//									        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>'
+								}else if(arrParse.planInfo[i].state==3){
+									if(show4){
+										list4.innerHTML='';
+										show4=false
+									}
+									list4.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+										+'<ul class="hkjh_yes" style="border-radius:5px;">'
+											+'<div class="right_jt mui-navigate-right"></div>'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="" style="position: relative;">'
+										        	+'<div class="mui-navigate-right-left">'
+										        		+'<div class="mui-navigate-right-left-logo">'
+										        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+										        		+'</div>'
+//											        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+										        	+'</div>'
+										        	+'<div class="mui-navigate-right-right">'
+										        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+										        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+										        	+'</div>'								        	
+										        	+repay_img
+										        +'</a>'
+										    +'</li>'
+										    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+										        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+										        	+'<div id="one_div">'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+										        		+'<p class="pTwo">还款金额</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+										        		+'<p class="pTwo">还款笔数</p>'
+										        	+'</div>'
+										        	+'<div>'
+										        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+										        		+'<p class="pTwo">手续费</p>'
+										        	+'</div>'
+										        +'</a>'
+										    +'</li>'
+										    +plan_state
+										+'</ul>'
+									+'</div>';
+								}							
+							}						
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				}
+				
+				mui('#item2').on('tap','.section_hk',function(e){
+					var i=this.getAttribute('title');
+					var _con = $('.add_repay'); // 设置目标区域
+//					var id=$(this).attr('title');
+				    if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+				    	mui.openWindow({
+							url: 'Repayment_plan.html',
+							id: 'Repayment_plan',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{
+						      	plan_id:i
+						   	},styles:{
+								},
+							waiting: {
+								autoShow: true
+							}
+						});	
+				    }else{
+				    	var actionbuttons=[{title:"终止计划"}];  
+		              	var actionstyle={title:'计划是从明天开始终止，今天正常还款',cancel:"取消",buttons:actionbuttons};  
+		              	plus.nativeUI.actionSheet(actionstyle, function(e){	              			              		
+		                    if(e.index==1){  
+		                        mui.ajax('http://www.zhxft.com/app/index1/closure_plan',{
+									async:false,
+									data:{
+										uid:uid,
+										token:token,
+										mission_id:i					
+									},
+									dataType:'JSON',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									success:function(data){
+										console.log(data);
+										var arrParse = JSON.parse(data);
+										if(arrParse.code==2){
+											mui.alert('此计划当天已还款，明天系统自动终止此计划','温馨提示','','','div');
+										}else if(arrParse.code==1){
+											stop_plan();
+											mui.alert('此计划关闭成功','温馨提示','','','div');
+											$('#repaying_'+i+'').removeClass('add_repay');
+											$('#repaying_'+i+'').addClass('repaying');
+											$('#repay_state_'+i+'').html('还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label>');
+											$('#repay_state_'+i+'').addClass('fail-img');
+										}else if(arrParse.code==3){
+											mui.alert('此计划已提交关闭计划，已无需再次关闭','温馨提示','','','div');											
+										}
+									},
+									error:function(xhr,error,errorThrown){
+										console.log(error);
+									}
+								});
+		                    }
+			            });				    	
+				    }
+				})
+				mui('#item1').on('tap','.section_hk',function(e){
+					var i=this.getAttribute('title');
+					var _con = $('.add_repay'); // 设置目标区域
+//					var id=$(this).attr('title');
+				    if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+				    	mui.openWindow({
+							url: 'Repayment_plan.html',
+							id: 'Repayment_plan',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{
+						      	plan_id:i
+						   	},
+							waiting: {
+								autoShow: true
+							}
+						});	
+				    }else{
+				    	var actionbuttons=[{title:"终止计划"}];  
+		              	var actionstyle={title:'计划是从明天开始终止，今天正常还款',cancel:"取消",buttons:actionbuttons};  
+		              	plus.nativeUI.actionSheet(actionstyle, function(e){	              			              		
+		                    if(e.index==1){  
+		                        mui.ajax('http://www.zhxft.com/app/index1/closure_plan',{
+									async:false,
+									data:{
+										uid:uid,
+										token:token,
+										mission_id:i					
+									},
+									dataType:'JSON',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									success:function(data){
+										console.log(data);
+										var arrParse = JSON.parse(data);
+										if(arrParse.code==2){
+											mui.alert('此计划当天已还款，明天系统自动终止此计划','温馨提示','','','div');
+										}else if(arrParse.code==1){
+											stop_plan();
+											mui.alert('此计划关闭成功','温馨提示','','','div');
+											$('#repaying_'+i+'').removeClass('add_repay');
+											$('#repaying_'+i+'').addClass('repaying');
+											$('#repay_state_'+i+'').html('还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label>');
+											$('#repay_state_'+i+'').addClass('fail-img');
+										}else if(arrParse.code==3){
+											mui.alert('此计划已提交关闭计划，已无需再次关闭','温馨提示','','','div');											
+										}
+									},
+									error:function(xhr,error,errorThrown){
+										console.log(error);
+									}
+								});
+		                    }
+			            });				    	
+				    }
+				})
+				mui('#item3').on('tap','.section_hk',function(e){
+					var i=this.getAttribute('title');
+					var _con = $('.add_repay'); // 设置目标区域
+//					var id=$(this).attr('title');
+				    if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+				    	mui.openWindow({
+							url: 'Repayment_plan.html',
+							id: 'Repayment_plan',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{
+						      	plan_id:i
+						   	},styles:{
+								},
+							waiting: {
+								autoShow: true
+							}
+						});	
+				    }else{
+				    	var actionbuttons=[{title:"终止计划"}];  
+		              	var actionstyle={title:'计划是从明天开始终止，今天正常还款',cancel:"取消",buttons:actionbuttons};  
+		              	plus.nativeUI.actionSheet(actionstyle, function(e){	              			              		
+		                    if(e.index==1){  
+		                        mui.ajax('http://www.zhxft.com/app/index1/closure_plan',{
+									async:false,
+									data:{
+										uid:uid,
+										token:token,
+										mission_id:i					
+									},
+									dataType:'JSON',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									success:function(data){
+										console.log(data);
+										var arrParse = JSON.parse(data);
+										if(arrParse.code==2){
+											mui.alert('此计划当天已还款，明天系统自动终止此计划','温馨提示','','','div');
+										}else if(arrParse.code==1){
+											mui.alert('此计划关闭成功','温馨提示','','','div');
+											$('#repaying_'+i+'').removeClass('add_repay');
+											$('#repaying_'+i+'').addClass('repaying');
+										}
+									},
+									error:function(xhr,error,errorThrown){
+										console.log(error);
+									}
+								});
+		                    }
+			            });				    	
+				    }
+				})
+				mui('#item4').on('tap','.section_hk',function(e){
+					var i=this.getAttribute('title');
+					var _con = $('.add_repay'); // 设置目标区域
+//					var id=$(this).attr('title');
+				    if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+				    	mui.openWindow({
+							url: 'Repayment_plan.html',
+							id: 'Repayment_plan',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{
+						      	plan_id:i
+						   	},styles:{
+								},
+							waiting: {
+								autoShow: true
+							}
+						});	
+				    }else{
+				    	var actionbuttons=[{title:"终止计划"}];  
+		              	var actionstyle={title:'计划是从明天开始终止，今天正常还款',cancel:"取消",buttons:actionbuttons};  
+		              	plus.nativeUI.actionSheet(actionstyle, function(e){	              			              		
+		                    if(e.index==1){  
+		                        mui.ajax('http://www.zhxft.com/app/index1/closure_plan',{
+									async:false,
+									data:{
+										uid:uid,
+										token:token,
+										mission_id:i					
+									},
+									dataType:'JSON',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									success:function(data){
+										console.log(data);
+										var arrParse = JSON.parse(data);
+										if(arrParse.code==2){
+											mui.alert('此计划当天已还款，明天系统自动终止此计划','温馨提示','','','div');
+										}else if(arrParse.code==1){
+											mui.alert('此计划关闭成功','温馨提示','','','div');
+											$('#repaying_'+i+'').removeClass('add_repay');
+											$('#repaying_'+i+'').addClass('repaying');
+										}
+									},
+									error:function(xhr,error,errorThrown){
+										console.log(error);
+									}
+								});
+		                    }
+			            });				    	
+				    }
+				})
+				
+				//计划列表
+//				mui('#item1').on('tap','.section_hk',function(){
+//					var i=this.getAttribute('title');
+//					mui.openWindow({
+//						url: 'Repayment_plan.html',
+//						id: 'Repayment_plan',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},extras:{
+//					      	plan_id:i
+//					   	},styles:{
+//							},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});	
+//				});
+//				mui('#item2').on('tap','.section_hk',function(){
+//					var i=this.getAttribute('title');
+//					mui.openWindow({
+//						url: 'Repayment_plan.html',
+//						id: 'Repayment_plan',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},extras:{
+//					      	plan_id:i
+//					    },styles:{
+////								bounce: 'vertical',bounceBackground:'#fc1',
+//							},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				});
+//				mui('#item3').on('tap','.section_hk',function(){
+//					var i=this.getAttribute('title');
+//					mui.openWindow({
+//						url: 'Repayment_plan.html',
+//						id: 'Repayment_plan',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},extras:{
+//					      	plan_id:i
+//					    },styles:{
+////								bounce: 'vertical',bounceBackground:'#fc1',
+//							},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				});
+//				mui('#item4').on('tap','.section_hk',function(){
+//					var i=this.getAttribute('title');
+//					mui.openWindow({
+//						url: 'Repayment_plan.html',
+//						id: 'Repayment_plan',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},extras:{
+//					      	plan_id:i
+//					    },styles:{
+////								bounce: 'vertical',bounceBackground:'#fc1',
+//							},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				});
+				
+				document.getElementById("calendar").addEventListener('tap', function() {
+					var optionsJson = this.getAttribute('data-options') || '{}';
+					var options = JSON.parse(optionsJson);
+					var id = this.getAttribute('id');					
+					/*
+					 * 首次显示时实例化组件
+					 * 示例为了简洁，将 options 放在了按钮的 dom 上
+					 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+					 */
+					var picker = new mui.DtPicker(options);
+					picker.show(function(rs) {
+						page=0;
+						/*
+						 * rs.value 拼合后的 value
+						 * rs.text 拼合后的 text
+						 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+						 * rs.m 月，用法同年
+						 * rs.d 日，用法同年
+						 * rs.h 时，用法同年
+						 * rs.i 分（minutes 的第二个字母），用法同年
+						 */
+//						document.querySelector('#chioce_time').value = rs.text;
+//						start_result=rs.text;
+						mui.ajax('http://www.zhxft.com/app/wallet1/morePlan',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								limit:page,
+								datetime:rs.text
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0006'){
+									plus.storage.clear();
+									plus.storage.setItem("launchFlag", "林允");
+									mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.openWindow({
+												url: '../index/login.html',
+												id: 'login',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												}//额外扩展参数
+												,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+												styles:{softinputMode:'adjustResize'},
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div')
+									return;
+								}
+								load_len=(parseInt(arrParse.count)/10);
+								var list1=document.getElementById('item1');
+								var list2=document.getElementById('item2');
+								var list3=document.getElementById('item3');
+								var list4=document.getElementById('item4');
+								var show4=true;
+								var show2=true;
+								var show3=true;	
+								list1.innerHTML='';
+								list2.innerHTML='<div class="hk_logo">'
+									+'<div>'
+										+'<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>'
+									+'</div>'
+									+'<p>暂无还款计划</p>'
+								+'</div>';
+								list3.innerHTML='<div class="hk_logo">'
+									+'<div>'
+										+'<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>'
+									+'</div>'
+									+'<p>暂无还款计划</p>'
+								+'</div>';
+								list4.innerHTML='<div class="hk_logo">'
+									+'<div>'
+										+'<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>'
+									+'</div>'
+									+'<p>暂无还款计划</p>'
+								+'</div>';
+								if(arrParse.planInfo.length<1){
+									list1.innerHTML='<div class="hk_logo">'
+										+'<div>'
+											+'<img src="../../images/hk_logo.png" style="width:100%;height:100%"/>'
+										+'</div>'
+										+'<p>暂无还款计划</p>'
+									+'</div>';
+									return;
+								}
+								
+								var plan_state;
+								var repay_img;
+								for (var i=0;i<arrParse.planInfo.length;i++) {
+									if(arrParse.planInfo[i].state==2){
+										plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<h5 class="complete-img">已完成</h5>'
+											        +'</a>'
+											    +'</li>';
+										repay_img='<div id="" class="repaying" title="2"></div>';
+									}else if(arrParse.planInfo[i].state==1){
+										plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<h5 id="repay_state_'+arrParse.planInfo[i].id+'" class="hk-img">还款中</h5>'
+											        +'</a>'
+											    +'</li>';
+										repay_img='<div id="repaying_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>';
+									}else if(arrParse.planInfo[i].state==3){
+										plan_state='<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<h5 class="fail-img">还款失败<label style="margin-left: 10px;">余额不足或者手动终止计划</label></h5>'
+											        +'</a>'
+											    +'</li>';
+										repay_img='<div id="" class="repaying" title="2"></div>';
+									}
+									if(arrParse.planInfo[i].state==1){
+										if(show2){
+											list2.innerHTML='';
+											show2=false
+										}								
+										list2.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+											+'<ul class="hkjh_yes" style="border-radius:5px;">'
+												+'<div class="right_jt mui-navigate-right"></div>'
+											    +'<li class="mui-table-view-cell">'
+											        +'<a class="" style="position: relative;">'
+											        	+'<div class="mui-navigate-right-left">'
+											        		+'<div class="mui-navigate-right-left-logo">'
+											        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+											        		+'</div>'
+//												        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+											        	+'</div>'
+											        	+'<div class="mui-navigate-right-right">'
+											        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+											        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+											        	+'</div>'
+											        	+'<div id="repaying2_'+arrParse.planInfo[i].id+'" class="add_repay" title="1"></div>'
+		//									        	+repay_img
+											        +'</a>'
+											    +'</li>'
+											    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<div id="one_div">'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+											        		+'<p class="pTwo">还款金额</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+											        		+'<p class="pTwo">还款笔数</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+											        		+'<p class="pTwo">手续费</p>'
+											        	+'</div>'
+											        +'</a>'
+											    +'</li>'
+											    +plan_state
+											+'</ul>'
+										+'</div>'
+									}else if(arrParse.planInfo[i].state==2){
+										if(show3){
+											list3.innerHTML='';
+											show3=false
+										}
+										list3.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+											+'<ul class="hkjh_yes" style="border-radius:5px;">'
+												+'<div class="right_jt mui-navigate-right"></div>'
+											    +'<li class="mui-table-view-cell">'
+											        +'<a class="" style="position: relative;">'
+											        	+'<div class="mui-navigate-right-left">'
+											        		+'<div class="mui-navigate-right-left-logo">'
+											        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+											        		+'</div>'
+//												        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+											        	+'</div>'
+											        	+'<div class="mui-navigate-right-right">'
+											        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+											        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+											        	+'</div>'								        	
+											        	+repay_img
+											        +'</a>'
+											    +'</li>'
+											    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<div id="one_div">'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+											        		+'<p class="pTwo">还款金额</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+											        		+'<p class="pTwo">还款笔数</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+											        		+'<p class="pTwo">手续费</p>'
+											        	+'</div>'
+											        +'</a>'
+											    +'</li>'
+											    +plan_state
+											+'</ul>'
+										+'</div>';
+									}else if(arrParse.planInfo[i].state==3){
+										if(show4){
+											list4.innerHTML='';
+											show4=false
+										}
+										list4.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+											+'<ul class="hkjh_yes" style="border-radius:5px;">'
+												+'<div class="right_jt mui-navigate-right"></div>'
+											    +'<li class="mui-table-view-cell">'
+											        +'<a class="" style="position: relative;">'
+											        	+'<div class="mui-navigate-right-left">'
+											        		+'<div class="mui-navigate-right-left-logo">'
+											        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+											        		+'</div>'
+//												        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+											        	+'</div>'
+											        	+'<div class="mui-navigate-right-right">'
+											        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+											        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+											        	+'</div>'								        	
+											        	+repay_img
+											        +'</a>'
+											    +'</li>'
+											    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<div id="one_div">'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+											        		+'<p class="pTwo">还款金额</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+											        		+'<p class="pTwo">还款笔数</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+											        		+'<p class="pTwo">手续费</p>'
+											        	+'</div>'
+											        +'</a>'
+											    +'</li>'
+											    +plan_state
+											+'</ul>'
+										+'</div>';
+									}
+									list1.innerHTML+='<div class="section_hk box-shadow-2" title="'+arrParse.planInfo[i].id+'" style="display: block;">'
+											+'<ul class="hkjh_yes" style="border-radius:5px;">'
+												+'<div class="right_jt mui-navigate-right"></div>'
+											    +'<li class="mui-table-view-cell">'
+											        +'<a class="" style="position: relative;">'
+											        	+'<div class="mui-navigate-right-left">'
+											        		+'<div class="mui-navigate-right-left-logo">'
+											        			+'<img src="'+arrParse.planInfo[i].bankLogo+'"/ style="width:100%;height:100%;">'
+											        		+'</div>'
+//												        	+'<div class="hank_img" style="background-image: url('+arrParse.planInfo[i].bankLogo+');"></div>'										        											        		
+											        	+'</div>'
+											        	+'<div class="mui-navigate-right-right">'
+											        		+'<p class="bank_type"><span style="">'+arrParse.planInfo[i].bankName+'<span class="cardNumber">(尾号<span>'+arrParse.planInfo[i].endNum+'</span>)</span></span></p>'									        							        		
+											        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+arrParse.planInfo[i].planDay+'</span></p>'
+											        	+'</div>'								        	
+											        	+repay_img
+											        +'</a>'
+											    +'</li>'
+											    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+											        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+											        	+'<div id="one_div">'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].repaymoney+'</p>'
+											        		+'<p class="pTwo">还款金额</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].number+'</p>'
+											        		+'<p class="pTwo">还款笔数</p>'
+											        	+'</div>'
+											        	+'<div>'
+											        		+'<p class="pOne">'+arrParse.planInfo[i].fee+'元</p>'
+											        		+'<p class="pTwo">手续费</p>'
+											        	+'</div>'
+											        +'</a>'
+											    +'</li>'
+											    +plan_state
+											+'</ul>'
+										+'</div>';
+								}						
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+						
+//							var stringTime =document.getElementById('course_date').innerText+' '+rs.text;
+//							var timestamp2 = Date.parse(new Date(stringTime));
+//							timestamp2 = timestamp2 / 1000;
+//							start_result=timestamp2;
+						/* 
+						 * 返回 false 可以阻止选择框的关闭
+						 * return false;
+						 */
+						/*
+						 * 释放组件资源，释放后将将不能再操作组件
+						 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+						 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+						 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+						 */
+						picker.dispose();
+					});
+			    });
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+//				self.show('pop-in',350);
+			})
+			
+			(function($) {
+				$('#scroll').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var segmentedControl = document.getElementById('segmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						var styleEl = document.querySelector('input[name="style"]:checked');
+						var colorEl = document.querySelector('input[name="color"]:checked');
+						if (styleEl && colorEl) {
+							var style = styleEl.value;
+							var color = colorEl.value;
+							segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+						}
+					}
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/mui.picker.min.css" />
+	</head>
+	<style>
+		/*body{font-family: "微软雅黑";}*/
+		.mui-pull-right img{width: 22px;}
+		.news_left{width: 100%;padding-left: 13px;margin-top: 12px;}
+		.news_left img{
+			width: 40px;float: left;margin-right: 7px;
+			margin-right: 17px;
+   			margin-top: 10px;
+		}
+		.new_content span{color: #999999;font-size: 12px;}
+		.new_content{
+			float: left;position: relative;
+		    width: 68%;	margin-bottom: 12px;	   
+		}
+		.expression{
+			background-color: #FFFFFF;border-radius: 5px; padding: 11px 13px 10px 12px;
+			font-size: 16px;color: #000000;line-height: 20px;
+			border-bottom-left-radius: 0;border: 1px solid #DDDDDD;border-bottom: none;
+    		border-bottom-right-radius: 0;
+		}
+		.expression h5{
+			font-size: 16px;
+			color: #000000;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			line-height: 20px;
+		}
+		.expression p{
+			color: #999999;
+			font-size: 12px;
+			line-height: 15px;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+		}
+		/*.expression:before {
+		    content: '';
+		    position: absolute;
+		    left: 16px;
+		    top: 100%;
+		    margin-left: -7px;
+		    border: 7px solid transparent;
+		    border-top-color: #CFCFCF
+		}*/
+		
+		.expression:after {
+		    content: '';
+		    position: absolute;
+		    left: -1px;
+		    top: 35px;
+		    margin-left: -16px;
+		    margin-top: -1px;
+		    border: 12px solid transparent;
+		    border-right-color: #FFF;
+		}
+		.new_time{text-align: center;}
+		.new_time span{background-color: #DDDDDD;display: inline-block;color: #FFFFFF;
+		border-radius: 5px;font-size: 12px;padding: 0px 8px;}
+		.detail{
+			font-size: 11px;
+		    color: #999999;
+		    background-color: #fff;
+		    border: 1px solid #DDDDDD;
+		    border-bottom-right-radius: 5px;
+		    border-bottom-left-radius: 5px;
+		    padding: 0;
+		    padding-left: 13px;
+		}
+		.mui-bar .mui-btn-link{color: #000000;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">系统消息</h1>
+			<!--<a id="calendar" data-options='{"type":"date"}' class="mui-icon mui-pull-right">
+				<img src="../../images/date@3x.png" />
+			</a>-->
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>	
+		<div class="list-t-wrap">
+		    <div id="pullrefresh" style="" class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="list-wrapper">
+		                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--<div class="mui-content">
+			<div class="news_left">
+				<div class="new_time">
+					<span>2017-10-08 10:10:10</span>
+				</div>
+				<img src="../../images/xt-news@3x.png" />
+				<div class="new_content">
+					<span>系统消息</span>
+					<div class="expression">
+						<h5>几何图形以其整齐的构造，明快 的线条，简洁的语言，为.我们</h5>
+						<p>
+							您的大掌柜185****6102成功通 过T0收款3000.00元，费率为0. 45%，为你带来5.20元分润收益 已存入您钱包，可点击钱包--分 润收益进行提现。
+						</p>						
+					</div>
+					<div class="detail">
+						查看详情
+					</div>
+				</div>				
+			</div>
+			<div class="news_left">
+				<div class="new_time">
+					<span>2017-10-08 10:10:10</span>
+				</div>
+				<img src="../../images/xt-news@3x.png" />
+				<div class="new_content">
+					<span>系统消息</span>
+					<div class="expression">
+						<h5>几何图形以其整齐的构造，明快 的线条，简洁的语言，为.我们</h5>
+						<p>
+							您的大掌柜185****6102成功通 过T0收款3000.00元，费率为0. 45%，为你带来5.20元分润收益 已存入您钱包，可点击钱包--分 润收益进行提现。
+						</p>						
+					</div>
+					<div class="detail">
+						查看详情
+					</div>
+				</div>				
+			</div>
+			<div class="news_left">
+				<div class="new_time">
+					<span>2017-10-08 10:10:10</span>
+				</div>
+				<img src="../../images/xt-news@3x.png" />
+				<div class="new_content">
+					<span>系统消息</span>
+					<div class="expression">
+						<h5>几何图形以其整齐的构造，明快 的线条，简洁的语言，为.我们</h5>
+						<p>
+							您的大掌柜185****6102成功通 过T0收款3000.00元，费率为0. 45%，为你带来5.20元分润收益 已存入您钱包，可点击钱包--分 润收益进行提现。
+						</p>						
+					</div>
+					<div class="detail">
+						查看详情
+					</div>
+				</div>				
+			</div>
+			<input type="hidden" id="chioce_time" value="" />
+		</div>-->
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速		
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;//可加载的次数
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/news/news_list',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						load_len=(parseFloat(arrParse.count)/10);
+						var list=document.querySelector('.list-wrapper');
+						for (var i=0;i<arrParse.news_list.length;i++) {
+							list.innerHTML+='<div class="news_left">'
+								+'<div class="new_time">'
+									+'<span>'+arrParse.news_list[i].created+'</span>'
+								+'</div>'
+								+'<img src="../../images/xt-news@3x.png" />'
+								+'<div class="new_content">'
+									+'<span>系统消息</span>'
+									+'<div class="expression">'
+										+'<h5>'+arrParse.news_list[i].title+'</h5>'
+										+'<p>'
+											+arrParse.news_list[i].content
+										+'</p>'						
+									+'</div>'
+									+'<div class="detail" title="'+arrParse.news_list[i].id+'">'
+										+'查看详情'
+									+'</div>'
+								+'</div>'				
+							+'</div>';	
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+			  function pullupRefresh() 
+			  {
+			    setTimeout(function() {
+			      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+			      if(count > load_len){
+			      	mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' }) 
+//			      	mui.alert('已经没有更多可加载的了','提示','','','div');
+			      }
+			      var cells = document.body.querySelectorAll('.news_left');
+			      page++;
+			      var num=page*10;
+			      mui.ajax('http://www.zhxft.com/app/news/news_list',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:num
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						load_len=(parseInt(arrParse.count)/10);
+						var list=document.querySelector('.list-wrapper');
+						for (var i=0;i<arrParse.news_list.length;i++) {
+							list.innerHTML+='<div class="news_left">'
+								+'<div class="new_time">'
+									+'<span>'+arrParse.news_list[i].created+'</span>'
+								+'</div>'
+								+'<img src="../../images/xt-news@3x.png" />'
+								+'<div class="new_content">'
+									+'<span>系统消息</span>'
+									+'<div class="expression">'
+										+'<h5>'+arrParse.news_list[i].title+'</h5>'
+										+'<p>'
+											+arrParse.news_list[i].content
+										+'</p>'						
+									+'</div>'
+									+'<div class="detail" title="'+arrParse.news_list[i].id+'">'
+										+'查看详情'
+									+'</div>'
+								+'</div>'				
+							+'</div>';	
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+			    }, 500);
+			  }
+				
+//				document.getElementById("calendar").addEventListener('tap', function() {
+//					var optionsJson = this.getAttribute('data-options') || '{}';
+//					var options = JSON.parse(optionsJson);
+//					var id = this.getAttribute('id');
+//					/*
+//					 * 首次显示时实例化组件
+//					 * 示例为了简洁，将 options 放在了按钮的 dom 上
+//					 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+//					 */
+//					var picker = new mui.DtPicker(options);
+//					picker.show(function(rs) {
+//						/*
+//						 * rs.value 拼合后的 value
+//						 * rs.text 拼合后的 text
+//						 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+//						 * rs.m 月，用法同年
+//						 * rs.d 日，用法同年
+//						 * rs.h 时，用法同年
+//						 * rs.i 分（minutes 的第二个字母），用法同年
+//						 */
+//						document.querySelector('#chioce_time').value = rs.text;
+//						start_result=rs.text;
+////							var stringTime =document.getElementById('course_date').innerText+' '+rs.text;
+////							var timestamp2 = Date.parse(new Date(stringTime));
+////							timestamp2 = timestamp2 / 1000;
+////							start_result=timestamp2;
+//						/* 
+//						 * 返回 false 可以阻止选择框的关闭
+//						 * return false;
+//						 */
+//						/*
+//						 * 释放组件资源，释放后将将不能再操作组件
+//						 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+//						 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+//						 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+//						 */
+//						picker.dispose();
+//					});
+//				});
+				
+				mui('.list-wrapper').on('tap','.detail',function(){
+					var i=$(this).attr('title');
+					mui.openWindow({
+						url: 'xt_detail.html',
+						id: 'xt_detail',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},extras:{
+					     	xt_id:i
+					    },styles:{
+							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

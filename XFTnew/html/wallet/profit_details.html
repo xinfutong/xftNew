@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	h5{text-align: center;margin: 37px 0;}
+    	.mui-content{/*padding: 0 7px;*/margin-bottom: 20px;}
+    	.card{background-color: #FFFFFF;/*border-radius: 5px;*/margin-top: 12px;font-family: "微软雅黑";padding: 0 8px;}
+    	.balance{border-bottom: 1px solid #DDDDDD;padding: 13px 10px;padding-bottom: 17px;}
+    	.balance p{font-size: 12px;text-align: center;color: #808080;margin-bottom: 0;margin-top: 26px;}
+    	.count_money{margin-top: 13px;color: #000000;font-size: 2.6rem;text-align: center;
+    	line-height: 2.6rem;}
+    	.count_money span{font-size: 2.6rem;}
+    	.money_user{padding: 7px 10px;font-size: 14px;}
+    	.money_user span{color: #222222;font-size: 15px;float: right;}
+    	.money_user label{color: #808080;font-size: 15px;}
+    	.money_user p{margin: 0;padding: 6px 0;}
+    	.Settlement_bank{background-color: #FFFFFF;border-radius: 5px;margin-top: 14px;font-family: "微软雅黑";padding: 7px 20px;}
+    	.Settlement_bank label{font-size: 14px;color: #666666;}
+    	/*.mui-bar .mui-icon{font-size: 35px;padding-top: 6px;}*/
+    	/*.mui-bar-nav.mui-bar .mui-icon{margin-left: -2px;}*/  
+    	.list-wrapper{margin-top: 50px;} 	
+    	.mui-scroll{padding-bottom: 50px;padding: 0 15px;}
+    	.mui-table-view:after{height: 0;}
+    	.mui-table-view-cell{padding: 11px 0;padding-bottom: 6px;}
+    	.mui-table-view-cell>a:not(.mui-btn){margin: -11px 0px;font-size: 17px;color: #000000;}
+    	.mui-navigate-right:after, .mui-push-right:after{right: -5px;font-size: 25px;}
+    	.balance_head span{font-size: 17px;color: #000000;display: inline-block;}
+    	.balance_head label{font-size: 12px;color: #808080;display: inline-block;width: 100%;}
+		.prompt{padding: 8px 13px;background-color: #FFFFFF;margin-top: 12px;font-size: 12px;color: #808080;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+    </style> 
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">收益详情</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>		
+		<div id="pullrefresh" style="margin-top: 60px;">
+			<div class="mui-content">
+				<div class="card">
+					<div class="balance">
+						<div class="balance_head">
+							<span>推广收益</span>
+						</div>						
+						<p class="money">收益金额</p>
+						<div class="count_money">
+							￥<span id="sy_money"><!--188.25--></span>
+						</div>
+					</div>				
+					<div class="money_user">
+						<p>
+							<label>升级好友：</label>
+							<span id="vip_name"><!--李东明--></span>
+						</p>
+						<p>
+							<label>升级费用：</label>
+							<span id="vip_money"><!--100.00元--></span>
+						</p>
+						<p>
+							<label>收益比例：</label>
+							<span id="sy_proportion"><!--20%--></span>
+						</p>
+						<p>
+							<label>好友等级：</label>
+							<span id="friend_grade"><!--VIP代理商--></span>
+						</p>
+						<p>
+							<label>升级时间：</label>
+							<span id="vip_time"><!--2017-10-24 11:20:20--></span>
+						</p>
+					</div>					
+				</div>
+				<div class="prompt">
+					<label style="color: #108EE9;">特别提醒：</label>由于你的好友升级后费率比你的低，你和好友的上下级 关系将解除，同时不再给你带来分润收益
+				</div>
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				  ({				    		
+					hardwareAccelerated:true, //开启硬件加速							
+				  });
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				  
+				var i=plus.webview.getWebviewById('profit_details').order_id;  
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/wallet/extension_details',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						recordId:i
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var result = JSON.parse(data);
+						if(result.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						document.getElementById('vip_name').innerText=result.name;
+						switch (result.type_id)
+						{
+						case '6':
+						  $('#friend_grade').text('分公司代理');
+						  break;
+						case '5':
+						  $('#friend_grade').text('城市合伙人');
+						  break;
+						case '4':
+						  $('#friend_grade').text('事业合伙人');
+						  break;
+						case '3':
+						  $('#friend_grade').text('高级用户');
+						  break;  
+						case '2':
+						  $('#friend_grade').text('普通用户');
+						  break;				
+						}
+						document.getElementById('sy_money').innerText=result.upgrade.deductMoney;				
+						document.getElementById('vip_money').innerText=result.upgrade.pay;
+						document.getElementById('sy_proportion').innerText=parseInt(result.proportion)*100+'%';
+						document.getElementById('vip_time').innerText=result.upgrade.deductTime;						
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+			    //关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

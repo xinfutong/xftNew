@@ -1,0 +1,962 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H5FF15829",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "信付通",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.1.1",/*应用版本名称*/
+		"code": "83"
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "html/index/home.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": "http://www.dcloud.io"
+	},
+	"permissions": {
+		"Accelerometer": {
+			"description": "访问加速度感应器"
+		},
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+		"Contacts": {
+			"description": "访问系统联系人信息"
+		},
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+		"Orientation": {
+			"description": "访问方向感应器"
+		},
+		"Proximity": {
+			"description": "访问距离感应器"
+		},
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},
+		"Share": {},
+		"Payment": {}
+	},
+	"plus": {
+		"launchwebview": {
+			"bottom": "0px",
+			"background": "#fff",
+			"bounce": "vertical",
+			"bounceBackground": "#ccc",
+			"subNViews": [
+				{
+					"id": "tabBar1",
+					"styles": {
+						"bottom": "0px",
+						"left": "0",
+						"height": "50.5px",
+						"width": "26%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "font",
+							"id": "tabBar11",
+							"text": "\ue613",
+							"position": {
+								"top": "4px",
+								"left": "0",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"fontSrc": "_www/fonts/iconfont-new.ttf",
+								"align": "center",
+								"size": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "tabBar12",
+							"text": "首页",
+							"position": {
+								"top": "28px",
+								"left": "0",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "12px",
+								"color": "#A2A2A2"
+							}
+						}
+					]
+				}, {
+					"id": "tabBar2",
+					"styles": {
+						"bottom": "0px",
+						"left": "25%",
+						"height": "50.5px",
+						"width": "26%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "font",
+							"id": "tabBar21",
+							"text": "\ue60f",
+							"position": {
+								"top": "4px",
+								"left": "-20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"fontSrc": "_www/fonts/iconfont-new.ttf",
+								"align": "center",
+								"size": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "tabBar22",
+							"text": "还款计划",
+							"position": {
+								"top": "28px",
+								"left": "-20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "12px",
+								"color": "#A2A2A2"
+							}
+						}
+					]
+				}, {
+					"id": "tabBar3",
+					"styles": {
+						"bottom": "0px",
+						"left": "50%",
+						"height": "50.5px",
+						"width": "26%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "font",
+							"id": "tabBar31",
+							"text": "\ue60b",
+							"position": {
+								"top": "4px",
+								"left": "20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"fontSrc": "_www/fonts/iconfont-new.ttf",
+								"align": "center",
+								"size": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "tabBar32",
+							"text": "收益",
+							"position": {
+								"top": "28px",
+								"left": "20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "12px",
+								"color": "#A2A2A2"
+							}
+						}
+					]
+				}, {
+					"id": "tabBar4",
+					"styles": {
+						"bottom": "0px",
+						"left": "75%",
+						"height": "50.5px",
+						"width": "26%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "font",
+							"id": "tabBar41",
+							"text": "\ue608",
+							"position": {
+								"top": "4px",
+								"left": "0",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"fontSrc": "_www/fonts/iconfont-new.ttf",
+								"align": "center",
+								"size": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "tabBar42",
+							"text": "我的",
+							"position": {
+								"top": "28px",
+								"left": "0",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "12px",
+								"color": "#A2A2A2"
+							}
+						}
+					]
+				}, {
+					"id": "tabBar5",
+					"styles": {
+						"bottom": "50.5px",
+						"left": "0",
+						"height": "0.5px",
+						"width": "100%",
+						"backgroundColor": "#ccc"
+					},
+					"tags": [
+						{
+							"tag": "rest",
+							"id": "tabBorder",
+							"position": {
+								"top": "0",
+								"left": "0",
+								"width": "100%",
+								"height": "0.5px"
+							},
+							"rectStyles": {
+								"color": "#ccc"
+							}
+						}
+					]
+				}, {
+					"id": "tabBar6",
+					"styles": {
+						"bottom": "0px",
+						"left": "100%",
+						"height": "50.5px",
+						"width": "10%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "font",
+							"id": "tabBar31",
+							"text": "",
+							"position": {
+								"top": "4px",
+								"left": "20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"fontSrc": "_www/fonts/iconfont-nav.ttf",
+								"align": "center",
+								"size": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "tabBar32",
+							"text": "",
+							"position": {
+								"top": "24px",
+								"left": "20px",
+								"width": "100%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "12px",
+								"color": "#A2A2A2"
+							}
+						}
+					]
+				}
+			]
+		},
+		"safearea": {
+	        "background":"#FFFFFF",    // 安全区域外的背景颜色，默认值为"#FFFFFF"
+	        "bottom":{    // 底部安全区域配置
+	            "offset":"auto"       // 底部安全区域偏移，"none"表示不空出安全区域，"auto"自动计算空出安全区域，默认值为"none"
+	        },
+	        "left": {    // 左侧安全区域配置（横屏显示时有效）
+	            "offset":"auto"
+	        },
+	        "right": {    // 右侧安全区域配置（横屏显示时有效）
+	            "offset":"auto"
+	        }
+	    },
+		"statusbar": {
+			"immersed": true,
+			"style": "dark"
+		},
+		"splashscreen": {
+			"hardwareAccelerated": true,
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true,
+			"delay": "3500"
+		},
+		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {
+				"payment": {
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": ""
+					}
+				},
+				"share": {
+					"qq": {
+						"appid": "101460030",
+						"description": "QQ分享"
+					},"weixin":{"appid":"wx3af7108a2dbe66f9","appsecret":"afc2fd8c520bcc293404d7a84d5688a5","description":"可选，微信分享"}
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"hardwareAccelerated": true,
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": ["<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": [
+				"portrait-primary",
+				"portrait-secondary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					/*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "",/*iPhone普通屏幕程序图标，分辨率：57x57*/
+						"retina": "",/*iPhone高分屏程序图标，分辨率：114x114*/
+						/*iPhone iOS7高分屏程序图标，分辨率：120x120*/
+						"spotlight-normal": "", /*iPhone Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
+						/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "", /*iPhone设置页面程序图标，分辨率：29x29*/
+						"app@3x": "unpackage/res/icons/180x180.png",
+						"app@2x": "unpackage/res/icons/120x120.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"settings@3x": "unpackage/res/icons/87x87.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"spotlight@3x": "unpackage/res/icons/120x120.png",
+						"notification@2x": "unpackage/res/icons/40x40.png",
+						"notification@3x": "unpackage/res/icons/60x60.png"
+					},
+					"ipad": {
+						"normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
+						/*iPad iOS7程序图标，分辨率：76x76*/
+						/*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPad设置页面程序图标，分辨率：29x29*/
+						"app": "unpackage/res/icons/76x76.png",
+						"app@2x": "unpackage/res/icons/152x152.png",
+						"settings": "unpackage/res/icons/29x29.png",
+						"spotlight": "unpackage/res/icons/40x40.png",
+						"proapp@2x": "unpackage/res/icons/167x167.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"notification": "unpackage/res/icons/20x20.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"appstore": "unpackage/res/icons/1024x1024.png"
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "unpackage/res/ios/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/res/ios/640x1136.png","iphonex":"unpackage/res/ios/1125x2436.png","iphonexl":"unpackage/res/ios/2436x1125.png","retina55":"unpackage/res/ios/1242x2208.png","retina47":"unpackage/res/ios/750x1334.png","retina55l":"unpackage/res/ios/2208x1242.png"
+					},
+					"ipad": {
+						"portrait": "unpackage/res/ios/768x1004.png", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "unpackage/res/ios/1536x2008.png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "unpackage/res/ios/1024x748.png", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "unpackage/res/ios/2048x1496.png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "unpackage/res/ios/768x1024.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "unpackage/res/ios/1536x2048.png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "unpackage/res/ios/1024x768.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": "unpackage/res/ios/2048x1536.png"
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "unpackage/res/安卓/480x762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "unpackage/res/安卓/720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "unpackage/res/安卓/1080x1882.png"
+				}
+			}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
+	},
+	"dependencies": {
+		"pages": {
+			"html/index/index.html": {
+				"resources": [
+					"html/index/home.html"
+				],
+				"refer": [
+					"html/extension/extension.html",
+					"html/find/find.html",
+					"html/index/banner.html",
+					"html/user/user.html"
+				],
+				"priority": 0
+			},
+			"html/index/home.html": {
+				"resources": [],
+				"refer": [
+					"html/user/novice_guide.html",
+					"html/index/repay.html",
+					"html/index/Receivables.html"
+				],
+				"priority": 0
+			},
+			"html/user/user.html": {
+				"resources": [],
+				"refer": [
+					"html/index/login.html",
+					"html/wallet/wallet.html",
+					"html/user/bank_card_info.html",
+					"html/user/my_rate.html"
+				],
+				"priority": 0
+			},
+			"html/index/repay.html": {
+				"resources": [],
+				"refer": [
+					"html/index/repay_bind_card.html"
+				],
+				"priority": 0
+			},
+			"html/index/Receivables.html": {
+				"resources": [],
+				"refer": [
+					"html/index/kj.html",
+					"html/index/sk_share.html",
+					"html/index/transaction_record.html",
+					"html/index/share_money.html"
+				],
+				"priority": 0
+			},
+			"html/index/kj.html": {
+				"resources": [],
+				"refer": [
+					"html/index/kj_pay.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"images/comment@3x.png",
+				"js/keyboard.js",
+				"images/buy-code.png",
+				"images/wode-02@3x.png",
+				"images/card-4@3x.png",
+				"html/wallet/billboard.html",
+				"images/add-card.png",
+				"images/head_img@3x.png",
+				"html/find/Repayment_plan.html",
+				"images/banner-2@3x.png",
+				"images/index.gif",
+				"images/repay-guide.png",
+				"images/banner-3@3x.png",
+				"html/user/transfer_code.html",
+				"js/mui.previewimage.js",
+				"images/tg-news@3x.png",
+				"css/mui.imageviewer.css",
+				"images/vip-user@3x.png",
+				"js/mui.view.js",
+				"js/app.js",
+				"images/bill-agant8@3x.png",
+				"images/my_photo@3x.png",
+				"images/center-1@3x.png",
+				"images/credit-card@2x.png",
+				"images/real@3x.png",
+				"html/index/reg.html",
+				"images/user_yes@3x.png",
+				"images/up-friend.png",
+				"css/modify_card.css",
+				"images/banner-4.png",
+				"css/payment_history.css",
+				"images/card-3@3x.png",
+				"images/js@3x.png",
+				"images/country-agent@3x.png",
+				"images/sz.png",
+				"html/user/up_wx.html",
+				"images/the-two@3x.png",
+				"images/plan-time@3x.png",
+				"images/iconfont-tianjia.png",
+				"images/tg_code@3x.png",
+				"images/No-agent@3x.png",
+				"html/wallet/agent_list.html",
+				"images/card-2@3x.png",
+				"images/logo.png",
+				"js/utitls.js",
+				"images/kf-wx@3x.png",
+				"libs/easymob-webim-sdk/jquery-1.11.1.js",
+				"images/xy-card-5@3x.png",
+				"html/user/operation_guide.html",
+				"images/bill-pay@3x.png",
+				"images/hotel@3x.png",
+				"images/share@3x.png",
+				"images/the-three@3x.png",
+				"images/tg-head@3x.png",
+				"images/province_agent@3x.png",
+				"images/bill-agant4@3x.png",
+				"js/jlyUser.js",
+				"images/gh.png",
+				"html/wallet/details_jj.html",
+				"html/user/generate_code.html",
+				"images/other@3x.png",
+				"images/qianbao-01@3x.png",
+				"images/grade_courty.png",
+				"images/guide-qq@3x.png",
+				"images/user-qy@3x.png",
+				"images/xy-bank-2@3x.png",
+				"js/mui.zoom.js",
+				"images/dk-1@3x.png",
+				"images/my_grade@3x.png",
+				"html/user/about_we.html",
+				"images/del@3x.png",
+				"images/contact_kf@3x.png",
+				"images/the_first.png",
+				"html/index/modify_card.html",
+				"images/bill-agant7@3x.png",
+				"images/other-bank@3x.png",
+				"images/gf@3x.png",
+				"images/kj_rate@3x.png",
+				"images/nav_no@3x.png",
+				"html/user/generate_code1.html",
+				"html/user/buy_code.html",
+				"html/find/Have_money_list.html",
+				"images/send@3x.png",
+				"images/sk_code@3x.png",
+				"html/wallet/withdrawals.html",
+				"images/deal-qq@3x.png",
+				"images/sucess@3x.png",
+				"images/user-photo.png",
+				"images/kjzf@3x.png",
+				"images/xzhk@3x.png",
+				"images/card@3x.png",
+				"images/xc_img@3x.png",
+				"html/wallet/share_details.html",
+				"html/index/reg_agree.html",
+				"images/4@3x.png",
+				"images/pay_card@3x.png",
+				"images/home-2@2x.png",
+				"images/banner3.png",
+				"images/zf_friend@3x.png",
+				"images/zx@3x.png",
+				"html/wallet/share_profit.html",
+				"images/find_no@3x.png",
+				"images/5@3x.png",
+				"images/hkjl_jt@3x.png",
+				"images/nav_no-2.png",
+				"images/bind_card@3x.png",
+				"html/user/kf_wx.html",
+				"images/circle_02@3x.png",
+				"images/qianbao-02@3x.png",
+				"images/top@3x.png",
+				"images/fail-img@3x.png",
+				"images/vip-img@2x.png",
+				"html/user/credit_card.html",
+				"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+				"images/cs@3x.png",
+				"html/index/Insurance.html",
+				"html/user/new_card.html",
+				"images/no_login@3x.png",
+				"html/find/tab_tx_record.html",
+				"html/wallet/total_amount.html",
+				"js/common.js",
+				"images/gs@3x.png",
+				"fonts/iconfont.ttf",
+				"js/mui.js",
+				"images/tg-list-2@3x.png",
+				"html/find/tab-withdrawals.html",
+				"images/upgrade-wx@3x.png",
+				"html/find/find_old.html",
+				"html/wallet/repay_share.html",
+				"images/circle_01@3x.png",
+				"index.html",
+				"images/home-type-6@2x.png",
+				"css/Quick_payment.css",
+				"js/tab-webview-main.js",
+				"images/login-no.png",
+				"html/wallet/company_award.html",
+				"images/city-agent@3x.png",
+				"images/two@3x.png",
+				"images/wx-record@3x.png",
+				"html/index/transaction_details.html",
+				"html/wallet/lower_list.html",
+				"html/wallet/friend_list.html",
+				"images/bill-1@3x.png",
+				"images/bill-agant6@3x.png",
+				"images/complete@3x.png",
+				"images/xgxx@3x.png",
+				"images/guide-kj@3x.png",
+				"html/wallet/tx_record.html",
+				"fonts/iconfont-nav.ttf",
+				"images/upgrade-zfb@3x.png",
+				"images/xy-card-6@3x.png",
+				"images/wx_type1@3x.png",
+				"images/zfb@3x.png",
+				"images/kj_yes@3x.png",
+				"html/user/xt_news.html",
+				"css/mui.min.css",
+				"images/code-bg@3x.png",
+				"images/phone-1@3x.png",
+				"html/user/up_friend.html",
+				"images/jx.png",
+				"html/user/my_set.html",
+				"html/user/vip_bind_card.html",
+				"images/plan-img-1@3x.png",
+				"images/jbkp@3x.png",
+				"html/user/eidt_pass.html",
+				"images/tg_news@3x.png",
+				"images/tg@3x.png",
+				"images/logo_img@3x.png",
+				"css/main.css",
+				"images/about@3x.png",
+				"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+				"images/share-news@3x.png",
+				"images/share-money-1.png",
+				"images/share-money-2.png",
+				"images/new_card@3x.png",
+				"images/kj_rate-1@3x.png",
+				"images/home-type-3@2x.png",
+				"images/Set_rate@3x.png",
+				"images/user_no@3x.png",
+				"images/type-bg@3x.png",
+				"html/user/circle_detail.html",
+				"images/grade_area.png",
+				"images/xy-card-2@3x.png",
+				"images/hzjg-img@3x.png",
+				"images/my-agent-img@3x.png",
+				"images/qq.png",
+				"images/banner1.png",
+				"html/index/bind_card.html",
+				"images/dz_detail@3x.png",
+				"js/canvas2image.js",
+				"images/safe@3x.png",
+				"images/zfb_sk@3x.png",
+				"images/xy-card-4@3x.png",
+				"images/first-one@3x.png",
+				"html/user/active_vip.html",
+				"images/vip_agent@3x.png",
+				"images/right_jt@3x.png",
+				"css/pablic_wz.css",
+				"js/jquery-1.8.0.min.js",
+				"css/style.css",
+				"images/upgrade_pay@3x.png",
+				"images/qq_info@3x.png",
+				"images/grade_city.png",
+				"images/credit-guide.png",
+				"images/qq-record.png",
+				"images/dk-2@3x.png",
+				"images/jt@3x.png",
+				"css/font-awesome.min.css",
+				"html/index/preview.html",
+				"images/xy-bank-1@3x.png",
+				"css/wallet.css",
+				"images/dz-no@3x.png",
+				"images/xy-bank-3@3x.png",
+				"images/wx_type@3x.png",
+				"js/tools.js",
+				"images/circle_03@3x.png",
+				"js/db.js",
+				"images/tg-list-3@3x.png",
+				"images/grade_vip.png",
+				"images/bill-agant2@3x.png",
+				"images/home-type-5@2x.png",
+				"images/3@3x.png",
+				"html/find/wallet.html",
+				"images/one@3x.png",
+				"html/user/my_grade.html",
+				"fonts/mui.ttf",
+				"css/Binding_card.css",
+				"images/buy-img@3x.png",
+				"images/grade_pro.png",
+				"html/wallet/profit_details.html",
+				"css/wx.css",
+				"images/js-bank@3x.png",
+				"images/guider.png",
+				"images/two2@3x.png",
+				"images/xy-card-3@3x.png",
+				"js/feedback.js",
+				"html/index/forget_pass.html",
+				"images/deal-wx@3x.png",
+				"images/pa@3x.png",
+				"images/nav_yes@3x.png",
+				"images/hk-ing-img@3x.png",
+				"images/gh@3x.png",
+				"images/weixin.png",
+				"images/u_img_no@3x.png",
+				"html/user/upgrade.html",
+				"images/1@3x.png",
+				"images/deal-zfb@3x.png",
+				"css/Card_management.css",
+				"images/pay-card1@3x.png",
+				"images/zgyh@3x.png",
+				"css/Cadet_circle.css",
+				"css/common.css",
+				"images/sinaweibo.png",
+				"images/find_yes@3x.png",
+				"images/home-type-1@2x.png",
+				"images/wallet_yes@3x.png",
+				"images/tg-list-1@3x.png",
+				"html/index/Card_management.html",
+				"images/shouyi-01@3x.png",
+				"images/2@3x.png",
+				"images/sk_money@3x.png",
+				"images/gt.png",
+				"images/zfb.png",
+				"fonts/iconfont-new.ttf",
+				"images/kj-record@3x.png",
+				"images/deal-kj@3x.png",
+				"images/three@3x.png",
+				"images/ms@3x.png",
+				"html/wallet/extension_m_profit.html",
+				"html/user/agent_details.html",
+				"images/zzhk@3x.png",
+				"js/mui.picker.min.js",
+				"images/bill-agant3@3x.png",
+				"images/operation-img@3x.png",
+				"images/share-money@3x.png",
+				"images/hx@3x.png",
+				"images/bank_logo@3x.png",
+				"images/hkjl@3x.png",
+				"images/qq_type@3x.png",
+				"images/news@3x.png",
+				"images/two3@3x.png",
+				"images/hk2@3x.png",
+				"js/mui.pullToRefresh.material.js",
+				"images/plan@3x.png",
+				"images/zfb_info@3x.png",
+				"images/jh_logo@3x.png",
+				"html/find/List_of_non_repayment.html",
+				"js/immersed.js",
+				"images/mony@3x.png",
+				"html/user/user_info.html",
+				"html/find/xf_record.html",
+				"images/chioce@2x.png",
+				"images/other01@3x.png",
+				"images/the-one@3x.png",
+				"images/kj_type@3x.png",
+				"js/iconfont.js",
+				"images/read-no@3x.png",
+				"images/+@3x.png",
+				"images/home-type-4@2x.png",
+				"html/index/new_Repayment_plan.html",
+				"images/yz@3x.png",
+				"images/wx_rate@3x.png",
+				"images/nav_no-1.png",
+				"images/date@3x.png",
+				"images/zfb-record@3x.png",
+				"html/user/vip_kj_pay.html",
+				"images/guide-zfb@3x.png",
+				"images/the_first@3x.png",
+				"images/qq_yes@3x.png",
+				"images/bd_type@3x.png",
+				"images/dz-yes@3x.png",
+				"css/layer.css",
+				"html/extension/copy_img.html",
+				"images/xy-card-1@3x.png",
+				"images/hk@3x.png",
+				"html/index/payment_history.html",
+				"images/i@3x.png",
+				"css/public.css",
+				"images/logo-no.png",
+				"images/gd@3x.png",
+				"html/extension/code_img.html",
+				"css/new_Repayment_plan.css",
+				"images/jy-record@2x.png",
+				"css/iconfont.css",
+				"css/reg.css",
+				"images/publish@3x.png",
+				"images/plan-img-2@3x.png",
+				"html/user/share_news.html",
+				"images/bill@3x.png",
+				"images/wx@3x.png",
+				"images/sk_head@3x.png",
+				"images/guide-wx@3x.png",
+				"images/banner2.png",
+				"images/guide-img@3x.png",
+				"images/circle_04@3x.png",
+				"html/wallet/details_zj.html",
+				"css/receivables.css",
+				"images/sk-share@3x.png",
+				"html/user/pay_circle.html",
+				"images/bill-agant5@3x.png",
+				"images/bk_card@3x.png",
+				"css/vip_pay.css",
+				"images/ny@3x.png",
+				"images/bill-2@3x.png",
+				"html/user/id_authentication.html",
+				"images/card-1@3x.png",
+				"html/index/credit_card.html",
+				"images/nh@3x.png",
+				"js/mui.min.js",
+				"html/user/others_circle.html",
+				"images/bill-3@3x.png",
+				"images/home-3@2x.png",
+				"images/share-new@3x.png",
+				"js/mui.pullToRefresh.js",
+				"js/json3.js",
+				"html/wallet/my_lower.html",
+				"images/hk_logo.png",
+				"images/new_guide@3x.png",
+				"html/user/user_bind_card.html",
+				"images/xy@3x.png",
+				"images/u_img@3x.png",
+				"images/Lower-agent@2x.png",
+				"html/user/my_album.html",
+				"html/user/bank_authentication.html",
+				"js/mui.locker.js",
+				"images/back@3x.png",
+				"html/user/xt_detail.html",
+				"images/cooperation@3x.png",
+				"html/user/tg_news.html",
+				"images/shouyi-02@3x.png",
+				"images/china@3x.png",
+				"images/upgrade-kj@3x.png",
+				"images/my-rate@2x.png",
+				"js/util.js",
+				"images/share-profit@2x.png",
+				"images/qihoo.png",
+				"images/wallet_no@3x.png",
+				"images/xt-news@3x.png",
+				"images/pf@3x.png",
+				"css/mui.picker.min.css",
+				"images/qq_sk@3x.png",
+				"images/home-1@2x.png",
+				"images/three1@3x.png",
+				"images/211668620712402883.jpg",
+				"images/home-type-2@2x.png",
+				"images/tg_bg@3x.png",
+				"html/user/publish_circle.html",
+				"images/banner-4@3x.png",
+				"images/three2@3x.png",
+				"css/mui.css",
+				"js/mui.enterfocus.js",
+				"html/wallet/extension_profit.html",
+				"images/zfb_yes@3x.png",
+				"images/qq@3x.png",
+				"js/jlyGlobal.js",
+				"css/feedback-page.css",
+				"html/user/news.html",
+				"images/zu10@3x.png",
+				"images/add-card-img@3x.png",
+				"html/index/kj_two_bind.html",
+				"css/index.css",
+				"images/area_agent@3x.png",
+				"libs/easymob-webim-sdk/json2.js",
+				"js/feedback-page.js",
+				"images/icon_back.png",
+				"images/banner-2.png",
+				"images/zfb_rate@3x.png",
+				"images/tj_man@3x.png",
+				"css/preview.css",
+				"images/wx_yes@3x.png",
+				"images/rl.png",
+				"libs/easymob-webim-sdk/quickstart.md",
+				"images/share-1@3x.png",
+				"images/banner-3.png",
+				"images/wx.png",
+				"images/home-logo@3x.png",
+				"css/app.css",
+				"images/user_info@3x.png",
+				"images/banner-1.png",
+				"images/wode-01@3x.png",
+				"html/user/upgrade_pay.html",
+				"images/bill-agant1@3x.png",
+				"images/shop_info@3x.png"
+			]
+		}
+	}
+}

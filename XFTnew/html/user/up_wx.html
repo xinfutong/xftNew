@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>二维码收款</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/receivables.css" />
+	</head>
+	<style>
+		.mui-bar{background-color: #439057;box-shadow:none}
+		.mui-bar .mui-btn-link,.mui-title,.mui-icon{color: #FFFFFF;}
+		.C{
+            position: absolute;
+            left:25%;
+            height:100%;
+            border-right:1px solid #999999;
+            -webkit-transform:scaleX(0.5);
+            transform:scaleX(0.5);
+        }
+        .mui-action-back label{font-family: "微软雅黑";}
+	</style>
+	<body>
+		<div class="mui-content">
+			<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #439057;">			
+				<h1 class="mui-title">二维码收款</h1>
+				<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>返回
+				</button>
+			</header>
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="sk_code">
+								<div class="sk_head">
+									<!--<img src="../../img/sk_head@3x.png" />-->
+									微信收款
+								</div>
+								<div class="sk_content">
+									<img id="wx_img" src="" />
+									<!--<img id="sk_img" src="../../images/sk_code@3x.png" />-->
+									<span><label style="font-size: 24px;">￥</label><label id="pay_money">88.00</label></span>
+									<span style="font-size: 14px;color: #439057;">收款金额</span>
+								</div>
+							</div>
+							<div class="sk_phone">				
+								<div>
+									<span class="shop_info">商家信息</span>
+									<label id="phone">(13143461725)</label><label id="name">隔壁老王</label>
+								</div>				
+								<div style="border-top: 1px solid #CCCCCC;padding: 0px 14px;">
+				<!--					<div class="C"></div>-->
+									<input type="button" id="pay_url" value="复制支付链接" style="border-right: 1px solid #CCCCCC;"/>
+									<input type="button" id="save_img" value="保存图片" />
+								</div>
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+								
+				var pay_url=plus.webview.getWebviewById('up_wx').wx_url;
+				var money=plus.webview.getWebviewById('up_wx').pay;
+				var phone=plus.webview.getWebviewById('up_wx').num;
+				var user=plus.webview.getWebviewById('up_wx').name;
+				
+				var url="http://dlsju.saomahuivip.com/api/qr?text="+pay_url;
+				document.getElementById('pay_url').title=pay_url;
+				document.getElementById('wx_img').src=url;
+				document.getElementById('phone').innerText=phone;
+				document.getElementById('name').innerText=user;
+				document.getElementById('pay_money').innerText=money;
+				
+				
+				document.getElementById('pay_url').addEventListener('tap',function(){
+					var pl_id=document.getElementById('pay_url').title;
+					if(mui.os.ios){
+					   copy_txt(pl_id)
+					}else if(mui.os.android){
+						copyToClip(pl_id);
+					}
+				})
+				document.getElementById('save_img').addEventListener('tap',function(){
+					var img_url=document.getElementById('wx_img').src;
+//					plus.runtime.openURL(img_url)
+					createDownload(img_url);
+				})
+				
+				//复制
+				function copyToClip(txt){
+				    var Context = plus.android.importClass("android.content.Context");
+				    var main = plus.android.runtimeMainActivity();
+				    var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+				    plus.android.invoke(clip,"setText",txt);
+				    mui.toast('复制支付链接成功',{ duration:'long', type:'div' }) 
+				}
+				function copy_txt(txt){
+					var UIPasteboard  = plus.ios.importClass("UIPasteboard");
+					//这步会有异常因为UIPasteboard是不允许init的，init的问题会在新版中修改 
+					var generalPasteboard = UIPasteboard.generalPasteboard();
+					// 设置/获取文本内容: www.bcty365.com
+					generalPasteboard.setValueforPasteboardType(txt, "public.utf8-plain-text");
+					var value = generalPasteboard.valueForPasteboardType("public.utf8-plain-text");
+					mui.toast('复制支付链接成功',{ duration:'long', type:'div' }) 
+				}
+				//下载图片
+				function createDownload(img_url) {					
+				  	var suffix = cutImageSuffix(img_url)+'.png';
+					//下载此文件
+					var downLoader = plus.downloader.createDownload(img_url, {
+					    method: 'GET',
+					    filename: '_downloads/image/oy.png'
+					}, function(download, status) {
+						if ( status == 200 ) { 
+//								alert( "Download success: " + download.filename );
+						} else {
+//								 alert( "Download failed: " + status ); 
+						} 
+					    var fileName = download.filename;//下载图片地址名称
+					    console.log('文件名:' + fileName);
+					    console.log('下载状态：' + status);
+					    //保存图片
+						plus.gallery.save(fileName, function(e) {
+							//检测保存图片信息
+							plus.io.resolveLocalFileSystemURL( fileName, function( entry ) {
+								// 可通过entry对象操作test.html文件 
+								entry.file( function(file){
+									console.log(file);
+									console.log(file.fullPath);
+									var fileReader = new plus.io.FileReader();
+									var data=JSON.stringify(file);	
+									fileReader.readAsText(file, 'utf-8');
+									fileReader.onloadend = function(evt) {
+										mui.toast('保存图片成功',{ duration:'long', type:'div' }) 
+										console.log(evt);
+									}
+								});
+							}, function ( e ) {
+							});
+							console.log(fileName);
+						});
+					});
+					downLoader.start();//下载开始执行
+//						alert( "Resolve file URL failed: " + e.message );
+					return false;					
+				}
+				//		cutImageSuffix方法
+				var cutImageSuffix = function(imageUrl) {
+					var index = imageUrl.lastIndexOf('.');
+					return imageUrl.substring(index);
+				};
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

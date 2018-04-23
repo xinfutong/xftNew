@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content>.mui-table-view:first-child{margin-top: 12px;}
+		.mui-navigate-right{color: #000000;}
+		.mui-btn-outlined{
+			width: 92%;
+		    background: #fff;
+		    color: #000000;
+		    border: 0;
+		    margin: 0 4%;
+		    padding-top: 9px;
+		    padding-bottom: 7px;
+		    margin-top: 100px;
+		    font-size: 18px;
+		    border-radius: 5px;
+		}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-scroll-wrapper{position: inherit;}     
+        .mui-bar .mui-btn-link{color: #000000;}
+    	   
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">设置</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<ul class="mui-table-view">
+							    <li id="eidt_pass" class="mui-table-view-cell">
+							        <a class="mui-navigate-right">修改密码</a>
+							    </li>
+							    <li id="about_we" class="mui-table-view-cell">
+							        <a class="mui-navigate-right">关于我们</a>
+							    </li>			    
+							</ul>
+							<button type="button" id="out_login" class="mui-btn mui-btn-outlined">退出登录</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+11)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+11)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				
+				document.getElementById('eidt_pass').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'eidt_pass.html',
+						id: 'eidt_pass',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{softinputMode:'adjustResize',
+//						bounce: 'vertical',bounceBackground:'#fc1'
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				document.getElementById('about_we').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'about_we.html',
+						id: 'about_we',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				
+				//解除绑定
+				document.getElementById('out_login').addEventListener('tap',function(){
+					var actionbuttons=[{title:"退出登录"}];  
+	              	var actionstyle={title:'欢迎继续使用信付通APP，感谢您的支持',cancel:"取消",buttons:actionbuttons};  
+	              	plus.nativeUI.actionSheet(actionstyle, function(e){	              			              		
+	                    if(e.index==1){  
+	                        mui.ajax('http://www.zhxft.com/app/account/logout',{
+								async:false,
+								data:{
+									uid:uid,
+									token:token,						
+								},
+								dataType:'JSON',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								success:function(data){
+									console.log(data);
+									var arrParse = JSON.parse(data);
+									if(arrParse.info.code==0){
+										plus.storage.clear();
+										plus.storage.setItem("launchFlag", "林允");
+										detailPage = plus.webview.getLaunchWebview();
+										mui.fire(detailPage,'customEvent',{
+//										    img:'../../images/no_login@3x.png',
+//										    name:'点击头像登录'
+										});
+										var inx = plus.webview.getWebviewById('../find/find.html');
+										var res = plus.webview.getWebviewById('../wallet/wallet.html');
+										var cad = plus.webview.getWebviewById('../user/user.html');
+										var sim = plus.webview.getWebviewById('../extension/extension.html');
+										
+										mui.fire(inx,'find_load',{});
+										mui.fire(res,'wallet_load',{});
+										mui.fire(cad,'user_load',{});
+										mui.fire(sim,'ex_load',{});
+										mui.back();
+									}				
+								},
+								error:function(xhr,error,errorThrown){
+									console.log(error);
+								}
+							});
+	                    }
+		            });					
+				})
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

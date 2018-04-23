@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	html, body {
+		    height: 100%;
+		    margin: 0px;
+		    padding: 0px;
+		    overflow: hidden;
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		}
+    	body{font-family: "微软雅黑";}
+    	.user_info{background-color: #FFFFFF;margin-top: 10px;}
+    	.mui-input-row{border-top: 1px solid #CCCCCC;color: #000000;font-family: "微软雅黑";
+    	font-size: 18px;margin-left: 15px;}
+    	.mui-input-row label~input{font-size: 15px;color: #3E3E3E;float: none;}
+    	.mui-input-row label{float: none;font-size: 15px;color: #3E3E3E;}
+    	.eidt{background-color: #FF5A00;color: #FFFFFF;width: 92%;font-size: 18px; 
+    	margin: 39px 4%;height: 45px;border-radius: 5px;border: none;}
+    	.mui-input-row label,input{font-family: "微软雅黑";padding-left: 0;}
+    	.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-scroll-wrapper{position: inherit;}   
+        .mui-bar .mui-btn-link{color: #FF5A00;}  	  
+    </style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">设置</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="user_info">
+								<div class="mui-input-row" style="border: 0;">
+							        <label>旧密码</label>
+							        <input id="Original_pass" type="text" class="mui-input-clear" placeholder="请输入旧密码">
+							    </div>			    
+							</div>
+							<div class="user_info">				
+							    <div class="mui-input-row" style="border: 0;">
+							        <label>新密码</label>
+							        <input id="new_pass" type="password" class="mui-input-clear" placeholder="请输入新密码">
+							    </div>
+							    <div class="mui-input-row">
+							        <label>确认密码</label>
+							        <input id="confirm_pass" type="password" class="mui-input-clear" placeholder="请确认密码">
+							    </div>
+							</div>
+						    <button id="pass" type="button" class="mui-btn eidt">确认修改</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  	
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速		
+					
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				document.getElementById('pass').addEventListener('tap',function(){					
+					var Original=document.getElementById('Original_pass').value;
+					var new_pass=document.querySelector('#new_pass').value;
+					var confirm_pass=document.querySelector('#confirm_pass').value;	
+					var pass_str=/^[@#$%(){}*-+_a-zA-Z0-9]{3,16}$/;
+					if(!pass_str.test(new_pass) && !pass_str.test(confirm_pass)){
+						mui.alert('密码不能输入空格、中文！','提示','','','div');
+						return;
+					};
+					mui.ajax('http://www.zhxft.com/app/account/pwd',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							old_password:Original,
+							password:new_pass,
+							check_password:confirm_pass
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);						
+//							var arrParse.info=arrParse.info;
+							if(arrParse.info.code==0){
+								plus.nativeUI.alert('修改成功',function(){
+									mui.back();
+								})
+//								mui.alert('修改成功','提示','','','div');
+							}else if(arrParse.info.code==12){
+								mui.alert('原密码错误','提示','','','div');
+							}else if(arrParse.info.code==11){
+								mui.alert('2次密码不一致','提示','','','div');
+							}else if(arrParse.info.code==20){
+								mui.alert('修改密码失败,输入密码中有空格、中文、不允许字符','提示','','','div');
+							}else if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+							console.log(error);
+						}
+					});
+				});
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

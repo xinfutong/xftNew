@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content{
+			padding: 0 4.26%;margin-top: 25px;
+		}
+		h4{line-height: 34px;font-size: 24px;font-weight: 400;}
+		.mui-content p{font-size: 15px;color: #808080;}
+		.mui-content p label{margin-left: 10px;color: #5D7FA9;}
+		font{font-size: 15px;color: #505050;line-height: 30px;}
+		#xt_content img{width: 100%;}
+		.mui-bar .mui-btn-link{color: #000000;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">消息详情</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<h4 id="title"><!--这里是标题标题不限制字数这里 是标题标题不限制字数--></h4>
+			<p><span id="time"><!--2017-09-23--></span><label id="author"><!--小小明--></label></p>
+			<div id="xt_content">
+				<!--<font>
+					词条页主要由百科名片和正文内容和一些辅助的信息 组成；百科名片包括概述和基本信息栏，其中概述为 整个词条的简介，
+					对全文进行概括性的介绍，基本信 词条正文内容按照一定的结构对词条展开介绍，其中 词条可以设置一级目录和二级目录，
+					用来对词条划分 结构使用；在正文中，除了文字以外，还可以添加图 片、视频、地图等富媒体内容，同时为了保证内容的 准确性，
+					理想状态是要求每段内容都有参考资料以辅 证；
+				</font>
+				<br />
+				<font>
+					在词条正文底部，为参考资料以及开放分类信息，正 文右侧的辅助信息包括词条统计、词条贡献榜、百科 消息等，词条统计包含页面浏览和编辑次数、最近更 新时间和创建者等信息；
+					词条贡献榜突出显示对词条 申请为优质版本或特色词条的用户，并用勋章图标标 记。
+				</font>-->
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true, //开启硬件加速	
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				}); 
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var xt_id=plus.webview.getWebviewById('xt_detail').xt_id;
+				mui.ajax('http://www.zhxft.com/app/news/news_info',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						id:xt_id
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						document.getElementById('time').innerText=arrParse.news_info.created;
+						document.getElementById('title').innerText=arrParse.news_info.title;
+						document.getElementById('xt_content').innerHTML=arrParse.news_info.content;
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

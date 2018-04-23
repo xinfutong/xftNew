@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content{margin-top: 12px;}
+		.bank{background-color: #FFFFFF;padding: 11px 0;padding-left: 15px;}
+		.bank img{width: 43px;float: left;margin-right: 20px;}
+		.bank h4{font-weight: 400;font-size: 17px;color: #000000;margin-bottom: 8px;}
+		.bank p{margin-bottom: 0;font-size: 14px;color: #808080;}
+		.detailed{
+			/*background-color: #FFFFFF;*/
+			margin-top: 12px;padding-left: 30px;margin-bottom: 12px;
+		}
+		.i{
+			background:url(../../images/i@3x.png)no-repeat;
+			background-size:12px;	
+			background-position: 15px 5px;
+		}
+		.detailed span{font-size: 13px;color: #999999;}
+		.mui-input-row label{width: 20%;font-size: 16px;color: #000000;}
+		.mui-input-row label~input{width: 75%;font-size: 18px;}
+		.mui-btn-primary{width: 92%;margin: 25px 4%;padding: 7px 0;border-radius: 5px;font-size: 18px;}
+		h5{text-align: center;font-size: 15px;color: #007aff;}
+		.mui-scroll-wrapper{position: inherit;}
+		.mui-bar .mui-btn-link,#share_details{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title">提现</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+			<button id="tx_record" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">提现记录</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="bank">
+								<img id="bank_img" src="../../images/js@3x.png" />
+								<h4 id="bank_name"><!--中国建设银行--></h4>
+								<p id="bank_card">尾号<!--0888--></p>
+							</div>
+							<div class="detailed i">
+								<span>单次结算金额上限49990.00</span>
+							</div>
+							<div class="mui-input-row" style="background-color: #FFFFFF;">
+						        <label>金额</label>
+						    	<input type="text" id="tx_money" readonly="readonly" class="" value="">
+						    </div>
+						    <div class="detailed i">
+								<span>提现时间9:00-21:00，超此时间T+1</span>
+							</div>
+						    <button type="button" id="next" class="mui-btn mui-btn-primary">立即提现</button>
+						    <h5 id="share_details">收益详情</h5>
+			            </div>
+			        </div>
+			    </div>
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed+10)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+//					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+				  
+				var tx_type=plus.webview.getWebviewById('withdrawals').tx_type;
+				var tx_pay=plus.webview.getWebviewById('withdrawals').pay;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				
+				document.getElementById('tx_money').value=tx_pay!=undefined?tx_pay:0;
+//				if(tx_type==1 || tx_type==2){
+					mui.ajax('http://www.zhxft.com/app/wallet/walletCloseJudge',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var result = JSON.parse(data);
+							if(result.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							document.getElementById('bank_img').src=result.img;
+							document.getElementById('bank_name').innerText=result.bank_name!=undefined?result.bank_name:'暂无';
+							document.getElementById('bank_card').innerText='尾号'+(result.account!=undefined?result.account:'暂无');
+//							document.getElementById('tx_money').value=result.wallet_sum!=undefined?result.wallet_sum:0;
+						},
+						error:function(xhr,error,errorThrown){
+							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+							console.log(error);
+						}
+					});
+//				}else if(tx_type==3 || tx_type==4){
+//					mui.ajax('http://www.zhxft.com/app/wallet/extension',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var result = JSON.parse(data);
+//							if(result.info.code==6){
+//								plus.storage.clear();
+//								plus.storage.setItem("launchFlag", "林允");
+//								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+//									if(e.index==0){
+//										mui.openWindow({
+//											url: '../index/login.html',
+//											id: 'login',
+//											show: {
+//												autoShow:false,
+//												aniShow: 'pop-in',
+//												duration:'350',
+//											}//额外扩展参数
+//											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//											styles:{softinputMode:'adjustResize'},
+//											waiting: {
+//												autoShow: true
+//											}
+//										});
+//									}
+//								},'div')
+//								return;
+//							}
+//							document.getElementById('bank_img').src=result.img;
+//							document.getElementById('bank_name').innerText=result.bank_name!=undefined?result.bank_name:'暂无';
+//							document.getElementById('bank_card').innerText='尾号'+(result.account!=undefined?result.account:'暂无');
+//							document.getElementById('tx_money').value=result.extension!=undefined?result.extension:0;
+//						},
+//						error:function(xhr,error,errorThrown){
+//							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+//							console.log(error);
+//						}
+//					});
+//				}else if(tx_type==5){
+//					mui.ajax('http://www.zhxft.com/app/wallet/extension',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var result = JSON.parse(data);
+//							if(result.info.code==6){
+//								plus.storage.clear();
+//								plus.storage.setItem("launchFlag", "林允");
+//								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+//									if(e.index==0){
+//										mui.openWindow({
+//											url: '../index/login.html',
+//											id: 'login',
+//											show: {
+//												autoShow:false,
+//												aniShow: 'pop-in',
+//												duration:'350',
+//											}//额外扩展参数
+//											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//											styles:{softinputMode:'adjustResize'},
+//											waiting: {
+//												autoShow: true
+//											}
+//										});
+//									}
+//								},'div')
+//								return;
+//							}
+//							document.getElementById('bank_img').src=result.img;
+//							document.getElementById('bank_name').innerText=result.bank_name!=undefined?result.bank_name:'暂无';
+//							document.getElementById('bank_card').innerText='尾号'+(result.account!=undefined?result.account:'暂无');
+//							document.getElementById('tx_money').value=result.extension!=undefined?result.extension:0;
+//						},
+//						error:function(xhr,error,errorThrown){
+//							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+//							console.log(error);
+//						}
+//					});
+//				}
+				//提现
+				document.getElementById('next').addEventListener('tap',function(){
+					var val=document.getElementById('tx_money').value;
+					if(val==0){
+						mui.alert('提现金额必须大于0','提示','','','div');
+						return;
+					}
+					if(tx_type==1){
+						mui.ajax('http://www.zhxft.com/app/wallet/close_submit',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								closeMoney:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var result = JSON.parse(data);
+								if(result.info.code==0){
+									var list = plus.webview.currentWebview().opener();
+									list.reload();
+									mui.alert('提现成功！','提示','','','div');
+								}else{
+									mui.alert('提现失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+					}else if(tx_type==2){
+						mui.ajax('http://www.zhxft.com/app/wallet/repayment_submit',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								closeMoney:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var result = JSON.parse(data);
+								if(result.info.code==0){
+									var list = plus.webview.currentWebview().opener();
+									list.reload();
+									mui.alert('提现成功！','提示','','','div');
+								}else{
+									mui.alert('提现失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+					}else if(tx_type==3){
+						if(tx_type==3){
+							mui.alert('提现“推广”升级收益金额，提现支付方式为T0！','提示','','','div');
+						}						
+						mui.ajax('http://www.zhxft.com/app/wallet/extension_submit',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								closeMoney:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var result = JSON.parse(data);
+								if(result.info.code==0){
+									var list = plus.webview.currentWebview().opener();
+									list.reload();
+									mui.alert('提现成功！','提示','','','div');
+								}else{
+									mui.alert('提现失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+					}else if(tx_type==4){						
+						if(tx_type==4){
+							mui.alert('提现“代理”升级收益金额，提现支付方式为T3！','提示','','','div');
+						}
+						mui.ajax('http://www.zhxft.com/app/wallet/agents_submit',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								closeMoney:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var result = JSON.parse(data);
+								if(result.info.code==0){
+									var list = plus.webview.currentWebview().opener();
+									list.reload();
+									mui.alert('提现成功！','提示','','','div');
+								}else{
+									mui.alert('提现失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+					}else if(tx_type==5){						
+						mui.ajax('http://www.zhxft.com/app/wallet/reward_submit',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								closeMoney:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var result = JSON.parse(data);
+								if(result.info.code==0){
+									var list = plus.webview.currentWebview().opener();
+									list.reload();
+									mui.alert('提现成功！','提示','','','div');
+								}else{
+									mui.alert('提现失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+					}
+				});
+				document.getElementById('share_details').addEventListener('tap',function(){
+					if(tx_type==1 || tx_type==2){
+						mui.openWindow({
+							url: 'share_profit.html',
+							id: 'share_profit',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else if(tx_type==3){
+						mui.openWindow({
+							url: 'extension_profit.html',
+							id: 'extension_profit',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else if(tx_type==4){
+						mui.openWindow({
+							url: 'extension_profit_dl.html',
+							id: 'extension_profit_dl',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else if(tx_type==5){
+						mui.openWindow({
+							url: 'company_award.html',
+							id: 'company_award',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}					
+				})
+				document.getElementById('tx_record').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'tx_record.html',
+						id: 'tx_record',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+					    extras:{
+					      	tx_type:tx_type
+					    },
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})	
+		</script>
+	</body>
+
+</html>

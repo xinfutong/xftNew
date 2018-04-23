@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-input-group{background-color: #FFFFFF;margin-top: 12px;}
+		.mui-input-row label{color: #3E3E3E;font-size: 15px;width: 30%;}
+		.mui-input-row label~input{color: #000000;font-size: 15px;width: 70%;}
+		.mui-btn-primary{width: 92%;margin: 0 4%;margin-top: 75px;background-color: #FF5A00;
+		padding-top: 9px;padding-bottom: 6px;font-size: 18px;border: none;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}    	   
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">身份认证</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<form class="mui-input-group">			    
+							    <div class="mui-input-row">
+							        <label>会员昵称</label>
+							    	<input type="text" id="user_name" class="" placeholder="请输入会员昵称">
+							    </div>
+							</form>
+							<form class="mui-input-group">			    
+							    <div class="mui-input-row">
+							        <label>姓名</label>
+							    	<input type="text" id="id_name" class="" placeholder="请输入姓名">
+							    </div>
+							    <div class="mui-input-row">
+							        <label>身份证号</label>
+							    	<input type="text" id="id_card" class="" maxlength="18" placeholder="请输入身份证号" value="">
+							    </div>
+							</form>
+							<button type="button" id="next" class="mui-btn mui-btn-primary">下一步</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  	
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				console.log(uid)
+				
+				window.addEventListener('Authentication_back',function(event){
+					mui.back();
+				});
+				
+				mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,					
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0000'){
+							document.getElementById('user_name').value=arrParse.name;
+							document.getElementById('id_name').value=arrParse.loginId;
+							document.getElementById('id_card').value=arrParse.idCard;
+							document.getElementById('next').style.display='none';
+							document.getElementById('user_name').readOnly='readOnly';
+							document.getElementById('id_name').readOnly='readOnly';
+							document.getElementById('id_card').readOnly='readOnly';
+						}else if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+//				if(plus.storage.getItem('name')!=null && plus.storage.getItem('name')!=''){
+//					document.getElementById('user_name').value=plus.storage.getItem('name');
+//					document.getElementById('next').style.display='none';
+//					document.getElementById('user_name').readOnly='readOnly';
+//				}
+				
+				document.getElementById('next').addEventListener('tap',function(){
+					var name=document.getElementById('user_name').value;
+					var id_name=document.getElementById('id_name').value;
+					var id_card=document.getElementById('id_card').value;
+					if(name!='' && id_card!='' && id_name!=''){
+//						plus.storage.setItem('name',name);
+						plus.storage.setItem('id_name',id_name);
+						plus.storage.setItem('id_card',id_card);
+						mui.openWindow({
+							url: 'bank_authentication.html',
+							id: 'bank_authentication',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{
+								name:name
+							},//额外扩展参数
+							styles:{
+								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.alert('请完整的填写完身份认证所需信息！','提示','','','div');
+					}
+					
+				})
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

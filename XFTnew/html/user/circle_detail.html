@@ -1,0 +1,713 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-content{margin-bottom: 40px;}
+		.rate_type{background-color: #FFFFFF;padding-right: 14px;
+			position: relative;border-bottom: 1px solid #DDDDDD;
+		}
+		.left{width: 17%;float: left;padding-bottom: 10%;}
+		.left img{width: 40px;height: 40px;margin-top: 14px;margin-left: 16%;border-radius: 50%;}
+		.center img{width: 80px;margin-bottom: 15px;}
+		.center{padding: 12px 0;padding-bottom: 0;width: 83%;
+    float: left;}
+		.center h5{color: #000000;font-size: 16px;font-weight: 500;}
+		.center h4{color: #000000;font-size: 15px;padding-top: 9px;padding-bottom: 20px;
+		font-weight: 300;color: #505050;line-height: 18px;}
+		.mui-bottom p{padding-bottom: 11px;margin: 0;font-size: 12px;padding-left: 16.5%;}
+		.mui-bottom p label{margin-left: 2.9%;margin-right: 2.9%;}
+		.mui-grid-view.mui-grid-9{background-color: #FFFFFF;border: 0;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{border: 0;padding: 0;}
+		.mui-table-view-cell img{width: 95%;margin: 0;max-height: 85px;}
+		
+		.top_ul{width:100%;height:auto;margin-top:1rem;}
+	.top_ul li{width:4.93rem;height:4.93rem;float:left;margin:0.25rem 2% 0.25rem 2%;}
+	.top_ul li img{width:100%;height:100%;}
+	
+	.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		.mui-preview-header {
+			height: 44px;
+			top: 0;
+		}
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 15px auto 4;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0; 
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: auto;
+			height: auto;  
+			max-width: 100%;
+			max-height: 100%;
+		} 
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%; 
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		p img {
+			max-width: 100%;
+			height: auto;
+		}
+		.panelComment {
+			padding: 5px;
+			height: 45px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelPrice {
+			padding: 5px;
+			height: 85px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelComment input[type="text"]
+		{
+			width: 80%;
+			height: 35px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 4px 0px 0px 4px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+		}
+		
+		.panelComment input[type="button"],
+		.panelPrice input[type="button"] {
+			width: 20%;
+			height: 35px;
+			border-radius: 0px 4px 4px 0px;
+		}
+		
+		.panelPrice input[type="text"] {
+			height: 35px;
+			width: 100%;
+			margin-bottom: 5px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border: 1px solid #ebebeb;
+			border-radius: 0px;
+			border-radius: 4px;
+		}
+		
+		.panelPrice input[type="number"] {
+			height: 35px;
+			width: 80%;
+			color: #ee4745;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 0px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+			border-radius: 4px 0px 0px 4px;
+			
+		}
+		.detail{padding-left: 12px;background-color: #FFFFFF;padding-bottom: 20px;}
+		.dz_detail{padding: 14px 0;border-bottom: 1px solid #DDDDDD;}
+		.dz_detail img{/*width: 8%;*/width: 30px;height: 30px;border-radius: 5px;margin-left: 5px;}
+		.dz_detail span{font-size: 12px;color: #505050;padding: 5px 8px;
+		display: inline-block;background-color: #E6E6E6;border-radius: 2px;
+		position: absolute;margin-left: 5px;}
+		.country-agent{
+			background:url(../../images/dz_detail@3x.png)no-repeat;
+			background-size:20px;	
+			/*background-position: 0px 20px;*/
+			padding-left: 12%;min-height: 58px;
+    		background-position-y: 50%;
+		}
+		.detail .center{float: none;}
+		.detail .center h4{padding-bottom: 6px;}
+		.detail .left img{width: 36px;height:36px;border-radius: 2px;}
+		.send{position: fixed;z-index: 800;bottom: -15px;width: 100%;}
+		.send img{width: 45px;position: absolute;top: 8px;right: 0px;padding: 0 10px;}
+		.bot_right{padding: 0 2.9%;float: right;width:50%;text-align: right;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+	</style>	
+	<body>		
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">话题详情</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">	
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div id="theme" class="rate_type">
+								<!--<div class="left">
+									<img src="../../images/xc_img@3x.png" />
+								</div>
+								<div class="center">
+									<h5><b>景甜</b></h5>
+									<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 水电费</h4>	
+									<ul class="mui-table-view mui-grid-view mui-grid-9">
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                    <img src="../../images/phone-1@3x.png" />
+							            </li>
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                   <img src="../../images/phone-1@3x.png" />	
+							            </li>
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                   <img src="../../images/phone-1@3x.png" />
+							            </li>
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                   <img src="../../images/phone-1@3x.png" />
+							            </li>
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                   <img src="../../images/phone-1@3x.png" />	
+							            </li>
+							            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+							                    <img src="../../images/phone-1@3x.png" />
+							            </li>
+							            
+						        	</ul>
+								</div>-->
+								<!--<div class="mui-bottom">
+									<p>
+										<span style="margin-right: 2.9%;">05-12 12:14</span>
+										<a>删除</a>
+										<span style="float: right;">
+											<span id="detail_dz">
+												<img src="../../images/dz-yes@3x.png" style="width: 15px;" />
+												<span style="color: #108EE9;">122</span>
+											</span>
+											<span class="comment">
+												<img src="../../images/comment@3x.png" style="width: 14px;"/>
+												<span>321</span>	
+											</span>								
+										</span>
+									</p>
+								</div>-->
+							</div>
+							<div class="detail">
+								<div id="comment_men" class="dz_detail country-agent">					
+									<!--<img src="../../images/phone-1@3x.png" />
+									<img src="../../images/xc_img@3x.png" />
+									<img src="../../images/phone-1@3x.png" />
+									<img src="../../images/xc_img@3x.png" />
+									<img src="../../images/phone-1@3x.png" />
+									<img src="../../images/xc_img@3x.png" />
+									<img src="../../images/phone-1@3x.png" />
+									<img src="../../images/xc_img@3x.png" />
+									<span>+8</span>-->
+								</div>
+								<!--<div class="rate_type">
+									<div class="left">
+										<img src="../../images/xc_img@3x.png" />
+									</div>
+									<div class="center">
+										<h5><b>景甜</b></h5>
+										<h4>今天是520了我今晚要去喝点酒</h4>	
+									</div>
+									<div class="mui-bottom">
+										<p>
+											<span>05-12 12:14</span>							
+										</p>
+									</div>
+								</div>
+								<div class="rate_type">
+									<div class="left">
+										<img src="../../images/xc_img@3x.png" />
+									</div>
+									<div class="center">
+										<h5><b>景甜</b></h5>
+										<h4>今天是520了我今晚要</h4>	
+									</div>
+									<div class="mui-bottom">
+										<p>
+											<span>05-12 12:14</span>							
+										</p>
+									</div>
+								</div>-->
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<div class="send" style="display: none;">
+			<input type="text" id="sent_content" placeholder="在此输入评论内容！"/>
+			<img id="send_comment" src="../../images/send@3x.png" />
+		</div>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  	
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(45)+'px';
+				}
+				
+				//	图片预览方法调用
+				mui.previewImage();
+				var oglHeight = document.querySelector("body").offsetHeight;
+				var cur_width=document.body.clientWidth;
+				var num=8;
+				if(cur_width<375){
+					num=7;
+				}
+				var pl_id=plus.webview.getWebviewById('circle_detail').circle_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/customer/circleDetail',{
+					async:false,
+					data:{						
+						circle_id:pl_id,
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var result=arrParse.info;
+						var content=document.getElementById('theme');
+						content.innerHTML='';
+						var d='';
+						var dz='../../images/dz-no@3x.png';
+						if(result.likes>0){
+							d='color: #108EE9;';
+							dz='../../images/dz-yes@3x.png';
+						}
+//						for (var i=0;i<arrParse.info.length;i++) {
+							content.innerHTML+='<div class="left">'
+								+'<img src="'+result.headPic+'" />'
+							+'</div>'
+							+'<div class="center" title="'+pl_id+'">'
+								+'<h5><b>'+result.name+'</b></h5>'
+								+'<h4>'+result.content+'</h4>'
+					        	+'<ul id="list_'+pl_id+'" class="mui-table-view mui-grid-view mui-grid-9">'
+							           							            							            
+						        +'</ul>'
+							+'</div>'							
+							+'<div class="mui-bottom">'
+								+'<p>'
+									+'<span style="margin-right: 2.9%;">'+result.time+'</span>'
+//									+'<a id="del'+pl_id+'">删除</a>'
+									+'<span class="bot_right">'
+										+'<span id="detail_dz" title="'+pl_id+'" class="dz_yes" style="margin-right: 15px;">'
+											+'<img src="'+dz+'" style="width: 15px;" />'
+											+'<span id="dz'+pl_id+'" style="'+d+'margin-left:6%;">'+result.likes+'</span>'
+										+'</span>'
+										+'<span title="'+pl_id+'" class="comment">'
+											+'<img src="../../images/comment@3x.png" style="width: 14px;"/>'
+											+'<span id="pl'+pl_id+'" style="margin-left:6%;">'+result.review+'</span>'
+										+'</span>'	
+									+'</span>'
+								+'</p>'
+							+'</div>';
+//							document.querySelector('#list_'+pl_id+'').innerHTML='';
+							for (var j=0;j<result.image.length;j++) {
+								document.querySelector('#list_'+pl_id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+					                +'<img src="'+result.image[j]+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+					            +'</li>';
+							}
+//						}
+						var men=document.getElementById('comment_men');
+						num=arrParse.head_portrait!=undefined?(arrParse.head_portrait.length<num?arrParse.head_portrait.length:num):0;
+						for (var k=0;k<num;k++) {
+							men.innerHTML+='<img src="'+arrParse.head_portrait[k]+'" />';
+						}
+						if(arrParse.likesPerson!=undefined){
+							men.innerHTML+='<span>+'+arrParse.likesPerson.length+'</span>';
+						}
+						var pl=document.querySelector('.detail');
+						for (var i=0;i<arrParse.review.length;i++) {
+							pl.innerHTML+='<div class="rate_type">'
+								+'<div class="left">'
+									+'<img src="'+arrParse.review[i].headPic+'" />'
+								+'</div>'
+								+'<div class="center">'
+									+'<h5><b>'+arrParse.review[i].customerId+'</b></h5>'
+									+'<h4>'+arrParse.review[i].content+'</h4>'	
+								+'</div>'
+								+'<div class="mui-bottom">'
+									+'<p>'
+										+'<span>'+arrParse.review[i].reportTime+'</span>'							
+									+'</p>'
+								+'</div>'
+							+'</div>';
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				//发表评论
+				document.querySelector('.comment').addEventListener('tap',function(){
+					$('.send').toggle();
+					setTimeout(function(){
+						var inputElem = document.getElementById('sent_content');
+						inputElem.click();
+				    	inputElem.focus(); 
+					},400);
+					//弹出软键盘
+					initNativeObjects();
+    				showSoftInput();
+				})
+				document.getElementById('send_comment').addEventListener('tap',function(){
+					var val=document.getElementById('sent_content').value;						
+					mui.ajax('http://www.zhxft.com/app/customer/review',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							circle_id:pl_id,
+							content:val
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.state==0){
+								location.reload();
+								mui.toast('评论成功',{ duration:'long', type:'div' }) 
+//								mui.alert('评论成功','提示','','','div');
+							}else if(arrParse.state==1){
+								mui.toast('评论失败',{ duration:'long', type:'div' }) 
+//								mui.alert('评论失败！','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+					$('.send').hide();
+				})
+				document.getElementById('sent_content').onkeydown=function(event){
+		            var e = event || window.event || arguments.callee.caller.arguments[0];		                      
+		            if(e && e.keyCode==13){ // enter 键
+		                //要做的事情		               				
+		                var val=document.getElementById('sent_content').value;
+						mui.ajax('http://www.yidianfuma.com/app/customer/review',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								circle_id:pl_id,
+								content:val
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.state==0){
+									location.reload();
+									mui.toast('评论成功',{ duration:'long', type:'div' }) 
+//									mui.alert('评论成功','提示','','','div');
+								}else if(arrParse.state==1){	
+									mui.toast('评论失败',{ duration:'long', type:'div' }) 
+//									mui.alert('评论失败！','提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+						document.getElementById('sent_content').value='';
+		            }
+              	};
+              	var windowSizeChange = function () {
+				    var tempHeight = document.querySelector("body").offsetHeight;				
+				    if(tempHeight == oglHeight) {
+				        console.info("屏幕键盘隐藏");
+				        // 这里自己添加逻辑
+				    } else {
+				    	$('.send').hide();
+				        console.info("键盘显示");
+				        // 这里自己添加逻辑
+				    }
+				};
+				$("#sent_content").blur(function(){
+				  	windowSizeChange();
+				});
+
+//				document.getElementById('send_comment').addEventListener('tap',function(){
+//					$('.send').hide();
+//				});
+				
+				//点赞
+				document.getElementById('detail_dz').addEventListener('tap',function(){
+//					var circle_id=$(this).attr('title')
+					var num=$(this).children('span').text();	
+					num=parseInt(num)+1;
+					var is_dz=0;
+					mui.ajax('http://www.zhxft.com/app/customer/likes',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							circle_id:pl_id
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.state==0){
+								is_dz=1;
+//								location.reload();
+//								$(this).children('img').attr('src','../../images/dz-yes@3x.png');
+								$('#dz'+circle_id+'').text(parseInt(num));								
+							}else if(arrParse.state==2){
+//								$(this).children('img').attr('src','../../images/dz-yes@3x.png');
+								mui.alert('你已经对此圈子点过赞了！','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+					if(is_dz==1){
+						$(this).children('img').attr('src','../../images/dz-yes@3x.png');
+					}
+				});
+				
+				
+				
+				//弹出软键盘
+				var nativeWebview, imm, InputMethodManager;
+				var initNativeObjects = function() {
+				    if (mui.os.android) {
+				        var main = plus.android.runtimeMainActivity();
+				        var Context = plus.android.importClass("android.content.Context");
+				        InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+				        imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+				    } else {
+				        nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+				    }
+				};
+				var showSoftInput = function() {
+				    if (mui.os.android) {
+				        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+				    } else {
+				        nativeWebview.plusCallMethod({
+				            "setKeyboardDisplayRequiresUserAction": false
+				        });
+				    }
+				    setTimeout(function() {
+				       //此处可写具体逻辑设置获取焦点的input
+				       var inputElem = document.querySelector('#sent_content');
+				              inputElem.focus(); 
+				    }, 200);
+				};
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

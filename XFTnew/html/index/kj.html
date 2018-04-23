@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>话费充值</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/wx.css" />
+		<script src="../../js/jquery-1.8.0.min.js"></script>
+	</head>
+	<style>
+		.mui-btn{text-align: left;}
+		.mui-action-back label{font-family: "微软雅黑";}
+		.head_left{margin-top: 12px;}
+		.chioce{margin-top: 10px;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">收银台</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">			
+			<!--<div class="pay_head">-->
+				<div class="head_left">
+					<img src="../../images/wx_type@3x.png" />
+					<ul>
+						<li style="margin-bottom: 17px;">
+							<span id="pay_money" style="font-size: 24px;color: #000000;margin-top: 10px;display: inline-block;"><!--￥88.00--></span>
+						</li>
+						<li>
+							<label>收款人</label>: <span id="name"><!--景小甜--></span>
+						</li>
+						<li>
+							<label>手机号</label>: <span id="phone"><!--13143888888--></span>
+						</li>
+						<!--<li>
+							<label>订单编号</label>: <span>1234123123</span>
+						</li>-->
+					</ul>
+				</div>				
+			<!--</div>-->				
+		</div>
+		<div class="chioce mui-btn">
+			<div class="mui-input-row mui-radio">
+				<label>
+					<img src="../../images/kjzf@3x.png" />
+				</label>
+				<span>快捷支付</span>
+			</div>
+			<ul class="mui-table-view" id="kj_type">
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<h4>快捷支付1</h4>
+			        	<div><span>结算：D0即刷即到</span><label id="arrival_time1"><!--（秒到时间05:00-23:00）--></label></div>			        	
+			        	<span>额度：<label id="Quota1"><!--20000--></label>元/笔</span><span style="margin-left: 16px;">费率：<label id="rate1"><!--0.40%--></label><!--+1-->元</span>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<h4>快捷支付2<span style="color: red;margin-left: 10px;">(*注：单笔最低支付金额300元)</span></h4>
+			        	<div><span>结算：D0即刷即到</span><label id="arrival_time2"></label></div>			        	
+			        	<span>额度：<label id="Quota2"></label>元/笔</span><span style="margin-left: 16px;">费率：<label id="rate2"></label>元</span>
+			        </a>
+			    </li>			    
+			</ul>
+		</div>	
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">			
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true, //开启硬件加速					
+				});
+				
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				window.addEventListener('kj_back',function(event){
+					mui.back();
+				});
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var money=plus.webview.getWebviewById('kj').pay;
+				document.getElementById('pay_money').innerText='￥'+money;
+				document.getElementById('name').innerText=plus.storage.getItem('name');
+				document.getElementById('phone').innerText=plus.storage.getItem('phone');				
+				var mask=mui.createMask();//遮罩层
+				mui.ajax('http://www.zhxft.com/app/index1/my_rate',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						document.getElementById('arrival_time1').innerText='(秒到时间'+arrParse.kj1_T0_time+')';
+						document.getElementById('arrival_time2').innerText='(秒到时间'+arrParse.kj2_T0_time+')';
+						document.getElementById('Quota1').innerText=arrParse.kj_T0_quota;
+						document.getElementById('Quota2').innerText=arrParse.kj_T0_quota;
+						document.getElementById('rate1').innerText=arrParse.no_rate+'%';
+						document.getElementById('rate2').innerText=arrParse.no_rate+'%';
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				mui('#kj_type').on('tap','li',function(){
+					var i=$(this).index();
+					var type_id;
+					if(i==0){
+						type_id=4
+					}else if(i==1){
+						type_id=8
+					}
+					mui.ajax('http://www.zhxft.com/app/index1/pay',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							type_id:type_id,
+							pay:money
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						beforeSend: function() {
+					        plus.nativeUI.showWaiting('加载中...', '加载中...');
+					        mask.show();//显示遮罩层
+					    },
+					    complete: function() {
+					        plus.nativeUI.closeWaiting();
+					        mask.close();//关闭遮罩层
+					    },
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);							
+							if(arrParse.idCard==0){
+								mui.confirm('你尚未认证实名制，是否前往绑定实名！','提示',['是','否'],function(e){
+									var i=e.index;
+									if(i==0){
+										mui.openWindow({
+											url: '../user/id_authentication.html',
+											id: 'id_authentication',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},styles:{
+//												bounce: 'vertical',bounceBackground:'#fc1',
+											},
+											extras:{
+												
+											},//额外扩展参数
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div');
+							}else{
+								if(arrParse.credit_state==1){
+									var order=arrParse.kjpay.formNo;									
+									mui.openWindow({
+										url: 'kj_pay.html',
+										id: 'kj_pay',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{
+//											bounce: 'vertical',bounceBackground:'#fc1',
+										},
+										extras:{
+											type:i,pay:money,order_id:order
+										},//额外扩展参数
+										waiting: {
+											autoShow: true
+										}
+									});
+								}else if(arrParse.credit_state==0){
+									var order=arrParse.kjpay.formNo;
+									//是否绑定信用卡
+									if(i==0){
+										mui.openWindow({
+											url: 'bind_card.html',
+											id: 'bind_card',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{
+	//											bounce: 'vertical',bounceBackground:'#fc1',
+											},
+											extras:{type:i,pay:money,order_id:order},//额外扩展参数
+											waiting: {
+												autoShow: true
+											}
+										});
+									}else if(i==1){
+										mui.openWindow({
+											url: 'kj_two_bind.html',
+											id: 'kj_two_bind',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{
+	//											bounce: 'vertical',bounceBackground:'#fc1',
+											},
+											extras:{type:i,pay:money,order_id:order},//额外扩展参数
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+									
+								}
+								
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+//					mui.ajax('http://www.zhxft.com/app/index1/bank_api',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token,						
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var arrParse = JSON.parse(data);
+//							if(arrParse.data.length>0){
+//								mui.openWindow({
+//									url: 'kj_pay.html',
+//									id: 'kj_pay',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									},
+//									extras:{type:i},//额外扩展参数
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}else{
+//								mui.openWindow({
+//									url: 'bind_card.html',
+//									id: 'bind_card',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									},
+//									extras:{type:i},//额外扩展参数
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}
+//						},
+//						error:function(xhr,error,errorThrown){
+//							console.log(error);
+//						}
+//					});										
+				});
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

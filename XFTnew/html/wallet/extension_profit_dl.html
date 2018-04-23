@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	h5{text-align: center;margin: 37px 0;}
+    	/*.mui-icon-back:before, .mui-icon-left-nav:before{color: #999999;}*/
+    	.mui-content{padding: 0 7px;margin-bottom: 20px;}
+    	.card{background-color: #FFFFFF;border-radius: 5px;margin-top: 12px;font-family: "微软雅黑";padding: 0 8px;}
+    	.balance{border-bottom: 1px solid #DDDDDD;padding: 13px 10px;padding-bottom: 17px;}
+    	.balance p{font-size: 12px;text-align: center;color: #808080;margin-bottom: 0;}
+    	.count_money{margin-top: 13px;color: #000000;font-size: 2.6rem;text-align: center;
+    	line-height: 2.6rem;}
+    	.count_money span{font-size: 2.6rem;}
+    	.money_user{padding: 7px 10px;font-size: 14px;}
+    	.money_user span{color: #222222;font-size: 15px;}
+    	.money_user label{color: #808080;font-size: 15px;}
+    	.money_user p{margin: 0;padding: 6px 0;}
+    	.Settlement_bank{background-color: #FFFFFF;border-radius: 5px;margin-top: 14px;font-family: "微软雅黑";padding: 7px 20px;}
+    	.Settlement_bank label{font-size: 14px;color: #666666;}
+    	/*.mui-bar .mui-icon{font-size: 35px;padding-top: 6px;}*/
+    	/*.mui-bar-nav.mui-bar .mui-icon{margin-left: -2px;}*/  
+    	.list-wrapper{margin-top: 50px;} 	
+    	.mui-scroll{padding-bottom: 50px;padding: 0 15px;}
+    	.mui-table-view:after{height: 0;}
+    	.mui-table-view-cell{padding: 11px 0;padding-bottom: 6px;}
+    	.mui-table-view-cell>a:not(.mui-btn){margin: -11px 0px;font-size: 17px;color: #000000;}
+    	.mui-navigate-right:after, .mui-push-right:after{right: -5px;font-size: 25px;}
+    	.balance_head span{font-size: 17px;color: #000000;display: inline-block;}
+    	.balance_head label{font-size: 12px;color: #808080;display: inline-block;width: 100%;}
+    	.mui-table-view{/*margin-top: 7px;*/padding: 0 10px;padding-bottom: 15px;}
+    	.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+    </style> 
+	<body>		
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">代理升级收益</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="list-t-wrap">
+		    <div id="pullrefresh" style="margin-top: 20px;" class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="list-wrapper">
+		                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--<div id="pullrefresh" style="margin-top: 50px;">
+			<div class="mui-content">
+				<div class="card">
+					<div class="balance">
+						<div class="balance_head">
+							<span>推广收益</span>
+							<label>2017-10-24</label>
+						</div>
+						
+						<p class="money">收益金额</p>
+						<div class="count_money">
+							￥<span>188.25</span>
+						</div>
+					</div>				
+					<div class="money_user">
+						<p>
+							<label>升级好友：</label>
+							<span>李东明</span>
+						</p>
+						<p>
+							<label>升级费用：</label>
+							<span>100.00元</span>
+						</p>
+						<p>
+							<label>收益比例：</label>
+							<span>20%</span>
+						</p>												
+					</div>
+					<div class="button" id="1">
+						<ul class="mui-table-view">
+						    <li class="mui-table-view-cell">
+						        <a href="transaction_content.html" class="mui-navigate-right">查看详情</a>
+						    </li>    
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<div class="balance">
+						<div class="balance_head">
+							<span>推广收益</span>
+							<label>2017-10-24</label>
+						</div>
+						
+						<p class="money">收益金额</p>
+						<div class="count_money">
+							￥<span>188.25</span>
+						</div>
+					</div>				
+					<div class="money_user">
+						<p>
+							<label>升级好友：</label>
+							<span>李东明</span>
+						</p>
+						<p>
+							<label>升级费用：</label>
+							<span>100.00元</span>
+						</p>
+						<p>
+							<label>收益比例：</label>
+							<span>20%</span>
+						</p>												
+					</div>
+					<div class="button">
+						<ul class="mui-table-view">
+						    <li class="mui-table-view-cell">
+						        <a href="transaction_content.html" class="mui-navigate-right">查看详情</a>
+						    </li>    
+						</ul>
+					</div>
+				</div>	
+			</div>
+		</div>-->
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+//				      down: {
+//				        callback: pulldownRefresh
+//				      },http://www.cnblogs.com/CyLee/p/5324224.html
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速					
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.list-t-wrap').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+//					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+10)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+				}
+				//关闭等待框
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/wallet/upgrade_agents',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);	
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var result=arrParse.datas_dh;
+						var list=document.querySelector('.list-wrapper');
+						load_len=(parseFloat(arrParse.count)/10);
+//						load_len=(parseInt(result.length)/10);
+						list.innerHTML='';
+						for (var i=0;i<10;i++) {
+							list.innerHTML+='<div class="card">'
+								+'<div class="balance">'
+									+'<p class="money">奖励金额</p>'
+									+'<div class="count_money">'
+										+'￥'+result[i].money+''
+									+'</div>'
+								+'</div>'				
+								+'<div class="money_user">'
+									+'<p>'
+										+'<label>升级金额：</label>'
+										+'<span>'+result[i].pay+'</span>'
+									+'</p>'
+//									+'<p>'
+//										+'<label>分润比例</label>'
+//										+'<span>'+(parseInt(result[i].feeRate)*100)+'%</span>'
+//									+'</p>'
+									+'<p>'
+										+'<label>好友名称：</label>'
+										+'<span>'+result[i].loginId+'</span>'
+									+'</p>'
+//									+'<p>'
+//										+'<label>好友关系</label>'
+//										+'<span>'+jy_type+'</span>'
+//									+'</p>'
+									+'<p>'
+										+'<label>交易时间：</label>'
+										+'<span>'+result[i].time+'</span>'
+									+'</p>'
+								+'</div>'
+							+'</div>';															
+						}						
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+			  function pullupRefresh() 
+			  {
+			    setTimeout(function() {
+			      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+			      if(count > load_len){
+			      	mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' }) 
+//			      	mui.alert('已经没有更多可加载的了','提示','','','div');
+			      }
+			      var cells = document.body.querySelectorAll('.card');
+			      page++;
+			      var num=page*10;
+			      mui.ajax('http://www.zhxft.com/app/wallet/upgrade_agents',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:num
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);	
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var result=arrParse.datas_dh;
+						var list=document.querySelector('.list-wrapper');
+//						for (var i = cells.length, len = i + 10; i < len; i++) {
+						for (var i = 0; i < result.length; i++) {		
+							list.innerHTML+='<div class="card">'
+								+'<div class="balance">'
+									+'<p class="money">奖励金额</p>'
+									+'<div class="count_money">'
+										+'￥'+result[i].money+''
+									+'</div>'
+								+'</div>'				
+								+'<div class="money_user">'
+									+'<p>'
+										+'<label>升级金额：</label>'
+										+'<span>'+result[i].pay+'</span>'
+									+'</p>'
+//									+'<p>'
+//										+'<label>分润比例</label>'
+//										+'<span>'+(parseInt(result[i].feeRate)*100)+'%</span>'
+//									+'</p>'
+									+'<p>'
+										+'<label>好友名称：</label>'
+										+'<span>'+result[i].loginId+'</span>'
+									+'</p>'
+//									+'<p>'
+//										+'<label>好友关系</label>'
+//										+'<span>'+jy_type+'</span>'
+//									+'</p>'
+									+'<p>'
+										+'<label>交易时间：</label>'
+										+'<span>'+result[i].time+'</span>'
+									+'</p>'
+								+'</div>'
+							+'</div>';															
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+			    }, 500);
+			}
+			  
+		    mui('.card').on('tap','.button',function(){
+		    	var i=$(this).attr('id');
+		    	mui.openWindow({
+					url: 'profit_details.html',
+					id: 'profit_details',
+					show: {
+						autoShow:false,
+						aniShow: 'pop-in',
+						duration:'350',
+					},styles:{
+							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+				    extras:{
+				      	order_id:i
+				    },
+					waiting: {
+						autoShow: true
+					}
+				});
+		    });
+			    //关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

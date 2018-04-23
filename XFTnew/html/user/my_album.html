@@ -1,0 +1,758 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		/*body{font-family: "微软雅黑";}*/
+		.mui-content{margin-bottom: 40px;}
+		.rate_type{background-color: #FFFFFF;padding-right: 3%;
+			position: relative;border-bottom: 1px solid #DDDDDD;
+		}
+		.left{width: 17%;float: left;padding-bottom: 60px;}
+		.left img{width: 40px;height:40px;margin-top: 14px;margin-left: 16%;border-radius: 50%;}
+		.center img{width: 80px;margin-bottom: 15px;}
+		.center{padding: 12px 0;padding-bottom: 0;width: 83%;
+    float: left;}
+		.center h5{color: #000000;font-size: 16px;font-weight: 500;}
+		.center h4{color: #000000;font-size: 15px;padding-top: 9px;padding-bottom: 20px;
+		font-weight: 300;color: #505050;line-height: 18px;}
+		.mui-bottom p{padding-bottom: 11px;margin: 0;font-size: 0.8rem;padding-left: 16.5%;}
+		.mui-bottom p label{margin-left: 2.9%;margin-right: 2.9%;}
+		.mui-grid-view.mui-grid-9{background-color: #FFFFFF;border: 0;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{border: 0;padding: 0;}
+		.mui-table-view-cell img{width: 95%;margin: 0;max-height: 85px;}
+		
+		.top_ul{width:100%;height:auto;margin-top:1rem;}
+	.top_ul li{width:4.93rem;height:4.93rem;float:left;margin:0.25rem 2% 0.25rem 2%;}
+	.top_ul li img{width:100%;height:100%;}
+	
+	.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		.mui-preview-header {
+			height: 44px;
+			top: 0;
+		}
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 15px auto 4;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0; 
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: auto;
+			height: auto;  
+			max-width: 100%;
+			max-height: 100%;
+		} 
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%; 
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		p img {
+			max-width: 100%;
+			height: auto;
+		}
+		.panelComment {
+			padding: 5px;
+			height: 45px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelPrice {
+			padding: 5px;
+			height: 85px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelComment input[type="text"]
+		{
+			width: 80%;
+			height: 35px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 4px 0px 0px 4px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+		}
+		
+		.panelComment input[type="button"],
+		.panelPrice input[type="button"] {
+			width: 20%;
+			height: 35px;
+			border-radius: 0px 4px 4px 0px;
+		}
+		
+		.panelPrice input[type="text"] {
+			height: 35px;
+			width: 100%;
+			margin-bottom: 5px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border: 1px solid #ebebeb;
+			border-radius: 0px;
+			border-radius: 4px;
+		}
+		
+		.panelPrice input[type="number"] {
+			height: 35px;
+			width: 80%;
+			color: #ee4745;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 0px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+			border-radius: 4px 0px 0px 4px;			
+		}
+		.bot_right{/*padding: 0 2.9%;*/float: right;width:32%;text-align: right;}
+		.send{position: fixed;z-index: 800;bottom: -15px;width: 100%;}
+		.send img{width: 45px;position: absolute;top: 8px;right: 0px;padding: 0 10px;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}        
+	</style>	
+	<body>		
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">我的圈子</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="list-t-wrap">
+		    <div id="pullrefresh" class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="list-wrapper">
+		                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+		           		
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--<div class="mui-content">
+			<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 年内</h4>				
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span><label>审核中</label>
+						<a>删除</a>
+						<span  class="bot_right">
+							<span class="dz_yes" style="margin-right: 10px;">
+								<img src="../../images/dz-no@3x.png" style="width: 15px;" />
+								<span>99+</span>
+							</span>
+							<span class="comment">
+								<img src="../../images/comment@3x.png" style="width: 14px;"/>
+								<span>99+</span>	
+							</span>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 水电费</h4>	
+					<img src="../../images/phone-1@3x.png" />
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span><label>已发表</label>
+						<a>删除</a>
+						<span style="float: right;">
+							<img src="../../images/dz-yes@3x.png" style="width: 15px;" />
+							<span style="color: #108EE9;">122</span>
+							<img src="../../images/comment@3x.png" style="width: 14px;"/>
+							<span>321</span>		
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 水电费</h4>	
+					<ul class="mui-table-view mui-grid-view mui-grid-9">
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                    <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />	
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />	
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                    <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            
+		        	</ul>
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span><label>审核不通过</label>
+						<a>删除</a>
+						<span style="float: right;">
+							<img src="../../images/dz-yes@3x.png" style="width: 15px;" />
+							<span style="color: #108EE9;">122</span>
+							<img src="../../images/comment@3x.png" style="width: 14px;"/>
+							<span>321</span>		
+						</span>
+					</p>
+				</div>
+			</div>
+			
+		</div>-->
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},					   	
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});  
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.list-wrapper').style.marginTop=(immersed+44)+'px';
+				//	图片预览方法调用
+				mui.previewImage();
+//				var pl_id=plus.webview.getWebviewById('others_circle').circle_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/customer/my_circle',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.state==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						$('.mui-title').text(arrParse.info[0].name)
+						if(arrParse.state==0){
+							var result=arrParse.info;
+							var list=document.querySelector('.list-wrapper');
+							load_len=(parseFloat(arrParse.count)/10);
+							list.innerHTML='';
+							var d;
+							var dz;
+							for (var i=0;i<result.length;i++) {
+								if(result[i].likes>0){
+									d='color: #108EE9;';
+									dz='../../images/dz-yes@3x.png';
+								}else{
+									d='';
+									dz='../../images/dz-no@3x.png';
+								}
+								var is_go;
+								if(result[i].state==0){
+									is_go='审核中';
+								}else if(result[i].state==1){
+									is_go='审核通过';
+								}else if(result[i].state==2){
+									is_go='审核不通过';
+								}
+								console.log(dz)
+								list.innerHTML+='<div class="rate_type" id="'+result[i].id+'">'
+								+'<div class="left">'
+									+'<img src="'+result[i].headPic+'" />'
+								+'</div>'
+								+'<div class="center" title="'+result[i].id+'">'
+									+'<h5><b>'+result[i].name+'</b></h5>'
+									+'<h4>'+result[i].content+'</h4>'					
+									+'<ul id="list_'+result[i].id+'" class="mui-table-view mui-grid-view mui-grid-9">'
+							           							            							            
+						        	+'</ul>'
+								+'</div>'
+								+'<div class="mui-bottom">'
+									+'<p>'
+										+'<span style="margin-right: 2.9%;">'+result[i].time+'</span>'
+										+'<label>'+is_go+'</label>'
+										+'<a class="del" title="'+result[i].id+'">删除</a>'
+										+'<span class="bot_right">'
+											+'<span title="'+result[i].id+'" class="dz_yes" style="margin-right: 10px;">'
+												+'<img src="'+dz+'" style="width: 15px;" />'
+												+'<span id="dz'+result[i].id+'" style="'+d+'margin-left:6%;">'+result[i].likes+'</span>'
+											+'</span>'
+											+'<span title="'+result[i].id+'" class="comment">'
+												+'<img src="../../images/comment@3x.png" style="width: 14px;"/>'
+												+'<span id="pl'+result[i].id+'" style="margin-left:6%;">'+result[i].review+'</span>'
+											+'</span>'	
+										+'</span>'
+									+'</p>'
+								+'</div>';
+								for (var j=0;j<result[i].image.length;j++) {
+									document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+						                +'<img src="'+result[i].image[j]+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+						            +'</li>'
+								}
+							}
+						}else{
+							mui.alert('暂无最新圈子','提示','','','div');
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+				function pullupRefresh() 
+				{
+				    setTimeout(function() {
+				      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+				      if(count > load_len){
+				      	mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' })
+//				      	mui.alert('已经没有更多可加载的了','提示','','','div');
+				      }
+				      var cells = document.body.querySelectorAll('.rate_type');
+				      page++;
+			      	  var num=page*10;
+				      mui.ajax('http://www.zhxft.com/app/customer/my_circle',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							limit:num
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.state==6){
+								plus.storage.clear();
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							load_len=(parseFloat(arrParse.count)/10);
+							$('.mui-title').text(arrParse.info[0].name)
+							if(arrParse.state==0){
+								var result=arrParse.info;
+								var list=document.querySelector('.list-wrapper');
+	//							load_len=(parseInt(result.length)/10);
+								list.innerHTML='';
+								var d;
+								var dz;
+								for (var i=0;i<result.length;i++) {
+									if(result[i].likes>0){
+										d='color: #108EE9;';
+										dz='../../images/dz-yes@3x.png';
+									}else{
+										d='';
+										dz='../../images/dz-no@3x.png';
+									}
+									var is_go;
+									if(result[i].state==0){
+										is_go='审核中';
+									}else if(result[i].state==1){
+										is_go='审核通过';
+									}else if(result[i].state==2){
+										is_go='审核不通过';
+									}
+									console.log(dz)
+									list.innerHTML+='<div class="rate_type" id="'+result[i].id+'">'
+									+'<div class="left">'
+										+'<img src="'+result[i].headPic+'" />'
+									+'</div>'
+									+'<div class="center" title="'+result[i].id+'">'
+										+'<h5><b>'+result[i].name+'</b></h5>'
+										+'<h4>'+result[i].content+'</h4>'					
+										+'<ul id="list_'+result[i].id+'" class="mui-table-view mui-grid-view mui-grid-9">'
+								           							            							            
+							        	+'</ul>'
+									+'</div>'
+									+'<div class="mui-bottom">'
+										+'<p>'
+											+'<span style="margin-right: 2.9%;">'+result[i].time+'</span>'
+											+'<label>'+is_go+'</label>'
+											+'<a class="del" title="'+result[i].id+'">删除</a>'
+											+'<span class="bot_right">'
+												+'<span title="'+result[i].id+'" class="dz_yes" style="margin-right: 10px;">'
+													+'<img src="'+dz+'" style="width: 15px;" />'
+													+'<span id="dz'+result[i].id+'" style="'+d+'margin-left:6%;">'+result[i].likes+'</span>'
+												+'</span>'
+												+'<span title="'+result[i].id+'" class="comment">'
+													+'<img src="../../images/comment@3x.png" style="width: 14px;"/>'
+													+'<span id="pl'+result[i].id+'" style="margin-left:6%;">'+result[i].review+'</span>'
+												+'</span>'	
+											+'</span>'
+										+'</p>'
+									+'</div>';
+									for (var j=0;j<result[i].image.length;j++) {
+										document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+							                +'<img src="'+result[i].image[j]+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+							            +'</li>'
+									}
+								}
+							}else{
+								mui.alert('暂无最新圈子','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				    }, 500);
+				}
+				
+				//发表评论
+//				var pl_id;
+//				mui('.mui-bottom').on('tap','.comment',function(){
+//					$('.send').toggle();
+//					$('#sent_content').focus();
+//					//弹出软键盘
+//					initNativeObjects();
+//  				showSoftInput();
+//				});
+//				document.getElementById('send_comment').addEventListener('tap',function(){
+//					var val=document.getElementById('sent_content').value;
+//					mui.ajax('http://www.zhxft.com/app/customer/review',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token,
+//							circle_id:pl_id,
+//							content:val
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var arrParse = JSON.parse(data);
+//							if(arrParse.state==0){
+//								mui.alert('评论成功','提示','','','div');
+//							}else if(arrParse.state==1){															
+//								mui.alert('评论失败！','提示','','','div');
+//							}
+//						},
+//						error:function(xhr,error,errorThrown){
+//							console.log(error);
+//						}
+//					});
+//					$('.send').hide();
+//				})
+				
+				//点赞
+//				mui('.mui-bottom').on('tap','.dz_yes',function(){
+//					var circle_id=$(this).attr('title')
+//					var num=$(this).children('span').text();	
+//					num=parseInt(num)+1;
+//					mui.ajax('http://www.zhxft.com/app/customer/likes',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token,
+//							circle_id:circle_id
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var arrParse = JSON.parse(data);
+//							if(arrParse.state==0){
+//								$(this).children('img').attr('src','../../images/dz-yes@3x.png');
+//								$('#dz'+circle_id+'').text(parseInt(num));								
+//							}else if(arrParse.state==2){								
+//								$(this).children('img').attr('src','../../images/dz-yes@3x.png');
+//								mui.alert('你已经对此圈子点过赞了！','提示','','','div');
+//							}
+//						},
+//						error:function(xhr,error,errorThrown){
+//							console.log(error);
+//						}
+//					});
+//				});
+				
+				//查看圈子详情
+				mui('.list-wrapper').on('tap','.center',function(){
+					var i=$(this).attr('title');
+					mui.openWindow({
+						url: 'circle_detail.html',
+						id: 'circle_detail',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},extras:{circle_id:i},
+						styles:{
+								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				
+				//删除圈子
+				mui('.list-wrapper').on('tap','.del',function(){
+					var circle_id=$(this).attr('title');					
+					mui.ajax('http://www.zhxft.com/app/customer/circle_delete',{
+						async:false,
+						data:{							
+							circle_id:circle_id
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.state==0){
+								$('#'+circle_id+'').remove();
+								mui,alert('圈子删除成功！','提示','','','div');							
+							}else if(arrParse.state==1){								
+								mui,alert('圈子删除失败！','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	h5{text-align: center;margin: 37px 0;}
+    	.mui-content{}
+    	.card{background-color: #FFFFFF;margin-top: 14px;font-family: "微软雅黑";}
+    	.balance{background-color: #FFFFFF;padding: 19px 15px;}
+    	.balance label{font-size: 16px;color: #000000;}
+    	.balance span{font-size: 24px;color: #000000;float: right;}
+    	.count_money{margin-top: 17px;color: ##808080;font-size: 14px;text-align: center;}
+    	.count_money span{font-size: 18px;}
+    	.money_user{padding: 7px 15px;font-size: 14px;}
+    	.money_user span{float: right;color: #808080;font-size: 14px;}
+    	.money_user label{color: #808080;font-size: 14px;}
+    	.money_user p{margin: 0;padding: 6px 0;}  
+    	#header{background-color: #FFFFFF;box-shadow: none;border-bottom: 1px solid #DDDDDD;}
+    	.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}	
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+    </style> 
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="">			
+			<h1 class="mui-title">交易详情</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="transaction_num">
+				<p class="balance">
+					<label style="font-size: 15px;">交易金额</label>
+					<span id="money"><!--￥888.88--></span>
+				</p>
+			</div>
+			<div class="card">					
+				<div class="money_user">
+				
+					<p>
+						<label>商家名称</label>
+						<span id="business"><!--华润万家新--></span>
+					</p>
+					<p>
+						<label>商家编号</label>
+						<span id="business_id"><!--CU888888888888888888--></span>
+					</p>
+					<p>
+						<label>收款卡号</label>
+						<span id="bank_card"><!--62170072888888888--></span>
+					</p>
+					<p>
+						<label>发卡银行</label>
+						<span id="bank"><!--中国建设银行--></span>
+					</p>
+					<p>
+						<label>交易类型</label>
+						<span id="tran_type"><!--T5--></span>
+					</p>
+					<p>
+						<label>交易单号</label>
+						<span id="tran_id"><!--PH888888888888888888--></span>
+					</p>
+					<p>
+						<label>交易日期</label>
+						<span id="tran_date"><!--2016-12-12 12:12:58--></span>
+					</p>
+					<p>
+						<label>交易状态</label>
+						<span id="tran_state"><!--已结算--></span>
+					</p>
+					<p>
+						<label>到账时间</label>
+						<span id="Arrival_date"><!--2016-12-12 12:20:23--></span>
+					</p>
+					<p>
+						<label>到账金额</label>
+						<span id="Arrival_money"><!--838.18--></span>
+					</p>
+				</div>
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true //开启硬件加速			
+				}); 
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				
+				var record_id=plus.webview.getWebviewById('transaction_details').record_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/receivables/pay_record_details',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						formNoId:record_id
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);						
+						var result=arrParse;
+						var jy_type;
+						switch (result.datas.pay_class){
+							case '4':
+							    jy_type='快捷';
+								break;
+							case '1':
+								jy_type='D0';
+								break;
+							case '2':
+								jy_type='T1';
+								break;
+							case '3':
+								jy_type='T5';
+								break;	
+						}
+						document.getElementById('money').innerText='￥'+result.datas.pay;
+						document.getElementById('business').innerText=result.cno.name;
+						document.querySelector('#business_id').innerText=result.cno.cno;
+						document.querySelector('#bank_card').innerText=result.bank.account;
+						document.getElementById('bank').innerText=result.bank.bank_name;
+						document.querySelector('#tran_type').innerText=jy_type;
+						document.querySelector('#tran_id').innerText=result.datas.formNo;
+						document.getElementById('tran_date').innerText=result.datas.formTime;
+						document.querySelector('#tran_state').innerText='已结算';
+						document.querySelector('#Arrival_date').innerText=result.datas.closeTime;
+						document.querySelector('#Arrival_money').innerText=result.datas.actIn;
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+			
+		</script>
+	</body>
+
+</html>

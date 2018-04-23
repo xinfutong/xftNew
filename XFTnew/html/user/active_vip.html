@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<link href="../css/myTeam.css" rel="stylesheet" />-->
+		<link href="../../css/pablic_wz.css" rel="stylesheet" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		
+		<style>
+			.mui-content,body{background-color: #FFFFFF;}								
+			.mui-bar .mui-btn-link{color: #007aff;}
+    		.mui-btn-primary{background: #007aff;border: none;}
+    		.mui-input-row{padding: 0 11px;}
+    		.mui-input-row label~input{padding-left: 18px;width: 75%;float: left;background: #F0F0F0;font-size: 16px;}
+    		.mui-input-row label{width: auto;float: right;background: #007aff;
+			    border-radius: 5px;
+			    color: #fff;font-size: 16px;
+		    }
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: 0 0px 1px #DDDDDD;background-color: #FFFFFF;">			
+			<h1 class="mui-title">激活码升级</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+							<div class="mui-input-row">
+						        <label id="active">兑换</label>
+						        <input id="active_code" type="text" class="" placeholder="请输入激活码">
+						    </div>
+						</div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.position='inherit';
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+				window.addEventListener('agent_back',function(event){	
+					mui.back();
+				});
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				
+				document.getElementById('active').addEventListener('tap',function(){
+					var code=document.getElementById('active_code').value;
+					if(code==''){
+						mui.alert('激活码不能为空！','提示','','','div');
+						return;
+					}
+					mui.ajax('http://www.zhxft.com/app/customer/activation_code',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							code_xin:code
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}else if(arrParse.info.code==22){
+								mui.alert('输入激活码错误！','提示','','','div');
+							}else if(arrParse.info.code==0){
+								var detailPage = plus.webview.getWebviewById('../user/user.html')
+								mui.fire(detailPage,'user_agent',{
+									agent_id:3,
+								});
+								var is_agent = plus.webview.getWebviewById('buy_code');
+								mui.fire(is_agent,'is_vip',{});
+								plus.nativeUI.alert('激活码升级成功！',function(){
+									mui.back();
+								})
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+
+				
+//				
+//				document.getElementById('upgrade').addEventListener('tap',function(){
+//					var vip=document.getElementById('zfje').innerText;
+//					if(!is_real){
+//						mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+//							if(e.index==0){
+//								mui.openWindow({
+//									url: 'id_authentication.html',
+//									id: 'id_authentication',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									},
+//									styles:{softinputMode:'adjustResize',
+//									},
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}
+//						},'div');
+//						return;
+//					}
+//					if(!is_vip){
+//						mui.alert('你当前并非商户，不需升级！','提示','','','div');
+//						return;
+//					}
+//					mui.openWindow({
+//						url: 'upgrade_pay.html',
+//						id: 'upgrade_pay',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},styles:{
+////							bounce: 'vertical',bounceBackground:'#fc1',
+//						},
+//					    extras:{
+//					      	pay_money:vip,
+//					      	order_id:order
+//					    },
+////					    createNew:true,
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				})
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})	
+		</script>
+	</body>
+</html>

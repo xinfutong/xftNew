@@ -1,0 +1,709 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<script>
+		
+	</script>
+	<style>
+		body,.mui-content{/*background-color: #F1A555;*//*font-family: "微软雅黑";*/background-color: inherit;}
+		html{background: url(../../images/tg_bg@3x.png)no-repeat;background-size:100%;background-repeat-y: inherit;}
+		#header{background: #FF5A00;box-shadow: none;}
+		h4{text-align: center;/*margin-top: 50px;*/color: #FFFFFF;font-weight: 400;}
+		.icon_home{
+			/*background:url(../../images/tg-head@3x.png))no-repeat;
+			background-size:5px;background-position: 15px;	*/
+			font-size: 15px;margin-bottom: 20px;
+		}
+		h4 img{width: 24px;position: absolute;top: -6px;left: -20px;}
+		h4 label{display: inline-block;position: relative;padding-left: 10px;}
+		p{text-align: center;font-size: 14px;color: #FFFFFF;}
+		h5{text-align: center;color: #FEFEFE;font-size: 13px;/*margin-top: 75px;*/}
+		.list{padding: 0 10px;margin-top: 20px;}
+		.mui-media-body{font-size: 18px;color: #000000;margin-top: 9px;}
+		.list p{text-align: inherit;color: #808080;font-size: 13px;}
+		.mui-table-view{border-radius: 5px;margin-bottom: 12px;}
+		.mui-table-view .mui-media-object{
+			max-width: none;width: 60px;height: 60px;
+			border-radius: 2px;
+		}
+		#item1_list{background-color: inherit;margin-top: 0;}
+		.the_first{
+			background: url(../../images/the_first@3x.png)no-repeat;
+		    min-height: 110px;
+		    background-size: 84px;
+		    background-position-x: 50%;
+		    background-position-y: 4px;
+		}
+		#head_img{
+			width: 78px;border-radius: 75%;height: 77px;
+			position: absolute;
+		    /*top: 63px;
+		    left: 41.999989999999999%;*/
+		   	margin: auto;
+		    top: 18px;
+		    left: 0;
+		    bottom: 0;
+		    right: 0;
+		}
+		#first_one{
+			width: 76px;
+		    position: absolute;
+		    /*top: 117px;
+		    left: 40%;*/
+		  	margin: auto;
+		    top: 33px;
+		    left: 0;
+		    bottom: 0;
+		    right: 0;
+		}
+		.mui-table-view:before,.mui-table-view:after{height: 0;}
+		.the_first h5{
+			text-align: center;
+		    /*margin-top: 142px;*/
+		    color: #3E3E3E;
+		    font-size: 17px;
+		}
+		.agent_one{text-align: center;color: #FFFFFF;font-size: 12px;margin-bottom: 13px;}
+		#up_agent{
+			height: 45px;margin-bottom: 39px;
+		    border-radius: 20px;
+		    padding: 11px 45px;border: none;
+		    color: #ff5a00;margin-left: 10%;margin-right: 10%;
+		    font-size: 18px;background-color:#FFFFFF;
+		}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title" style="color: #FFFFFF;">推广</h1>				
+		</header>
+		<div class="mui-content">
+			
+       		<ul id="item1_list" class="mui-table-view" style="margin-bottom: 0;">
+				<li class=" the_first">
+			       	<img id="head_img" src="../../images/no_login@3x.png" />		       	
+			   </li>					    
+			</ul>
+			<h6 id="user_name" class="agent_one">点击头像登录</h6>			
+			<h4 class="icon_home">	
+				<button type="button" id="up_agent" class="mui-btn">升级高级用户</button>
+				<label><img src="../../images/tg-head@3x.png" />推广信付通可获得分润和推广收益</label>
+			</h4>
+			<h5>
+				<span style="margin-right: 14px;">——</span>
+				<label>三种推广方式</label>
+				<span style="margin-left: 13px;">——</span>
+			</h5>
+			<div class="list">
+				<ul id="code_img" class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-right" src="../../images/tg-list-1@3x.png">
+							<div class="mui-media-body">
+								二维码图片
+								<p class='mui-ellipsis'>通过设计好的图片携带个人二维码推广</p>
+							</div>
+						</a>
+					</li>					
+				</ul>
+				<ul id="copy_share" class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-right" src="../../images/tg-list-2@3x.png">
+							<div class="mui-media-body">
+								文案图片
+								<p class='mui-ellipsis'>保存图片和复制文字在朋友圈发布</p>
+							</div>
+						</a>
+					</li>					
+				</ul>
+				<ul id="link_share" class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-right" src="../../images/tg-list-3@3x.png">
+							<div class="mui-media-body">
+								分享链接
+								<p class='mui-ellipsis'>通过链接分享到朋友圈或者微信好友</p>
+							</div>
+						</a>
+					</li>					
+				</ul>
+			</div>	
+			         	
+		</div>	
+		<input id="sharehref" class="sharehref" type="hidden" value="" placeholder="请输入要分享的链接地址"/>
+		<input id="sharehrefTitle" class="sharehref" type="hidden" value="" placeholder="请输入要分享的链接标题"/>
+		<input id="sharehrefDes" class="sharehref" type="hidden" value="" placeholder="请输入要分享的链接描述"/>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js" ></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				  ({
+				  	//禁用返回键
+				  	keyEventBind:{
+						backbutton:false,					
+						menubutton:false					
+					},							
+					hardwareAccelerated:true, //开启硬件加速							
+				  });	
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px'; 
+				
+//				plus.navigator.setStatusBarBackground('#1B82D2');
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');			
+				mui.ajax('http://www.zhxft.com/app/index1/php_tp',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:50000,//超时时间设置为10秒；
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				window.addEventListener('ex_load',function(event){
+					location.reload();
+				});
+				window.addEventListener('extension_img',function(event){
+					var img = event.detail.img;
+					document.getElementById('head_img').src=img;
+				});
+				window.addEventListener('generate_img',function(event){
+					mui.ajax('http://www.zhxft.com/app/index1/php_tp',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							var code=plus.webview.getWebviewById('code_img');
+							mui.fire(code,'code_load',{});
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				var Grade_id;
+				if (uid!=null && token!=null) {
+					mui.ajax('http://www.zhxft.com/app/index1/index',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							plus.storage.setItem('head_img',arrParse.head_portrait);
+							plus.storage.setItem('name',arrParse.name);
+							plus.storage.setItem('phone',arrParse.phoneNum);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								return
+							}else{
+								document.getElementById('head_img').src=(arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/no_login@3x.png');
+								switch (arrParse.type_id)
+								{
+								case '6':
+								  document.getElementById('user_name').innerText='我的等级：分公司代理';
+								  break;	
+								case '5':
+								  document.getElementById('user_name').innerText='我的等级：城市合伙人';
+								  break;																								
+								case '4':
+								  document.getElementById('user_name').innerText='我的等级：事业合伙人';
+								  break;								
+								case '3':
+								  document.getElementById('user_name').innerText='我的等级：高级用户';
+								  break;  
+								case '2':
+								  document.getElementById('user_name').innerText='我的等级：普通用户';
+								  break;				
+								}								
+//								document.getElementById('user_name').innerText=(arrParse.name!=''?'我的等级：'+arrParse.name:'未实名认证');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				} else{
+					console.log(11111)
+					document.getElementById('user_name').innerText='点击头像登录';
+					document.getElementById('head_img').src='../../images/no_login@3x.png';
+				}
+				//点击头像登录
+				document.getElementById('head_img').addEventListener('tap',function(){
+					if (plus.storage.getItem('uid')==null && plus.storage.getItem('token')==null) {
+						plus.storage.setItem('btype','2')
+						mui.openWindow({
+							url: '../index/login.html',
+							id: 'login',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},createNew:true,
+							styles:{softinputMode:'adjustResize'},							
+							waiting: {
+								autoShow: true
+							}
+						});
+					}
+				}) 
+				document.getElementById('code_img').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'code_img.html',
+							id: 'code_img',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+								scrollIndicator: 'none',
+//								bounce: 'vertical',bounceBackground:'#fc1'
+							},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+	//						extras:{circle_id:pl_id},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+//										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}	
+				});
+				
+				document.getElementById('up_agent').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: '../user/buy_code.html',
+							id: 'buy_code',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+	//						extras:{circle_id:pl_id},
+							styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+//										bounce: 'vertical',bounceBackground:'#fc1',
+									},	
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//链接分享
+				var share_url;
+				var share_title;
+				var share_content;
+				mui.ajax('http://www.zhxft.com/app/index1/app_share',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						document.getElementById('sharehref').value=arrParse.aap_url;
+						document.getElementById('sharehrefTitle').value=arrParse.app_title;
+						document.getElementById('sharehrefDes').value=arrParse.aap_content;
+//						alert(document.getElementById('sharehref').value)
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				var shares=null;
+				// H5 plus事件处理
+				function plusReady(){
+					updateSerivces();
+					if(plus.os.name=="Android"){  
+		                main = plus.android.runtimeMainActivity();  
+		                Intent = plus.android.importClass("android.content.Intent");  
+		                File = plus.android.importClass("java.io.File");  
+		                Uri = plus.android.importClass("android.net.Uri");  
+		            }
+				}
+				if(window.plus){
+					plusReady();
+				}else{
+					document.addEventListener('plusready', plusReady, false);
+				}
+				/**
+				 * 更新分享服务
+				 */
+				function updateSerivces(){
+					plus.share.getServices(function(s){
+						shares={};
+						for(var i in s){
+							var t=s[i];
+							shares[t.id]=t;
+						}
+					}, function(e){
+						outSet('获取分享服务列表失败：'+e.message);
+					});
+				}		
+				/**
+				   * 分享操作
+				   * @param {JSON} sb 分享操作对象s.s为分享通道对象(plus.share.ShareService)
+				   * @param {Boolean} bh 是否分享链接
+				   */
+				function shareAction(sb,bh) {
+		//			outSet('分享操作：');
+					if(!sb||!sb.s){
+		//				outLine('无效的分享服务！');
+						return;
+					}
+					var msg={content:'欢迎使用信付通',extra:{scene:sb.x}};
+					if(bh){
+		//				msg.href=share_url;
+		//				msg.title=share_title;
+		//				msg.content=share_content;
+						msg.href=sharehref.value;
+						if(sharehrefTitle&&sharehrefTitle.value!=''){
+							msg.title=sharehrefTitle.value;
+						}
+						if(sharehrefDes&&sharehrefDes.value!=''){
+							msg.content=sharehrefDes.value;
+						}
+						msg.thumbs=['_www/logo.png'];
+						msg.pictures=['_www/logo.png'];
+					}else{
+						plus.zip.compressImage({    
+			                src: pic.realUrl, 
+			                dst: pic.realUrl,       
+			                quality: 20,    
+			                overwrite: true    
+			            }, function(e) {    
+			                console.log(e);   
+			                console.log(pic.realUrl);
+			            }, function(err) {    
+			                console.error("压缩失败：" + err.message);    
+			            });
+						if(pic&&pic.realUrl){
+							msg.thumbs=[pic.realUrl];
+							msg.pictures=[pic.realUrl];
+						}
+					}
+					// 发送分享
+					if(sb.s.authenticated){
+		//				outLine('---已授权---');
+						shareMessage(msg, sb.s);
+					}else{
+		//				outLine('---未授权---');
+						sb.s.authorize(function(){
+							shareMessage(msg,sb.s);
+						}, function(e){
+							console.log('认证授权失败：'+e.code+' - '+e.message);
+						});
+					}
+				}
+				/**
+				   * 发送分享消息
+				   * @param {JSON} msg
+				   * @param {plus.share.ShareService} s
+				   */
+				function shareMessage(msg, s){
+//					alert(JSON.stringify(msg))
+		//			outLine(JSON.stringify(msg));
+					s.send(msg, function(){
+						console.log('分享到"'+s.description+'"成功！');
+					}, function(e){
+						console.log('分享到"'+s.description+'"失败: '+JSON.stringify(e));
+					});
+				}
+				
+				// 分析链接
+				function shareHref(){
+					var shareBts=[];
+					// 更新分享列表
+					var ss=shares['weixin'];
+					ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
+					shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+					ss=shares['sinaweibo'];
+					ss&&shareBts.push({title:'新浪微博',s:ss});
+					ss=shares['qq'];
+					ss&&ss.nativeClient&&shareBts.push({title:'QQ',s:ss});
+					// 弹出分享列表
+					shareBts.length>0?plus.nativeUI.actionSheet({title:'分享链接',cancel:'取消',buttons:shareBts},function(e){
+						(e.index>0)&&shareAction(shareBts[e.index-1],true);
+					}):plus.nativeUI.alert('当前环境无法支持分享链接操作!');
+				}
+				
+//				var Intent = null,
+//		        File = null,
+//		        Uri = null,
+//		        main = null;
+//		        var shares = null;
+//		        var shareImageUrl = '';
+//		        var URL = '';
+//				mui.plusReady(function(){				
+//					updateSerivces();
+//			        if (plus.os.name == "Android") {
+//			            Intent = plus.android.importClass("android.content.Intent");
+//			            File = plus.android.importClass("java.io.File");
+//			            Uri = plus.android.importClass("android.net.Uri");
+//			            main = plus.android.runtimeMainActivity();
+//			        }		        					
+//				});
+//				
+//		        /** 
+//		         * 更新分享服务 
+//		         */ 
+//		        function updateSerivces() { 
+//		            plus.share.getServices(function(s) { 
+//		                shares = {}; 
+//		                for (var i in s) { 
+//		                    var t = s[i]; 
+//		                    shares[t.id] = t; 
+//		                } 
+//		                outSet("获取分享服务列表成功"); 
+//		            }, function(e) { 
+//		                outSet("获取分享服务列表失败：" + e.message); 
+//		            }); 
+//		        } 
+//		        /** 
+//		         * 分享操作 
+//		         */ 
+//		        function shareAction(id, ex) { 
+//		            var s = null; 
+//		            if (!id || !(s = shares[id])) { 
+//		                outLine("无效的分享服务！"); 
+//		                return; 
+//		            } 
+//		            if (s.authenticated) { 
+//		                outSet("---已授权---"); 
+//		                shareMessage(s, ex); 
+//		            } else { 
+//		                outSet("---未授权---"); 
+//		                s.authorize(function() { 
+//		                    shareMessage(s, ex); 
+//		                }, function(e) { 
+//		                    outLine("认证授权失败"); 
+//		                }); 
+//		            } 
+//		        } 
+//		        /** 
+//		         * 发送分享消息 
+//		         */ 
+//		        function shareMessage(s, ex) { 
+//		            var msg = { 
+//		                content: '分享-详情', 
+//		                href: share_url, 
+//		                title: share_title, 
+//		                content: share_content, 
+//		                thumbs: ['_www/logo.png'], 
+//		                pictures: ['_www/logo.png'], 
+//		                extra: { 
+//		                    scene: ex 
+//		                } 
+//		            }; 
+//		            s.send(msg, function() { 
+//		            	console.log(msg)
+//		                outLine("分享成功!"); 
+//		            }, function(e) { 
+//		                outLine("分享失败!"); 
+//		            }); 
+//		        } 
+//		        /** 
+//		         * 分享按钮点击事件 
+//		         */ 
+//		//      mui('.section-two').on('tap', '.section-two-top', function(){
+//		        function shareHref() { 
+//		            var ids = [{ 
+//		                    id: "weixin",  
+//		                    ex: "WXSceneSession"  /*微信好友*/ 
+//		                }, { 
+//		                    id: "weixin", 
+//		                    ex: "WXSceneTimeline" /*微信朋友圈*/ 
+//		                }, { 
+//		                    id: "qq"   /*QQ好友*/ 
+//		                }/*,{ 
+//		                    id: "sinaweibo"  新浪微博 
+//		                }*/], 
+//		                bts = [{ 
+//		                    title: "发送给微信好友" 
+//		                }, { 
+//		                    title: "分享到微信朋友圈" 
+//		                }, { 
+//		                    title: "分享到QQ" 
+//		                }/*, { 
+//		                    title: "分享到新浪微博" 
+//		                }*/]; 
+//		            plus.nativeUI.actionSheet({ 
+//		                    cancel: "取消", 
+//		                    buttons: bts 
+//		                }, 
+//		                function(e) { 
+//		                    var i = e.index; 
+//		                    if (i > 0) { 
+//		                        shareAction(ids[i - 1].id, ids[i - 1].ex); 
+//		                    } 
+//		                } 
+//		            ); 
+//		        };        
+//		        // 控制台输出日志 
+//		        function outSet(msg) { 
+//		            console.log(msg); 
+//		        } 
+//		        // 界面弹出吐司提示 
+//		        function outLine(msg) { 
+//		            mui.toast(msg); 
+//		        } 
+		        
+				//点击分享
+			  	document.getElementById('link_share').addEventListener('tap',function(){
+			  		if(uid!=null){
+			  			shareHref();
+			  		}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}					
+				});
+				
+				//文案分享
+				document.getElementById('copy_share').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'copy_img.html',
+							id: 'copy_img',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+			    //关闭页面跳转动画
+//				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+//				self.show();
+			});
+		</script>
+	</body>
+
+</html>

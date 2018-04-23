@@ -1,0 +1,52 @@
+{
+  "html/index/index.html": {
+    "resources": [
+      "html/index/home.html"
+    ],
+    "refer": [
+      "html/extension/extension.html",
+      "html/find/find.html",
+      "html/index/home.html",
+      "html/index/banner.html",
+      "html/user/user.html"
+    ]
+  },
+  "html/index/home.html": {
+    "refer": [
+      "html/user/novice_guide.html",
+      "html/index/repay.html",
+      "html/index/Receivables.html"
+    ],
+    "resources": []
+  },
+  "html/user/user.html": {
+    "refer": [
+      "html/index/login.html",
+      "html/wallet/wallet.html",
+      "html/user/bank_card_info.html",
+      "html/user/my_rate.html"
+    ],
+    "resources": []
+  },
+  "html/index/repay.html": {
+    "refer": [
+      "html/index/repay_bind_card.html"
+    ],
+    "resources": []
+  },
+  "html/index/Receivables.html": {
+    "refer": [
+      "html/index/kj.html",
+      "html/index/sk_share.html",
+      "html/index/transaction_record.html",
+      "html/index/share_money.html"
+    ],
+    "resources": []
+  },
+  "html/index/kj.html": {
+    "refer": [
+      "html/index/kj_pay.html"
+    ],
+    "resources": []
+  }
+}

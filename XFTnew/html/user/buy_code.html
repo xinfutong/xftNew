@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<link href="../css/myTeam.css" rel="stylesheet" />-->
+		<link href="../../css/pablic_wz.css" rel="stylesheet" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		
+		<style>
+			/*.mui-content,body{background-color: #FFFFFF;}*/					
+			.section_one{width:100%;height:auto;/*background:#fff;*/padding-top:27px;}
+			.section_one_top{width:80%;/*height:1.968rem;*/margin:0 auto 0;/*margin-top: 40px;*/}
+			.section_one_top img{width:100%;}
+			.section_one_bottom{width:65%;height:15.65rem;margin:0 auto 0;}
+			.section_one_bottom img{width:100%;}
+						
+			.section_two{width:100%;height:auto;/*background:#fff;*/margin-top: 1rem;}
+			.section_two_top{width:80%;height:7.5rem;margin:0.68rem auto 0;padding-top:0.68rem;}
+			.section_two_top img{width:100%;}
+			
+			.section_two_center{width:90%;margin-left:7.5%;font-size:0.6rem;padding-bottom: 1rem;}
+			.section_two_center p{font-size:12px;margin-bottom:0;line-height: 25px;color:#000;}
+			
+			.section_two_bottom{width:100%;height:auto;position:fixed;bottom:0;z-index: 9;}
+			.section_two_bottom div:nth-child(1){
+			    width: 50%;
+			    height: 3.125rem;
+			    background: #fff;
+			    float: left;
+			    color: #007aff;
+			    text-align: center;
+			    line-height: 3.125rem;
+			}
+			.section_two_bottom div:nth-child(2){
+				width:50%;height:3.125rem;background:#007aff;float:right;text-align: center;
+				line-height: 3.125rem;color: #FFFFFF;
+			}
+			.span1{display: inline-block;float:right;margin-right:10%;line-height: 3.125rem;color:#FF5500;}
+			.span2{color:#000;}
+			.mui-bar .mui-btn-link{color: #000000;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: 0 0px 1px #DDDDDD;background-color: #FFFFFF;">			
+			<h1 class="mui-title">升级高级用户</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+							<div class="section_one">				
+								<div class="section_one_bottom">
+									<img id="vip_img" src=""/>
+								</div>
+								<div class="section_one_top">
+									<img src="../../images/vip-img@2x.png"/>
+								</div>
+							</div>
+							
+							<div class="section_two">
+								<!--<div class="section_two_top">
+									<img src="images/494912389431364543.png"/>
+								</div>-->
+								<div id="up_info" class="section_two_center">
+									<!--<p>1，信用卡账单全面还款轻松度过账单日。</p>
+									<p>2，即时到账：还款资金执行完还款，即时回款到信用卡。</p>
+									<p>3，支持各大银行的信用卡还款。</p>
+									<p>4，使用便捷：手机APP一键搞定，隐私保密。</p>			
+									<p>5，还款利率：喜刷刷每万元手续费可低至45元。</p>-->
+								</div>								
+							</div>
+							<div class="section_one_top">
+								<img src="../../images/hzjg-img@3x.png"/>
+							</div>
+							<div class="section_one_bottom" style="width: 100%;margin-top: 1rem;height: 10.65rem;">
+								<img id="cooperation_img" src=""/>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			</div>
+			<div class="section_two_bottom">
+				<div id="active_vip">
+					激活升级
+					<!--<span class="span1">支付金额:<span id="zfje"></span></span>-->
+				</div>
+				<div id="upgrade">
+					立即购买
+					<!--<span class="span2">立即购买</span>-->
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+					document.querySelector('#pullrefresh').style.paddingBottom=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.position='inherit';
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+				
+				window.addEventListener('agent_back',function(event){	
+					mui.back();
+				});
+				
+				
+//				var agent_id=plus.webview.getWebviewById('buy_code').agent_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+//				if(agent_id==2){
+//					document.getElementById('mui-title').innerText='会员';
+//					document.getElementById('ageng_id').innerText='会员';
+//				}else if(agent_id==4){
+//					document.getElementById('mui-title').innerText='市级代理';
+//					document.getElementById('ageng_id').innerText='市级代理';
+//				}else if(agent_id==5){
+//					document.getElementById('mui-title').innerText='省级代理';
+//					document.getElementById('ageng_id').innerText='省级代理';
+//				}else if(agent_id==6){
+//					document.getElementById('mui-title').innerText='合伙人';
+//					document.getElementById('ageng_id').innerText='合伙人';
+//				}else if(agent_id==3){
+//					document.getElementById('ageng_id').innerText='VIP会员';
+//					document.getElementById('mui-title').innerText='VIP会员';
+//				}
+				var order=true;
+				var is_real=true;
+				var is_vip;
+				var vip;
+				window.addEventListener('is_vip',function(event){	
+					is_vip=false;
+				});
+				mui.ajax('http://www.zhxft.com/app/customer/upgrade_vip',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+//						type_id:agent_id
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){						
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						order=arrParse.formNo;
+//						document.getElementById('zfje').innerText=arrParse.pay;
+						vip=arrParse.pay;
+						document.getElementById('up_info').innerText=arrParse.news;
+						document.getElementById('cooperation_img').src=arrParse.pic[1].src;
+						document.getElementById('vip_img').src=arrParse.pic[0].src;
+						if(arrParse.info.code==21){
+							is_vip=false;
+						}else if(arrParse.info.code==19){
+							is_real=false;
+						}else{
+							is_vip=true;
+							is_real=true;
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				document.getElementById('upgrade').addEventListener('tap',function(){
+//					var vip=document.getElementById('zfje').innerText;
+					if(!is_real){
+						mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: 'id_authentication.html',
+									id: 'id_authentication',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},
+									styles:{softinputMode:'adjustResize',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div');
+						return;
+					}
+					if(!is_vip){
+						mui.alert('你当前等级已是高级用户，已不需再升级！','提示','','','div');
+						return;
+					}
+					mui.openWindow({
+						url: 'upgrade_pay.html',
+						id: 'upgrade_pay',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+					    extras:{
+					      	pay_money:vip,
+					      	order_id:order
+					    },
+//					    createNew:true,
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+				document.getElementById('active_vip').addEventListener('tap',function(){
+//					var vip=document.getElementById('zfje').innerText;
+					if(!is_real){
+						mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: 'id_authentication.html',
+									id: 'id_authentication',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},
+									styles:{softinputMode:'adjustResize',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div');
+						return;
+					}
+					if(!is_vip){
+						mui.alert('你当前等级并非会员，已无需升级！','提示','','','div');
+						return;
+					}
+					mui.openWindow({
+						url: 'active_vip.html',
+						id: 'active_vip',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},
+					    extras:{
+					      	pay_money:vip,
+					      	order_id:order
+					    },
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})	
+		</script>
+	</body>
+</html>

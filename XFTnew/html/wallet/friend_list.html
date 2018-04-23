@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--<link rel="stylesheet" href="../../css/wallet.css" />-->
+	</head>
+	<style>
+		
+		.mui-table-view-cell>.mui-badge{right: 34px;}
+		.mui-badge{background-color: #FFFFFF;border-radius:0;color: #505050;font-size: 15px;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{height: auto;margin-top: 2px;}
+		.mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 26px;height: 24px;
+		}
+		.mui-media-body{font-size: 16px;color: #000000;margin-top: 3px;display: inline-block;}
+		.mui-pull-right{border-radius: 50%;width: 29px;}
+		.mui-table-view-chevron .mui-table-view-cell{padding-right: 35px;}
+		.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){margin-right: -35px;}
+		
+		
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);background-color:#DDDDDD;height: 0.5px;}
+        .B{
+            width:100%;
+            position: absolute;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:0.5px solid #DDDDDD;
+            -webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);
+        } 
+        .mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){padding-top: 0;} 
+        .no_friend img{
+        	width: 36%;
+		    margin-left: 32%;
+		    margin-top: 90px;
+        }  
+        h5{
+        	text-align: center;
+		    margin-top: 19px;
+		    font-size: 12px;
+		    color: #999999;
+        }
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title" style="">我的代理</h1>
+			<button style="" class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<ul id="agent_list" class="mui-table-view" style="display: none;">
+				<li title="9" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/country-agent@3x.png">
+			        	<span class="mui-media-body">全国运营商</span>
+			        </a>
+			        <span class="mui-badge"><!--33人--></span>
+			    </li>
+			    <li title="8" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/province_agent@3x.png">
+			        	<span class="mui-media-body">省级运营商</span>
+			        </a>
+			        <span class="mui-badge"><!--33人--></span>
+			    </li>
+			    <li title="7" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/city-agent@3x.png">
+			        	<span class="mui-media-body">市级运营商</span>
+			        </a>
+			        <span class="mui-badge"><!--33人--></span>
+			    </li>
+			    <li title="6" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/area_agent@3x.png">
+			        	<span class="mui-media-body">县级运营商</span>
+			        </a>
+			        <span class="mui-badge"><!--20人--></span>
+			    </li>
+			    <li title="5" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/vip_agent@3x.png">
+			        	<span class="mui-media-body">团队渠道商</span>
+			        </a>
+			        <span class="mui-badge"></span>
+			    </li>						   
+			    <li title="4" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/Lower-agent@2x.png">
+			        	<span class="mui-media-body">个人分销商</span>
+			        </a>
+			        <span class="mui-badge"><!--20人--></span>
+			    </li>
+			</ul>
+			<div class="no_friend">
+				<img src="../../images/No-agent@3x.png" />
+				<h5>暂无代理</h5>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true //开启硬件加速	
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/wallet/index',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);					
+						$('#agent_list').children('li').eq(0).children('span').text((arrParse.country!=undefined?arrParse.country:0)+'人');
+						$('#agent_list').children('li').eq(1).children('span').text((arrParse.province!=undefined?arrParse.province:0)+'人');	
+						$('#agent_list').children('li').eq(2).children('span').text((arrParse.city!=undefined?arrParse.city:0)+'人');
+						$('#agent_list').children('li').eq(3).children('span').text((arrParse.area!=undefined?arrParse.area:0)+'人');
+						$('#agent_list').children('li').eq(4).children('span').text((arrParse.team!=undefined?arrParse.team:0)+'人');
+						$('#agent_list').children('li').eq(5).children('span').text((arrParse.personal!=undefined?arrParse.personal:0)+'人');
+									
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});				
+								
+				
+				//点击代理商
+				mui('#agent_list').on('tap','li',function(){
+//					var i=$(this).index();
+					var i=$(this).attr('title');
+					var num=parseInt($(this).children('span').text());
+					if(num>0){
+						mui.openWindow({
+							url: 'agent_list.html',
+							id: 'agent_list',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+						    extras:{
+						      	list_id:i
+						    },styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.alert('你尚未拥有当前等级的下级代理商','提示','','','div');
+					}
+					
+				});
+//				//点击下级
+//				mui('#item2').on('tap','li',function(){
+//					var i=$(this).attr('title');
+//					mui.openWindow({
+//						url: 'lower_list.html',
+//						id: 'lower_list',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//					    extras:{
+//					      	list_id:i
+//					    },styles:{
+////							bounce: 'vertical',bounceBackground:'#fc1',
+//						},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				});
+								
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})			
+		</script>
+	</body>
+
+</html>

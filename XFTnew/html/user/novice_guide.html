@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		/*.banner img{width: 100%;height: 125px;}
+		.guide{padding-left:15px;background-color: #FFFFFF;}
+		h5{background: url(../../images/top@3x.png)no-repeat;background-size: 5px;
+		font-size: 18px;color: #3E3E3E;padding: 12px 0;background-position-y: center;
+		padding-left: 13px;border-bottom: 1px solid #DDDDDD;margin-bottom: 0;}
+		.mui-col-xs-4{width: 25%;}*/
+		/*.icon_kj{
+			background:url(../../images/guide-kj@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_wx{
+			background:url(../../images/guide-wx@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_zfb{
+			background:url(../../images/guide-zfb@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_qq{
+			background:url(../../images/guide-qq@3x.png)no-repeat;
+			background-size:100%;	
+		}*/
+		/*.mui-grid-view.mui-grid-9{border: 0;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{border: 0;padding-left: 5px;padding-right: 5%;}
+		.guide span{width: 100%;height: 80%;display: inline-block;}
+		.guide span img{width: 100%;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{margin-top: 0;
+		color: #3E3E3E;font-size: 14px;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){padding: 0;}
+		
+		.problem{background-color: #FFFFFF;padding-left: 15px;}*/
+		/*.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){
+			padding-left: 0;color: #666666;font-size: 15px;}*/
+		.mui-table-view-cell.mui-active{background-color: #FFFFFF;}	
+		.bot_div{font-size: 14px;color: #666666;padding: 9px 0;padding-right: 8px;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-scroll-wrapper{position: fixed;}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}        
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">新手指引</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<!--<div class="banner">
+								<img id="banner" src="../../images/guide-img@3x.png" />
+							</div>
+							<div class="guide">
+								<h5>操作指南</h5>
+								<ul id="receivables_type" style="background-color: inherit;" class="mui-table-view mui-grid-view mui-grid-9">
+									<li id="kj" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						            	<a href="#" class="">
+						                    <span class="mui-icon icon_kj">
+						                    	<img src="../../images/guide-kj@3x.png" />
+						                    </span>
+						                    <div class="mui-media-body">快捷支付</div></a></li>
+						            <li id="wx" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						            	<a href="#">
+						                    <span class="mui-icon icon_wx no_active">
+						                    	<img src="../../images/guide-wx@3x.png" />
+						                    </span>
+						                    <div class="mui-media-body">微信支付</div></a></li>
+						            <li id="zfb" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						            	<a href="#">
+						                    <span class="mui-icon icon_zfb">
+						                    	<img src="../../images/guide-zfb@3x.png" />
+						                    </span>
+						                    <div class="mui-media-body">支付宝</div>
+						            	</a></li>
+						            <li id="qq" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" >
+						            	<a href="#">
+						                    <span class="mui-icon icon_qq no_active">
+						                    	<img src="../../images/guide-qq@3x.png" />
+						                    </span>
+						                    <div class="mui-media-body">QQ支付</div></a></li>
+						           
+						        </ul>
+							</div>
+							<div class="problem">
+								<h5>常见问题</h5>-->
+								<!--<ul id="list" class="mui-table-view mui-table-view-chevron">-->				
+									<!--<li class="mui-table-view-cell mui-collapse" style="background-color: #FFFFFF;">
+										<a class="mui-navigate-right" href="#">
+											1、一个手机号码可以注册几个账户？
+										</a>
+										<ul class="mui-table-view mui-table-view-chevron">
+											<li class="mui-table-view-cell" style="padding: 0;">
+												<div class="bot_div">
+													获取验证码时，系统会在第一时间将验证码发送至您的手 机，如若您未及时收到可能由于获取验证码的次数太频繁 每小时最多获取3次，
+												一天最多5次。如果当天获取验证码 超过5次，
+												第二天才可以正常获取验证码。（获取验证码 时，点击一次即可，多次点击可能会失败
+												</div>								
+											</li>							
+										</ul>
+									</li>
+									<li class="mui-table-view-cell mui-collapse" style="background-color: #FFFFFF;">
+										<a class="mui-navigate-right" href="#">
+											2、手机收不到验证码怎么办？
+										</a>
+										<ul class="mui-table-view mui-table-view-chevron">
+											<li class="mui-table-view-cell" style="padding: 0;">
+												<div class="bot_div">
+													获取验证码时，系统会在第一时间将验证码发送至您的手 机，如若您未及时收到可能由于获取验证码的次数太频繁 每小时最多获取3次，
+												一天最多5次。如果当天获取验证码 超过5次，
+												第二天才可以正常获取验证码。（获取验证码 时，点击一次即可，多次点击可能会失败
+												</div>								
+											</li>							
+										</ul>
+									</li>
+									<li class="mui-table-view-cell mui-collapse" style="background-color: #FFFFFF;">
+										<a class="mui-navigate-right" href="#">
+											3、一个手机号码可以注册几个账户？
+										</a>
+										<ul class="mui-table-view mui-table-view-chevron">
+											<li class="mui-table-view-cell" style="padding: 0;">
+												<div class="bot_div">
+													获取验证码时，系统会在第一时间将验证码发送至您的手 机，如若您未及时收到可能由于获取验证码的次数太频繁 每小时最多获取3次，
+												一天最多5次。如果当天获取验证码 超过5次，
+												第二天才可以正常获取验证码。（获取验证码 时，点击一次即可，多次点击可能会失败
+												</div>								
+											</li>							
+										</ul>
+									</li>
+									<li class="mui-table-view-cell mui-collapse" style="background-color: #FFFFFF;">
+										<a class="mui-navigate-right" href="#">
+											4、一个手机号码可以注册几个账户？
+										</a>
+										<ul class="mui-table-view mui-table-view-chevron">
+											<li class="mui-table-view-cell" style="padding: 0;">
+												<div class="bot_div">
+													获取验证码时，系统会在第一时间将验证码发送至您的手 机，如若您未及时收到可能由于获取验证码的次数太频繁 每小时最多获取3次，
+												一天最多5次。如果当天获取验证码 超过5次，
+												第二天才可以正常获取验证码。（获取验证码 时，点击一次即可，多次点击可能会失败
+												</div>								
+											</li>							
+										</ul>
+									</li>-->
+								<!--</ul>-->
+							<!--</div>-->
+							<ul id="receivables_type" class="mui-table-view mui-table-view-chevron">
+								<li class="mui-table-view-cell mui-media" title="1">
+									<a class="mui-navigate-right">
+										<!--<img class="mui-media-object mui-pull-right" src="../../images/xy-card-1@3x.png">-->
+										<div class="mui-media-body">
+											还款操作指南
+											<!--<p>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>-->
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media" title="2">
+									<a class='mui-navigate-right' href="javascript:;">
+										<!--<img class="mui-media-object mui-pull-right" src="../../images/xy-card-2@3x.png">-->
+										<div class="mui-media-body">
+											收款操作指南
+											<!--<p>静静的看这个世界，最后终于疯了</p>-->
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media" title="3">
+									<a class='mui-navigate-right' href="javascript:;">
+										<!--<img class="mui-media-object mui-pull-right" src="../../images/xy-card-2@3x.png">-->
+										<div class="mui-media-body">
+											信付通操作说明
+											<!--<p>静静的看这个世界，最后终于疯了</p>-->
+										</div>
+									</a>
+								</li>
+							</ul>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({ 
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+55)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+35)+'px';
+				}
+				
+//				mui.ajax('http://www.zhxft.com/app/index/novice',{
+//					async:false,
+//					data:{
+//											
+//					},
+//					dataType:'JSON',//服务器返回json格式数据
+//					type:'post',//HTTP请求类型
+//					success:function(data){
+//						console.log(data);
+//						var arrParse = JSON.parse(data);
+//						document.getElementById('banner').src=arrParse.banner;
+//						var list=document.getElementById('list');
+//						for (var i=0;i<arrParse.common.length;i++) {
+//							list.innerHTML+='<li class="mui-table-view-cell mui-collapse" style="background-color: #FFFFFF;">'
+//							+'<a class="mui-navigate-right" href="#">'+[parseInt(i)+1]+'、'
+//								+arrParse.common[i].title
+//							+'</a>'
+//							+'<ul class="mui-table-view mui-table-view-chevron">'
+//								+'<li class="mui-table-view-cell" style="padding: 0;">'
+//									+'<div class="bot_div">'
+//										+arrParse.common[i].content;
+//									+'</div>'								
+//								+'</li>'							
+//							+'</ul></li>';
+//						}
+//						document.getElementById('kj').title=arrParse.guide[0].id;
+//						document.getElementById('wx').title=arrParse.guide[1].id;
+//						document.getElementById('zfb').title=arrParse.guide[2].id;
+//						document.getElementById('qq').title=arrParse.guide[3].id;
+//					},
+//					error:function(xhr,error,errorThrown){
+//						console.log(error);
+//					}
+//				});
+				
+				mui('#receivables_type').on('tap','li',function(){
+					var id=this.getAttribute('title');
+					mui.openWindow({
+						url:'operation_guide.html',
+						id:'operation_guide',
+						show:{
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},extras:{type_id:id},
+						styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+				
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});	
+		</script>
+	</body>
+
+</html>

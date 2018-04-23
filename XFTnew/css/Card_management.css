@@ -1,0 +1,158 @@
+.section{width: 100%;height:auto;border:1px solid red;}
+.mui-bar-nav{position:relative;}
+.message{display: inline-block;width:1.46rem;height:1.15rem;position:absolute;right:0.78rem;top:0.85rem;background:url(images/zu10@3x.png)0 0 no-repeat;background-size: 100% 100%;}
+.message .mui-mesg {
+    display: inline-block;
+    width:8px;height:8px;
+    background:red;
+    border-radius: 50%;
+    position:absolute;
+    right:0;
+    top:-5px;
+    right:-3px;
+}
+.mui-slider-item{
+	width:100%;
+	height:9.375rem;
+}
+.mui-slider-item a{
+	width:100%;
+	height:9.375rem;
+}
+.mui-table-view .mui-media-object {
+	position:absolute;
+	top:9px;
+    line-height:2.84rem;
+    max-width: 1.75rem;
+    height: 1.75rem;
+}
+.mui-media-body{
+	margin-left:11.7%;
+	font-size:18px;
+	padding-top:2px;
+	color:#3E3E3E;
+}
+.section{
+	width:100%;height:auto;
+	background:#fff;
+	border:1px solid #fff;
+	display: none;
+}
+.section_logo{
+	width:9.375rem;
+	height:7.25rem;
+	/*border:1px solid #fc1;*/
+	margin:2.31rem auto 1.5rem;
+	background:url(images/mony@3x.png) 0 0 no-repeat;
+	background-size:100% 100%;
+}
+.section_p{
+	text-align: center;
+	font-size:14px;
+}
+.section_updata{
+	width:61.46%;
+	height:2.84rem;
+	border:1px solid #0194FF;
+	margin:2.625rem auto 2.93rem;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 2.5rem;
+	font-size:18px;
+	color:#0194FF;
+}
+.section_updata_two{
+	width:100%;
+	height:2.84rem;
+	/*border:1px solid #0194FF;*/
+margin:0.9rem auto;
+/*border-radius: 5px;*/
+	text-align: center;
+	line-height: 2.5rem;
+	font-size:18px;
+	color:#0194FF;
+	background:#fff;
+	letter-spacing: 1px;
+}
+.section_two{
+	width:96%;
+	height:auto;
+	margin:0.65rem auto 0;
+}
+.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after {
+    font-family: Muiicons;
+    font-size: inherit;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+.mui-table-view-cell:after {
+	width:90%;
+    position: absolute;
+    left:25px;
+    right: 10px;
+    bottom: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+}
+.mui-table-view-cell-p1{
+	font-size:16px;
+	padding-top:0.35rem;
+}
+.total_mony{margin-top:0.25rem;padding-left:6%;}
+.total_mony div{
+	width:33%;
+	height:3.25rem;
+	float:left;
+	
+	/*border:1px solid red;*/
+}
+.total_mony div p{text-align: center;color:#505050;}
+.total_mony_p1{font-size:16px;}
+.total_mony_p2{font-size:12px;margin-top:0.25rem;text-align: center;}
+.mui-table-view:before {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 0px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #fff;
+    top: -1px;
+}
+.mui-table-view:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+}
+/*底部解绑卡片区域样式*/
+.Unbundling_card{
+	width:96%;
+	height:6.75rem;
+	margin:1rem auto 0;
+	border-radius: 10px;
+	background:#fff;
+	padding-top:0.93rem;
+}
+.Unbundling_card li{width:30%;float:left;text-align: center;}
+.Unbundling_card li p{margin-top:0.29rem;font-size:15px;color:#3E3E3E;}
+.Unbundling_card div{width:3.43rem;height:3.43rem;margin:0 auto;}
+.hk{background:url(../images/hkjl@3x.png) 0 0 no-repeat;background-size:100% 100%;}
+.xg{background:url(../images/xgxx@3x.png) 0 0 no-repeat;background-size:100% 100%;}
+.jb{background:url(../images/jbkp@3x.png) 0 0 no-repeat;background-size:100% 100%;}

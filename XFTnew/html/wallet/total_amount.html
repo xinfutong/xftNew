@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-table-view-cell{padding-right: 10px;}
+		.mui-table-view-cell img{width: 10.6%;float: left;}
+		.mui-table-view-cell div{float: left;margin-left: 2.66%;width: 86.4%;}
+		.mui-table-view-cell b{font-weight: 400;color: #010101;font-size: 16px;}
+		.mui-table-view-cell p{font-size: 12px;color: #808080;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">总收益统计</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<ul class="mui-table-view" id="news_list">
+							    <li class="mui-table-view-cell">
+							    	<img src="../../images/sk-share@3x.png" />
+							    	<div class="">
+							    		<p><b>收款分润</b><!--<span id="xt_time" style="float: right;"></span>--></p>
+							    		<p id="xt_news"><!--笔数18笔，分润总额88.88元--></p>
+							    	</div>
+							    </li>
+							    <li class="mui-table-view-cell">
+							    	<img src="../../images/share-news@3x.png" />
+							    	<div class="">
+							    		<p><b>还款分润</b><!--<span id="share_time" style="float: right;">2017年06月14日</span>--></p>
+							    		<p id="share_news"><!--你有一笔新的分润到账--></p>
+							    	</div>
+							    </li>
+							    <li class="mui-table-view-cell">
+							    	<img src="../../images/tg-news@3x.png" />
+							    	<div class="">
+							    		<p><b>推广收益</b><!--<span id="tg_time" style="float: right;"></span>--></p>
+							    		<p id="tg_news"><!--您有一笔新分推广费用--></p>
+							    	</div>
+							    </li>
+							</ul>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript" src="../../js/jlyGlobal.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					beforeback: function() {
+				　　　　 //获得父页面的webview
+				        var list = plus.webview.currentWebview().opener();
+				　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+				        mui.fire(list, 'user_load');
+				        //返回true,继续页面关闭逻辑
+				        return true;
+				    },
+					hardwareAccelerated:true, //开启硬件加速					
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+55)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(55)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/wallet/total_profit',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+//						var share_news=arrParse.share_count>0?'笔数'+arrParse.pay_count+'笔，分润总额'+arrParse.pay_deduct+'元':'你暂无分润消息';
+//						var tg_news=arrParse.extension_count>0?'您有一笔新分推广费用':'你暂无推广消息';
+//						if(arrParse.share_count==0){
+//							$('#share_time').hide();
+//						}
+//						if(arrParse.extension_count==0){
+//							$('#tg_time').hide();
+//						}
+						document.getElementById('xt_news').innerText='笔数'+arrParse.pay_count+'笔，分润总额'+arrParse.pay_deduct+'元';
+//						document.getElementById('xt_time').innerText=arrParse.system_time!=undefined?arrParse.system_time:'';
+						document.getElementById('share_news').innerText='笔数'+arrParse.repayment_deduct+'笔，分润总额'+arrParse.repayment_count+'元';
+//						document.getElementById('share_time').innerText=arrParse.share_time!=undefined?arrParse.share_time:'';
+						document.getElementById('tg_news').innerText='笔数'+arrParse.extension_count+'笔，分润总额'+arrParse.extension_deduct+'元';
+//						document.getElementById('tg_time').innerText=arrParse.extension_time!=undefined?arrParse.extension_time:'';
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				
+				mui('#news_list').on('tap','li',function(){
+					var i=$(this).index();
+					switch (i)
+					{
+					case 0:
+					  	mui.openWindow({
+					  		url: 'share_details.html',
+							id: 'share_details',
+							
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					  break;
+					case 1:
+						mui.openWindow({
+							url: 'repay_share.html',
+							id: 'repay_share',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					  break;
+					case 2:
+					  	mui.openWindow({
+							url: 'extension_m_profit.html',
+							id: 'extension_m_profit',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					  break;
+					} 
+				});
+				
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

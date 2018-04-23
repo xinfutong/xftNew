@@ -1,0 +1,95 @@
+body,html{font-family:"微软雅黑";font-size:15px;list-style: none;text-decoration: none;}
+
+.mui-content{width:100%;height:auto;}
+.mui-table-view-cell{font-size:17px;}
+.mui-table-view-cell p{text-align: center;}
+.mui-table-view-cell p:nth-child(1){font-size:17px;margin-top:2.25rem;}
+/*.mui-table-view-cell p:nth-child(2){font-size:16px;text-align: center;}*/
+.mui-table-view-cell p:nth-child(2){font-size:40px;margin-top:1.125rem;margin-bottom:1.09rem;color:#000000;letter-spacing: 2px;text-align: center;}
+
+.mui-table-view:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #fff;
+}
+.mui-table-view-cell:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+}
+.mui-table-view:before {
+    position: absolute;
+    right: 0;
+    left: 12px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+    top: -1px;
+}
+.small_slider{
+	position: relative;
+}
+.small_slider{
+	    content: "";/* 注意这里为双引号 */
+position: absolute;
+width: 190%;
+height: 200%;
+left:5%;
+border-top: 1px solid #DDDDDD;
+/*border-radius:5px;*/
+	    -webkit-transform-origin: 0 0;
+	    -moz-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	    -o-transform-origin: 0 0;
+	    transform-origin: 0 0;
+	    -webkit-transform: scale(0.5, 0.5);
+	    -ms-transform: scale(0.5, 0.5);
+	    -o-transform: scale(0.5, 0.5);
+	    transform: scale(0.5, 0.5);
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+}
+.mui-input-group:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+}
+.mui-table-view{font-size:16px;}
+.mui-table-view input{font-size:16px;}
+.fkName{margin-left:10.4%;}
+.bankName{margin-left:5%;position:absolute;left:22%;}
+
+.section-view{margin-top:3.0625rem;}
+
+.mui-table-view-cell:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 0px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #DDDDDD;
+}

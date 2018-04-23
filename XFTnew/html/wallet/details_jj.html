@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body,.mui-content{font-family: "微软雅黑";}
+    	.car_package{color: #222222;font-size: 18px;margin-left: 13px;}
+    	.pack_content{margin-top: 10px;background-color: #FFFFFF;}
+    	.pack_list{float: left;margin-right: 1.2rem;}
+    	.pack_list_span{color: #666666;font-size: 12px;line-height: 13px;}
+    	.pack_list_span_title{color: #222222;font-size: 15px;line-height: 13px;}	
+    	/*.mui-btn{width: 92%;background-color: #FF7610;color: #FFFFFF;font-size: 18px;margin-top: 50px;border-radius: 22px;margin-left: 18px;border:none;}*/
+    	.mui-table-view-cell:after{
+		left:0%;
+		right:0%;
+		background-color: #f1f1f1;
+		/*height:0;*/
+		}
+		.mui-table-view:after{			
+			display: none;
+		}
+		.mui-table-view:before {
+		    position: absolute;
+		    right: 0;
+		    left: 0;
+		    height: 0px;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #fff;
+		    top: -1px;
+		}
+		/*.mui-btn{width: 42%;}*/
+		.details_head,.details_center,.zf{background-color: #FFFFFF;margin-top: 12px;}
+		.mui-input-row{margin-left: 11px;border-bottom: 1px solid #DDDDDD;}
+		.mui-input-row label{color: #505050;font-size: 15px;width: auto;padding: 11px 0;padding-right: 0;}
+		.details_head .mui-input-row label~input{width: 70%;font-size: 15px;color: #000000;}
+		.details_center .mui-input-row label~input{width: 65%;font-size: 15px;color: #000000;}
+		input[type=text]{padding: 11px 15px;}
+		.mui-table-view-cell>a:not(.mui-btn){color: #505050;font-size: 15px;padding: 11px;
+		padding-bottom: 7px;padding-top: 17px;height: 88px;}
+		.mui-navigate-right img{width: 15%;height: 56px;}
+		#circle img{margin-left: 5px;min-height: 50px;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-scroll-wrapper{position: fixed;}    
+    </style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;box-shadow: none;">			
+			<h1 class="mui-title">代理商详情</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="pack_content">
+								<ul class="mui-table-view">				   
+								    <li id="2" class="mui-table-view-cell">
+								    	<div class="pack_list">
+								    		<img id="head_img" src="../../images/u_img@3x.png" style="width:61px;border-radius: 50%;margin-top: 5px;"/>
+								    	</div>			    	
+								    	<div class="pack_list">
+									    	<ul>
+									    		<li style="margin-bottom: 10px;">
+									    			<span class="pack_list_span_title">手机号：
+									    				<label id="phone"><!--1314****858--></label>
+									    			</span></li>
+									    		<li><span class="pack_list_span">代理级别：
+									    			<label id="agent_grade"><!--省级代理商--></label></span></li>
+									    		<li><span class="pack_list_span">分润贡献：￥
+									    			<label id="share_gx"><!--0.00--></label></span></li>
+									    	</ul>
+									    </div>							    				    						    	
+								    </li>					   
+							    </ul>
+							</div>	
+							<div class="details_head">
+								<!--<form class="mui-input-group">-->
+							    <div class="mui-input-row">
+							        <label>推荐人：</label>
+							    	<input type="text" id="tj_men" readonly="readonly" value="">
+							    </div>
+							    <div class="mui-input-row">
+							        <label>实名认证：</label>
+							        <input type="text" id="real_name" readonly="readonly" value="">
+							    </div>
+							    <div class="mui-input-row" style="border-bottom: 0;">
+							        <label>注册时间：</label>
+							        <input type="text" id="reg_time" readonly="readonly" value="">
+							    </div>
+								<!--</form>-->
+							</div>
+							
+							<div class="details_center">
+							    <div class="mui-input-row">
+							        <label>本月收款交易金额：</label>
+							    	<input style="width: 56%;" type="text" id="cur_money_sk" readonly="readonly" value="￥0.00">
+							    </div>			    
+							    <div class="mui-input-row" style="border-bottom: 0;">
+							        <label>本月还款交易金额：</label>
+							        <input style="width: 56%;" type="text" id="cur_money_hk" readonly="readonly" value="￥0.00">
+							    </div>
+							</div>
+							<div class="details_center">
+							    <div class="mui-input-row">
+							        <label>推广分润：</label>
+							    	<input type="text" id="cur_share_tg" readonly="readonly" value="￥0.00">
+							    </div>			    
+							    <div class="mui-input-row">
+							        <label>还款分润：</label>
+							        <input type="text" id="cur_share_hk" readonly="readonly" value="￥0.00">
+							    </div>
+							    <div class="mui-input-row" style="border-bottom: 0;">
+							        <label>收款分润：</label>
+							        <input type="text" id="cur_share_sk" readonly="readonly" value="￥0.00">
+							    </div>
+							</div>
+							<div class="details_center">			   		    
+							    <div class="mui-input-row" style="border-bottom: 0;">
+							        <label>下级商户总数：</label>
+							        <input type="text" id="merchant_total" readonly="readonly" value="">
+							    </div>
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+25)+'px';
+				}
+				
+				var id=plus.webview.getWebviewById('details_jj').list_id;
+				var u_id=plus.webview.getWebviewById('details_jj').u_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				//默认当天日期显示
+				mui.ajax('http://www.zhxft.com/app/wallet/my_agent_details',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						agentId:u_id,
+						state:0
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var result = JSON.parse(data);
+						if(result.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						document.getElementById('head_img').src=result.head_portrait;
+						switch (result.type_id)
+						{						
+						case '6':
+						  $('#agent_grade').text('分公司代理');
+						  break;
+						case '5':
+						  $('#agent_grade').text('城市合伙人');
+						  break;
+						case '4':
+						  $('#agent_grade').text('事业合伙人');
+						  break;
+						case '3':
+						  $('#agent_grade').text('高级用户');
+						  break;
+						case '2':
+						  $('#agent_grade').text('普通用户');
+						  break;   
+						}
+						document.getElementById('phone').innerText=result.phoneNum;				
+						document.getElementById('share_gx').innerText=result.deductMoney;
+						document.getElementById('tj_men').value=result.parentId;
+						document.getElementById('real_name').value=result.loginId;
+						document.getElementById('reg_time').value=result.auditTime;
+						document.getElementById('cur_money_sk').value=result.pay;
+						document.getElementById('cur_money_hk').value=result.pay_hk;
+						document.getElementById('cur_share_tg').value=result.my_deductMoney_tg;
+						document.getElementById('cur_share_hk').value=result.my_deductMoney_hk;
+						document.getElementById('cur_share_sk').value=result.my_deductMoney;
+						document.getElementById('merchant_total').value=result.total;
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+				
+//				mui('#my_package').on('tap','.mui-table-view-cell',function(){
+//					var page_id=$(this).attr('id');
+//					var package_content=mui.openWindow({
+//						url:'package_content.html',
+//						id:'package_content',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//						waiting:{
+//	      					autoShow:true,
+//	      				},extras:{
+//					        name:page_id  //扩展参数
+//					    }
+//					});
+//				});
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

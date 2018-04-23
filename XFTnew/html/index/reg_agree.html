@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.about{text-align: center;margin-top: 30px;}
+		.about img{width: 37.6%;}
+		.about p{font-size: 12px;color: #505050;margin-top: 12px;}
+		.content{margin-top: 40px;color: #808080;font-size: 12px;padding: 0 2.66%;
+		line-height: 24px;text-indent:2em;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">还款协议</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="about">
+				<img src="../../images/about@3x.png" />
+				<!--<p>金付钱包：<span id="cur_version">1.0.0</span></p>-->
+			</div>
+			<div class="content">
+				     <!--深圳金码快付技术有限公司位于深圳市南山中心区核心 位置超甲级写字楼SCC中洲控股金融中心，公司借助特区超前 的政策扶持和人才资源优势，
+				雄厚的资金实力，一直立于支付 系统技术前沿，是一家专业从事支付系统，开发，运营，托管 等综合型技术服务公司。
+				公司致力于为客户和合作伙伴提供先 进、安全、灵活、符合客户需求的产品及解决方案。<br />
+				     公司开发的支付系统支撑的用户数接近8000多万，年交 易额突破500亿元。智能云POS系统和扫码支付系统被行业用 户广泛采用和好评。-->
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true, //开启硬件加速	
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+								
+				mui.ajax('http://www.zhxft.com/app/index1/user_agreement',{
+					async:false,
+					data:{
+												
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						document.querySelector('.content').innerHTML=arrParse.datas.content;
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

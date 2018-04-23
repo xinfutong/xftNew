@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title></title>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<style>
+		body{/*background-color: #FFFFFF;*/color: inherit;}
+		.mui-table-view-cell{padding: 0;}
+    	input[type=number],input[type=tel],input[type=text]{height: auto;padding: 17px 15px;}
+    	.mui-table-view{margin-top: 30px;}
+    	.mui-input-row label,input{font-size: 15px;}
+    	.mui-input-row label{width: auto;padding: 19px 15px;}
+    	.mui-input-row label~input{float: left;width: 50%;padding-left: 4px;}
+    	#promptBtn{z-index: 999;}
+	</style>
+	<body style="margin:0;padding:0;width:100%;height:100%;text-align:center;">
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell">				   
+			    <div class="mui-input-row">
+			        <label>验证码</label>
+			        <input id="name" type="number" class="" placeholder="请输入短信验证码">
+			    </div>
+			    <button id="promptBtn" type="button" class="mui-btn mui-btn-primary">提交</button>
+		    </li>		    
+		</ul>
+		<div style="width:100%;position:fixed;bottom:0;">
+			<div class="button" onclick="back()">关　闭</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script>
+			mui.plusReady(function(){
+				var c_id=plus.webview.getWebviewById('sms').c_id;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var order_id;
+				var sn;
+				mui.ajax('http://www.zhxft.com/app/creditCard/apply_bindcard',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						bankId:c_id
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);						
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0000'){
+							mui.alert('验证码已发送，请注意查收！','温馨提示','','','div');
+							order_id=arrParse.order_sn;
+							sn=arrParse.smsSeq;
+						}else{
+							mui.alert('验证码发送失败，可联系客服人员！','温馨提示','','','div');
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});	
+				var mask=mui.createMask();//遮罩层
+				document.getElementById('promptBtn').addEventListener('tap',function(){
+					var yz_sms=document.getElementById('name').value;
+					if(yz_sms==''){
+						mui.alert('请输入验证码','提示','','','div');
+						return;
+					}
+					mui.ajax('http://www.zhxft.com/app/creditCard/apply_confirm_bindcard',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							bankId:c_id,
+							order_sn:order_id,
+							code:yz_sms,
+							smsSeq:sn
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						beforeSend: function() {
+					        plus.nativeUI.showWaiting('正在绑定...', '正在绑定...');
+					        mask.show();//显示遮罩层
+					        setTimeout(function(){
+					        	plus.nativeUI.closeWaiting();
+					        	mask.close();//关闭遮罩层
+					        },7000);
+					    },
+					    complete: function() {
+					        plus.nativeUI.closeWaiting();
+					        mask.close();//关闭遮罩层
+					    },
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);	
+							if(arrParse.code=='0000'){
+								mui.alert('绑定还款协议成功！','温馨提示','','','div');								
+							}else if(arrParse.code=='0004'){
+								mui.alert(arrParse.msg,'温馨提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});					
+				})
+			});
+		</script>
+	</body>
+</html>

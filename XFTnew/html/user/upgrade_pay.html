@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>会员充值</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/vip_pay.css" />
+		<script src="../../js/jquery-1.8.0.min.js"></script>
+	</head>
+	<style>
+		.chioce{margin-top: 12px;}
+		#next{
+			border: 1px solid #FF5A005;width: 92%;
+    		background-color: #FF5A00;border: none;
+		}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        #next{margin-bottom: 100px;}  
+        .mui-scroll-wrapper{position: fixed;z-index: 8;}   
+        .mui-bar .mui-btn-link{color: #FF5A00;}   	
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">升级支付</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<!--<div class="pay_head">-->
+								<div class="head_left">
+									<img src="../../images/upgrade_pay@3x.png" />
+									<ul>
+										<li style="font-size: 15px;margin-top: 5%;margin-bottom: 20px;">
+											<label>支付金额</label>
+										</li>
+										<li style="margin-bottom: 19px;">
+											<span id="pay_money" style="font-size: 24px;">￥299.00</span>
+										</li>
+										<!--<li>
+											<label>订单编号</label>: <span id="order_id"></span>
+										</li>
+										<li>
+											<label>商品名称</label>: <span id="mui-title"></span>
+										</li>												-->
+									</ul>
+								</div>				
+							<!--</div>-->
+							<div class="chioce mui-btn" style="margin-top: 20px;">
+							   	 <div class="mui-input-row mui-radio" style="border-bottom: 0;">
+									<label>
+										<img src="../../images/upgrade-kj@3x.png" />
+									</label>
+									<div class="pay_content">
+										<div style="font-size: 16px;">快捷支付</div>
+										<div style="font-size: 12px;color: #999999;">银行信用卡储蓄卡付款，无需开通网银</div>
+									</div>
+									<input class="rds" name="radio1" type="radio" value="1" checked="checked">
+								</div>			
+							</div>
+							
+							<div class="chioce mui-btn">
+							   	<!--<div class="mui-input-row mui-radio">
+									<label>
+										<img src="../../images/upgrade-wx@3x.png" />
+									</label>
+									<div class="pay_content">
+										<div style="font-size: 16px;">微信支付</div>
+										<div style="font-size: 12px;color: #999999;">推荐安装微信6.0及以上版本的用户使用</div>
+									</div>
+									<input class="rds" name="radio1" type="radio" value="2">
+								</div>-->
+								<div class="mui-input-row mui-radio">
+									<label>
+										<img src="../../images/upgrade-zfb@3x.png" />
+									</label>
+									<div class="pay_content">
+										<div style="font-size: 16px;">支付宝支付</div>
+										<div style="font-size: 12px;color: #999999;">推荐有支付宝账号的用户使用</div>
+									</div>			
+									<input class="rds" name="radio1" type="radio" value="3">
+								</div>
+							</div>	
+							<button id="next" type="button" class="mui-btn-one mui-btn mui-btn-primary">
+								<label style="margin-right: 16px;">确认支付</label>￥<span id="confirm_pay"></span>
+							</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+							
+		</div>
+		
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					
+				});
+				
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+35)+'px';
+				}
+				var vip=plus.webview.getWebviewById('upgrade_pay').pay_money;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var order_id=plus.webview.getWebviewById('upgrade_pay').order_id;
+				
+				var wxChannel = null; // 微信支付  
+		        var aliChannel = null; // 支付宝支付  
+		        var channel = null;  
+		         // 获取支付通道  
+                plus.payment.getChannels(function(channels){  
+                    aliChannel=channels[0];  
+                	wxChannel=channels[1];  
+                },function(e){  
+                 	alert("获取支付通道失败："+e.message);  
+                });
+                var ALIPAYSERVER='http://www.zhxft.com/app/customer/alipay_pay?type=2&orderId='+order_id;  
+			    var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';  
+			        // 2. 发起支付请求  
+			   function pay(id){  
+			                // 从服务器请求支付订单  
+	                var PAYSERVER='';  
+	                if(id=='alipay'){  
+	                	PAYSERVER=ALIPAYSERVER;  
+	                	channel = aliChannel;  
+		            }else if(id=='wxpay'){  
+	                    PAYSERVER=WXPAYSERVER;  
+	                    channel = wxChannel;  
+		            }else{  
+	                    plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");  
+	                    return;  
+		            }  
+	                var xhr=new XMLHttpRequest();  
+	                xhr.onreadystatechange=function(){  
+	                    switch(xhr.readyState){  
+	                        case 4:  
+	                        if(xhr.status==200){  
+	                            plus.payment.request(channel,xhr.responseText,function(result){  
+	                                plus.nativeUI.alert("支付成功！",function(){ 
+	                                	var detailPage = plus.webview.getWebviewById('../user/user.html')
+										mui.fire(detailPage,'user_agent',{
+											agent_id:3,
+										});									
+		                                back();  
+		                            });  
+	                            },function(error){  
+//	                                plus.nativeUI.alert("支付失败：" + error.code);
+	                                plus.nativeUI.alert("支付失败");  
+	                            });  
+	                        }else{  
+	                            alert("获取订单信息失败！");  
+	                        }  
+	                        break;  
+	                    	default:  
+	                   	    break;  
+	                	}  
+			        }  
+		            xhr.open('GET',PAYSERVER);  
+		            xhr.send();  
+			    }  
+                                				
+				
+//				var agent_id=plus.webview.getWebviewById('upgrade_pay').type;
+				
+				
+//				if(agent_id==2){
+//					document.getElementById('mui-title').innerText='升级商户';
+//				}else if(agent_id==4){
+//					document.getElementById('mui-title').innerText='市级代理';
+//				}else if(agent_id==5){
+//					document.getElementById('mui-title').innerText='升级省级代理';
+//				}else if(agent_id==6){
+//					document.getElementById('mui-title').innerText='升级合伙人';
+//				}else if(agent_id==3){
+//					document.getElementById('mui-title').innerText='升级VIP商户';
+//				}
+//				document.getElementById('order_id').innerText=order_id;
+				document.getElementById('pay_money').innerText='￥'+vip;
+				document.getElementById('confirm_pay').innerText=vip;
+												
+				document.getElementById('next').addEventListener('tap',function(){
+					var kj_back=plus.webview.getWebviewById('buy_code');
+					var pay_type=$("input[name='radio1']:checked").val();					
+					mui.ajax('http://www.zhxft.com/app/customer/confirm_upgrade_vip',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+//							type_id:agent_id,
+							pay:vip,
+							pay_id:pay_type,
+							formNo:order_id
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							if(arrParse.isReal!=0){
+								if(pay_type==1){
+//									if(arrParse.is_credit==1){
+										mui.openWindow({
+											url: 'vip_kj_pay.html',
+											id: 'vip_kj_pay',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},createNew:true,
+											styles:{softinputMode:'adjustResize',
+//											bounce: 'vertical',bounceBackground:'#fc1'
+											},
+											extras:{pay:vip,order_id:order_id,},//额外扩展参数
+											waiting: {
+												autoShow: true
+											}
+										});
+//									}else if(arrParse.is_credit==0){
+//										mui.openWindow({
+//											url: '../index/kj_pay.html',
+//											id: 'kj_pay',
+//											show: {
+//												autoShow:false,
+//												aniShow: 'pop-in',
+//												duration:'350',
+//											},createNew:true,
+//											extras:{type:2,pay:vip,order_id:order_id},//额外扩展参数
+//											waiting: {
+//												autoShow: true
+//											}
+//										});
+//									}
+								}else if(pay_type==2){
+									pay('wxpay');
+//									mui.openWindow({
+//										url: 'up_wx.html',
+//										id: 'up_wx',
+//										show: {
+//											autoShow:false,
+//											aniShow: 'pop-in',
+//											duration:'350',
+//										},styles:{
+////											bounce: 'vertical',bounceBackground:'#fc1',
+//										},
+//										extras:{wx_url:arrParse.code_url,
+//										pay:vip,name:arrParse.name,num:arrParse.phoneNum},//额外扩展参数
+//										waiting: {
+//											autoShow: true
+//										}
+//									});									
+								}else if(pay_type==3){
+									pay('alipay');
+//									plus.runtime.openURL(arrParse.code_url);
+								}								
+							}else{
+								mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: 'id_authentication.html',
+											id: 'id_authentication',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},styles:{softinputMode:'adjustResize',
+//											bounce: 'vertical',bounceBackground:'#fc1'
+											},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')								
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+//					mui.openWindow({
+//						url: 'bank_authentication.html',
+//						id: 'bank_authentication',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//						aiting: {
+//							autoShow: true
+//						}
+//					});
+				})
+				
+//				function getVals(){
+//				    var res = getRadioRes('rds');
+//				    if(res == null){mui.toast('请选择'); return;}
+//				    mui.toast(res);
+//				}
+//				function getRadioRes(className){
+//				    var rdsObj = document.getElementsByClassName(className);
+//				    var checkVal = null;
+//				    for(i = 0; i < rdsObj.length; i++){
+//				        if(rdsObj[i].checked){checkVal = rdsObj[i].value;}
+//				    }
+//				    return checkVal;
+//				}
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

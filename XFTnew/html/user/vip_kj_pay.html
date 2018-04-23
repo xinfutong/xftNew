@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	/*.mui-icon-back:before, .mui-icon-left-nav:before{color: #999999;}*/
+    	.pay_info{background-color: #FFFFFF;margin-top: 14px;font-size: 16px;}
+    	.mui-input-row label{width: auto;padding: 17px 4.32%;font-family: "微软雅黑";}
+    	.mui-input-row label~input{float: right;width: 68%;padding-left: 4px;margin-top: 5px;font-family: "微软雅黑";}
+    	.mui-table-view-cell{padding: 11px 0;}
+    	input[type=text],input[type=number],input[type=tel]{padding: 10px 4.26%;font-size: 16px;}
+    	.mui-table-view-cell{padding: 0;}
+    	.mui-table-view-cell>a:not(.mui-btn){margin: 0;}
+    	.mui-btn-primary{color: #5592FA;border: 1px solid #5592FA;background-color: #fff;}
+    	p{text-align: center;padding-top: 25px;}
+    	p a{color: #5592FA;font-size: 14px;}
+    	.next{width: 92%;margin: 30px 15px;background-color: #5592FA;color: #FFFFFF;padding: 10px 0;}
+    	.btn_avtive{color: #999999;padding: 7px 30px;border: 1px solid #E8E8E8;}
+    	.mui-input-row label~select{margin-top: 8.5px;width: 67%;}
+    	/*.mui-bar .mui-icon{font-size: 35px;padding-top: 6px;}*/
+    	/*.mui-bar-nav.mui-bar .mui-icon{margin-left: -2px;}*/
+    	.kj_head{background-color: #FFFFFF;text-align: center;padding-top: 36px;padding-bottom: 49px;}
+    	.kj_head div{font-size: 40px;line-height: 40px;margin-top: 18px;}
+    	.mui-content{margin-top: 10px;}
+    	input[type=button]{padding: 10px 4.26%;color: #108EE9;font-size: 16px;}
+    	.card_back{width:100%;position:fixed;background:rgba(0,0,0,0.38);bottom:0;z-index: 100;display: none;}
+    	.dx{width:82%;margin-left:9%;background:#fff;border-radius: 4px;margin-top:30%;text-align: center;display: none;
+            border-top:1px solid transparent;border-bottom:1px solid transparent;}
+        .mui-table-view .mui-media-object{width: 24px;height: 24px;}  
+        .card_back li{padding: 18px 20px;}
+        .mui-table-view-cell>a:not(.mui-btn){padding: 0;} 
+        #pay_card{width: 68%;float: right;padding: 10px 4.26%;font-size: 16px;padding-left: 4px;margin-top: 5px;} 
+    	#dd{position: absolute;width: 100%;bottom: 0;}
+    	#dd .mui-table-view:after{height: 0;}
+    	.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+         .mui-scroll-wrapper{position: fixed;} 
+         .mui-bar .mui-btn-link{color: #000000;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}        
+    </style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">快捷支付</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>		
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="kj_head">
+								<label>支付金额</label>
+								<div id="pay_money">￥0</div>
+							</div>
+							<div class="pay_info">
+								<ul class="mui-table-view">
+								    <li class="mui-table-view-cell">
+									    <div class="mui-input-row">
+									        <label>持卡人</label>
+									        <input id="name" type="text"  placeholder="请输入持卡人姓名" value="">
+									    </div>
+								    </li>
+								    
+								    <li class="mui-table-view-cell">
+								        <!--<a class="mui-navigate-right">-->
+								        <div class="mui-input-row">
+									        <label>付款卡号</label>
+									        <div id="pay_card">
+									        	请选择付款银行卡号
+									        </div>
+									       
+									    </div>
+								        <!--</a>-->
+								    </li>
+								    <li id="type_code" class="mui-table-view-cell">
+								        <div class="mui-input-row">
+									        <label>验证码</label>
+									        <input id="btn_end" type="button" style="width: 30%;" value="发送验证码" />
+									        <input id="yz_code" style="width: 38%;float: right;padding-right: 0;" type="number" placeholder="请输入验证码" value="">					        
+									    </div>
+								    </li>				  				    				  
+								</ul>				
+							</div>			
+							<button id="promptBtn" type="button" class="next mui-btn mui-btn-primary">确认支付</button>
+			            	
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="card_back">
+				<div id="dd" style="height: 57%;">
+			    	<header id="chioce_card" class="mui-bar mui-bar-nav" style="top: auto;">
+						<a class="mui-pull-left" style="padding-left: 15px;width: 20%;">
+							<img style="width: 10px;padding-top: 14px;" src="../../images/back@3x.png">
+						</a>
+						<h1 class="mui-title">选择付款卡号</h1>
+					</header>
+		        	<ul id="hank_list" class="mui-table-view" style="overflow-y: auto;height: 100%;padding-top: 50px;">
+						
+					</ul>
+			   </div>
+		   </div>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+
+			mui.plusReady(function(){
+				mui.init({ 
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速
+					
+				}); 
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+40)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var money=plus.webview.getWebviewById('vip_kj_pay').pay;
+				document.getElementById('pay_money').innerText='￥'+money;
+				var hank_phone;//银行电话
+				var bank_card;//银行卡号
+				var order_id=plus.webview.getWebviewById('vip_kj_pay').order_id;//付款订单号				
+				var agent_id=plus.webview.getWebviewById('vip_kj_pay').type_id;
+				//获取银行列表
+				mui.ajax('http://www.zhxft.com/app/payCard/payInfo',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						var list=document.getElementById('hank_list');
+						document.getElementById('name').value=arrParse.name;
+//						list.innerHTML='';
+						if(arrParse.code==undefined){
+							for (var i=0;i<arrParse.bank.length;i++) {
+//								var card_num=arrParse.bank[i].cardNumber.substring(parseInt(arrParse.bank[i].cardNumber.length-4),parseInt(arrParse.bank[i].cardNumber.length));
+								list.innerHTML+='<li id="'+arrParse.bank[i].id+'" class="mui-table-view-cell mui-media" title="'+arrParse.bank[i].id+'">'
+									+'<a href="javascript:;">'
+										+'<img class="mui-media-object mui-pull-left" src="'+arrParse.bank[i].logo+'">'
+										+'<div class="mui-media-body">'
+											+'<label>'+arrParse.bank[i].name+'('+arrParse.bank[i].endNum+')</label>'																				
+										+'</div>'
+									+'</a>'
+								+'</li>';
+							}
+							list.innerHTML+='<li id="new_card" class="mui-table-view-cell mui-media">'
+								+'<a href="javascript:;">'
+									+'<img class="mui-media-object mui-pull-left" src="../../images/new_card@3x.png">'
+									+'<div class="mui-media-body">'
+										+'<label>添加新卡</label>'																				
+									+'</div>'
+								+'</a>'
+							+'</li>';
+						}else{
+							list.innerHTML+='<li id="new_card" class="mui-table-view-cell mui-media">'
+								+'<a href="javascript:;">'
+									+'<img class="mui-media-object mui-pull-left" src="../../images/new_card@3x.png">'
+									+'<div class="mui-media-body">'
+										+'<label>添加新卡</label>'																				
+									+'</div>'
+								+'</a>'
+							+'</li>';						
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});	
+				
+				//选择银行
+				var height = document.documentElement.clientHeight;
+		        $(".card_back").css("height",height);
+		        document.getElementById('pay_card').addEventListener('tap',function(){
+		        	$(".card_back").fadeIn(300);
+			        $(".dx").fadeIn(300);
+		        })
+//				$('#pay_card').click(function(){
+//					$(".card_back").fadeIn(300);
+//			        $(".dx").fadeIn(300);
+//				})
+				$('#dd ul').delegate('li','click',function(){
+					if($(this).attr('id')=='new_card'){	
+						mui.openWindow({
+							url: 'vip_bind_card.html',
+							id: 'vip_bind_card',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},createNew:true,
+							extras:{pay:money,order_id:order_id,type_id:agent_id},//额外扩展参数},//额外扩展参数
+							waiting: {
+								autoShow: true
+							}
+						});
+						$(".card_back").fadeOut(300);
+						return;
+					}
+					hank_phone=$(this).attr('title');
+					bank_card=$(this).attr('id');
+					document.getElementById('pay_card').innerText=$(this).children().children('div').children('label').text();
+					$(".card_back").fadeOut(300);
+				})
+				document.getElementById('chioce_card').addEventListener('tap',function(){
+					$(".card_back").fadeOut(300);
+				})
+//				$('#chioce_card').click(function(){
+//					$(".card_back").fadeOut(300);
+//				})
+
+				//接收验证码
+				document.getElementById('btn_end').addEventListener('tap',function(){					
+					if(hank_phone!=undefined && hank_phone!=''){
+						mui.ajax('http://www.zhxft.com/app/customer/sms',{
+							async:false,
+							data:{							
+								cardId:hank_phone
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);	
+								if(arrParse.state==1){
+									mui.alert('验证码已发送','提示','','','div');
+									var btn_end = document.getElementById('btn_end');
+									var time=60;									
+									btn_end.setAttribute('disabled','disabled');
+									var name_time=setInterval(function(){
+					                    time--;
+					                    if(time<1){
+					                    	clearInterval(name_time);
+					                    	btn_end.removeAttribute('disabled');
+					                    	btn_end.value='重新获取'; 
+					                    	btn_end.className='mui-btn mui-btn-primary';
+					                    	time=60;
+					                    }else{
+					                    	btn_end.className='mui-btn mui-btn-primary btn_avtive';
+					                    	btn_end.value=''+time+'S'; 
+					                    }
+					                         
+					                },1000);
+								}else{
+									mui.alert(arrParse.msg,'提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+					}else{
+						mui.alert('请选择付款银行卡号！','提示','','','div');
+					}
+				})
+				document.getElementById('promptBtn').addEventListener('tap',function(){					
+					var kj_back=plus.webview.getWebviewById('buy_code');
+					var code=document.getElementById('yz_code').value;
+					if(code!=''){
+						mui.ajax('http://www.zhxft.com/app/customer/kj_confirm_upgrade_vip',{
+							async:false,
+							data:{	
+								uid:uid,
+								token:token,
+								mobile_code:code,
+								pay:money,
+								cardId:bank_card,
+								fromNo:order_id
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.info.code==6){
+									plus.storage.clear();
+									plus.storage.setItem("launchFlag", "林允");
+									mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.openWindow({
+												url: '../index/login.html',
+												id: 'login',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												}//额外扩展参数
+												,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+												styles:{softinputMode:'adjustResize'},
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div')
+									return;
+								}
+								if(arrParse.pay_state==1){
+									var detailPage = plus.webview.getWebviewById('../user/user.html')
+									mui.fire(detailPage,'user_agent',{
+										agent_id:agent_id,
+									});
+									mui.confirm('支付成功！是否返回个人中心','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.fire(kj_back,'agent_back');
+										}
+									},'div');																			
+								}else{
+									mui.alert(arrParse.pay_msg,'提示','','','div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+					}else{
+						mui.alert('验证码不能为空！','提示','','','div');
+					}
+				})
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+//			var btn_end = document.getElementById('btn_end');
+//			var time=60;
+//			btn_end.addEventListener('tap', function(event) {
+//				btn_end.setAttribute('disabled','disabled');
+//				var name_time=setInterval(function(){
+//                  time--;
+//                  if(time<1){
+//                  	clearInterval(name_time);
+//                  	btn_end.removeAttribute('disabled');
+//                  	btn_end.value='重新获取'; 
+//                  	btn_end.className='mui-btn mui-btn-primary';
+//                  	time=60;
+//                  }else{
+//                  	btn_end.className='mui-btn mui-btn-primary btn_avtive';
+//                  	btn_end.value=''+time+'S'; 
+//                  }
+//                       
+//              },1000);
+//			});
+		</script>
+	</body>
+
+</html>

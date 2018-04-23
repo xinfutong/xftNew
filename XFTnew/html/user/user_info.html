@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	.mui-badge{background-color: #FFFFFF;color: #808080;font-size: 16px;}
+    	.mui-badge img{width: 68px;border-radius: 50%;height: 68px;}
+    	.mui-table-view-cell>a:not(.mui-btn){}
+    	.mui-table-view:before,.mui-table-view:after{height: 0;}
+    	.mui-bar .mui-btn-link{color: #000000;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+    </style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">个人信息</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>		
+		<div class="mui-content">
+			<ul class="mui-table-view">
+			    <li id="my_head" class="mui-table-view-cell">
+			        <a class="mui-navigate-right" style="padding: 30px 15px">我的头像
+			           <span class="mui-badge">
+			           	  <img id="logo_img" src="../../images/user_info@3x.png" />
+			           </span>
+			        </a>
+			    </li>			    
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			    <li id="eidt_nickname" class="mui-table-view-cell">
+			        <!--<a class="mui-navigate-right">-->手机号码<!--</a>-->
+			        <span id="phone" class="mui-badge"><!--13888888888--></span>
+			    </li>   
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			    <li id="real" class="mui-table-view-cell">
+			        <a class="mui-navigate-right">实名认证</a>
+			        <span id="is_real" class="mui-badge" style="right: 35px;"><!--未认证--></span>
+			    </li>   
+			</ul>
+			<!--<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+			    <ul class="mui-table-view">
+			      <li class="mui-table-view-cell">
+			        <a href="#">从相册中选择</a>
+			      </li>
+			      <li class="mui-table-view-cell">
+			        <a href="#">拍照</a>
+			      </li>
+			    </ul>
+			    <ul class="mui-table-view">
+			      <li class="mui-table-view-cell">
+			        <a href="#sheet1"><b>取消</b></a>
+			      </li>
+			    </ul>
+			</div>-->
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true, //开启硬件加速	
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				}); 
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var my_head=document.getElementById('my_head');				
+//				if(plus.storage.getItem('imgPath')!=null && plus.storage.getItem('imgPath')!=undefined && plus.storage.getItem('imgPath')!=""){
+//					document.getElementById('logo_img').src=plus.storage.getItem('imgPath');
+//				}
+				
+				window.addEventListener('user_info',function(event){
+					mui.ajax('http://www.zhxft.com/app/customer/my_index',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);	
+							document.getElementById('is_real').innerText=arrParse.state==1?'已认证':'未认证';
+							document.getElementById('phone').innerText=arrParse.phoneNum;
+							document.getElementById('logo_img').src=arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/user_info@3x.png';
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				
+				mui.ajax('http://www.zhxft.com/app/customer/my_index',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);	
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						document.getElementById('is_real').innerText=arrParse.state==1?'已认证':'未认证';
+						document.getElementById('phone').innerText=arrParse.phoneNum;
+						document.getElementById('logo_img').src=arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/user_info@3x.png';
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				//实名认证
+				document.getElementById('real').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'id_authentication.html',
+						id: 'id_authentication',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+
+				//修改头像
+				document.getElementById('my_head').addEventListener('tap', function() {	
+				//	获取类型
+					typeNum = this.getAttribute('data-index');
+				    if(mui.os.plus) {
+				        var a = [{
+				            title: "拍照"
+				    }, {
+				        title: "从相册选择"
+				    }];
+				    plus.nativeUI.actionSheet({
+				        title: "修改用户头像",
+				        cancel: "取消",
+				        buttons: a
+				    }, function(b) { /*actionSheet 按钮点击事件*/
+				        switch(b.index) {
+				        case 0:
+				            break;
+				        case 1:
+				            getImage(); /*拍照*/
+				            break;
+				        case 2:
+				            galleryImg(); /*打开相册*/
+				            break;
+				        default:
+				            break;
+				        }
+				    })
+				    }
+				}, false);
+				//拍照
+		function getImage() {
+		    var cmr = plus.camera.getCamera();
+		    var res = cmr.supportedImageResolutions[0];
+		    var fmt = cmr.supportedImageFormats[0];
+		    cmr.captureImage(function(path) {
+		        //plus.io.resolveLocalFileSystemURL(path, function(entry) {  
+		    plus.io.resolveLocalFileSystemURL(path, function(entry) {
+		        var localUrl = entry.toLocalURL();
+		        uploadHead(localUrl + "?version=" + new Date().getTime(),localStorage.osName);
+		    }, function(err) {
+		        console.error("拍照失败：" + err.message);
+		    }, {
+		        index: 1
+		    });
+		    });
+		} 
+		
+		//本地相册选择
+		function galleryImg() {
+		    plus.gallery.pick(function(a) {
+		    plus.io.resolveLocalFileSystemURL(a, function(entry) {
+		        plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+		        root.getFile("head.png", {}, function(file) {
+		            //文件已存在
+		            file.remove(function() {
+		//          console.log("file remove success");
+		            entry.copyTo(root, 'head.png', function(e) {
+		                var e = e.fullPath + "?version=" + new Date().getTime();
+		                uploadHead(e); /*上传图片*/
+		                //变更大图预览的src
+		                //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+		                },function(e) {
+		                   console.log('copy image fail:' + e.message);
+		            	});
+		            }, function() {
+		            console.log("delete image fail:" + e.message);
+		            });
+		        }, function() {
+		            //文件不存在
+		            entry.copyTo(root, 'head.png', function(e) {
+		            var path = e.fullPath + "?version=" + new Date().getTime();
+		            uploadHead(path); /*上传图片*/
+		            },function(e) {
+		            console.log('copy image fail:' + e.message);
+		            });
+		        });
+		        }, function(e) {
+		        console.log("get _www folder fail");
+		        })
+		    }, function(e) {
+		        console.log("读取拍照文件错误：" + e.message);
+		    });
+		    }, function(a) {}, {
+		    filter: "image"
+		    })
+		};
+		
+		//上传头像图片
+		function uploadHead(imgPath,osName) {
+			
+		    var image = new Image();
+		    image.src = imgPath;
+		    image.onload = function() {
+		    var imgData = getBase64Image(image,osName);
+		//  console.log(imgData);console.log(inu);console.log(inp);console.log(typeNum);
+		    /*在这里调用上传接口*/
+		      mui.ajax("http://www.zhxft.com/app/customer/uploadHead", {
+		          data: {
+			        img: imgData,
+			        uid:uid,
+					token:token,	          
+		          },
+		          dataType: 'json',
+		          type: 'post',
+//		          timeout: 800,
+		          success: function(data){
+		          mui.toast('上传成功',{
+		              duration:'long',
+		              type:'div'
+		          });
+		          	document.getElementById('logo_img').src = imgPath;
+		          	plus.storage.setItem("imgPath",imgPath);
+		//			上传成功,自定义事件  
+					var cent = plus.webview.getWebviewById('../user/user.html');
+					var home = plus.webview.getWebviewById('../extension/extension.html');
+					mui.fire(cent,'user_img',{
+						img:imgPath
+					});
+					mui.fire(home,'extension_img',{
+						img:imgPath
+					});
+					
+//					var mySe = plus.webview.getWebviewById('My_settings');
+//					mui.fire(mySe,'pageflowrefresh02',{
+//						imgPath:imgPath
+//					});
+					
+		//			重写mui.back返回、并刷新上级页面
+//					setTimeout(function(){
+//					var oldback = mui.back();
+//					mui.back = function(){
+//						var wobj = mui.currentWebview.opener().show();
+//						wobj.reload(true);  
+//						oldback();
+//						}
+//					},2000);
+					
+		          }, 
+		          error: function(xhr, type, errorThrown){
+		          	mui.toast('网络异常，请稍后再试！')
+		          }
+		      });
+		    }
+		}
+		//将图片压缩转成base64，注意这里压缩的大小也是会影响到上传的头像的大小质量
+		function getBase64Image(img,osName) {
+	    var canvas = document.createElement("canvas");
+	    var width = img.width;
+	    var height = img.height;
+	    // calculate the width and height, constraining the proportions
+	    if(width > height) {
+	    if(width > 100) {
+	        height = Math.round(height *= 500 / width);
+	        width = 500;
+	    }
+	    } else {
+	    if(height > 100) {
+	        width = Math.round(width *= 500 / height);
+	        height = 500;
+	    }
+	    }
+	    canvas.width = width; /*设置新的图片的宽度*/
+	    canvas.height = height; /*设置新的图片的长度*/
+        var ctx = canvas.getContext("2d");
+	//	   	var x = canvas.width / 2;
+	//	   	var y = canvas.height / 2;
+	//	  if(osName=='ios'&&osName!=null){
+	//		
+	//		 }
+		  
+	     //旋转图片
+	// 	ctx.clearRect(0,0,canvas.width,canvas.width);//清除画布内容
+	//  ctx.translate(x,y);//将绘图原点移动到画布的中心点
+	//  ctx.rotate((Math.PI / 180) * 90);//要旋转的角度
+	//  ctx.translate(-x,-y);//将画布的原点移动
+	  	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
+	    var dataURL = canvas.toDataURL("image/png", 0.8);
+	    return dataURL.replace("data:image/png;base64,", ""); 	
+			
+		}
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+		});
+			
+		</script>
+	</body>
+
+</html>

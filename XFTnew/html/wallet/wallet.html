@@ -1,0 +1,633 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/wallet.css" />
+	</head>
+	<style>
+		.mui-segmented-control .mui-control-item.mui-active{
+			background-color: #FFFFFF;color: #ff5a00;
+			border-bottom: 2px solid #ff5a00;
+		}
+		.mui-segmented-control{border: 0;}
+		.mui-segmented-control .mui-control-item{
+			border-left: 0;color: #808080;
+			width: 40%;
+		    display: inline-block;
+		    margin: 0 5%;
+		}
+		.mui-table-view-cell>.mui-badge{right: 34px;}
+		.mui-badge{background-color: #FFFFFF;border-radius:0;color: #505050;font-size: 15px;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{height: auto;margin-top: 2px;}
+		.mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 26px;height: 24px;
+		}
+		.billboard{margin: 9px 0;}
+		.mui-media-body{font-size: 16px;color: #000000;margin-top: 3px;display: inline-block;}
+		.mui-pull-right{border-radius: 50%;width: 29px;}
+		.mui-table-view-chevron .mui-table-view-cell{padding-right: 35px;}
+		.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){margin-right: -35px;}
+		
+		#item1 .mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 24px;height: auto;
+		}
+		#item1 .mui-media-body{margin-top: 3px;}
+		.D{
+            width:100%;
+            position: fixed;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+            z-index: 99;
+        }
+        #bill_day{border: 2px solid #FFD200;border-radius: 50%;width: 32px;height: 32px;}
+        #bill_week{border: 2px solid #BEBEBE;border-radius: 50%;width: 32px;height: 32px;}
+        #bill_total{border: 2px solid #F79D00;border-radius: 50%;width: 32px;height: 32px;}
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);background-color:#DDDDDD;height: 0.5px;}
+        .B{
+            width:100%;
+            position: absolute;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:0.5px solid #DDDDDD;
+            -webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);
+        } 
+        .mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){padding-top: 0;} 
+        .wallet_sy{padding: 0 10%;padding-top: 48px;padding-bottom: 40px;}  
+        .wallet_sy label{font-size: 24px;line-height: 24px;}
+        .wallet_sy .mui-grid-view.mui-grid-9 .mui-media .mui-icon{font-size: 18px;}
+	</style>
+	<body>
+		<!--<div class="D"></div>-->
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">我的收益</h1>
+			<button id="up_wallet" style="color: #FFFFFF;" class="mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				更新数据</button>
+		</header>
+		<div class="mui-content">
+			<div class="user_head">
+				<!--<h6>总金额(历史)</h6>-->
+				<!--<h5 id="total_amount"></h5>-->
+				<div class="wallet_sy">
+					<ul id="share_profit" class="mui-table-view mui-grid-view mui-grid-9">
+			            <li  title="1"style="width: 50%;background-color: #ff5a00;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			            	<a href="#">
+			                    <span class="mui-icon">
+			                    	支付分润
+			                    </span>		                    
+			            	</a>
+			            	<div class="mui-media-body" title="1">
+			                   	<label id="zf_share"></label>
+			                </div>
+			            </li>
+			            <li title="2" style="width: 50%;background-color: #ff5a00;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			            	<a href="#">
+			                    <span class="mui-icon">
+			                    	智能还分润
+			                    </span>		                    
+			            	</a>
+			            	<div class="mui-media-body" title="2">
+		                    	<label id="repay_share"></label>
+		                    </div>
+			            </li>			            	            	            	            
+			        </ul>
+				</div>
+				<ul id="tx_type" class="mui-table-view mui-grid-view mui-grid-9">
+		            <li title="3" style="width: 33.33333%;background-color: #fd742a;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="mui-icon">
+		                    	推广升级
+		                    </span>		                    
+		            	</a>
+		            	<div id="tg_profit" class="mui-media-body" title="3">
+		                   	<label id="extension"></label>
+		                </div>
+		            </li>
+		            <li title="4" style="width: 33.33333%;background-color: #fd742a;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="mui-icon">
+		                    	代理升级
+		                    </span>		                    
+		            	</a>
+		            	<div id="tg_tx" class="mui-media-body" title="4">
+	                    	<label id="dl_profit"></label>
+	                    </div>
+		            </li>
+		            <li title="5" style="width: 33.33333%;background-color: #fd742a;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="mui-icon">
+		                    	公司奖励
+		                    </span>		                    
+		            	</a>
+		            	<div id="tg_tx" class="mui-media-body" title="5">
+	                    	<label id="company_award"></label>
+	                    </div>
+		            </li>		            	            	            
+		        </ul>
+			</div>	
+			
+			<!--<div class="billboard">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell mui-media">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="../../images/bill@3x.png">							
+							<span class="mui-media-body">
+								龙虎榜
+							</span>
+							<img class="mui-media-object mui-pull-right" id="bill_total" src="../../images/bill-1@3x.png">
+							<img class="mui-media-object mui-pull-right" id="bill_week" src="../../images/bill-2@3x.png">
+							<img class="mui-media-object mui-pull-right" id="bill_day" src="../../images/bill-3@3x.png">
+						</a>
+					</li>				
+				</ul>
+			</div>-->
+			
+			<div class="user_list" style="margin-bottom: 62px;">
+				<div>
+					<div id="segmentedControl" class="mui-segmented-control">
+						<div class="B"></div>
+						<a class="mui-control-item mui-active" href="#item1">
+							我的代理商
+						</a>
+						<a class="mui-control-item" href="#item2">
+							我的用户
+						</a>					
+					</div>
+				</div>
+				<div>
+					<div id="item1" class="mui-control-content mui-active">					
+						<ul id="agent_list" class="mui-table-view">
+							<li title="6" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/country-agent@3x.png">
+						        	<span class="mui-media-body">分公司代理</span>
+						        </a>
+						        <span class="mui-badge"><!--33人--></span>
+						    </li>
+						    <li title="5" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/province_agent@3x.png">
+						        	<span class="mui-media-body">城市合伙人</span>
+						        </a>
+						        <span class="mui-badge"><!--33人--></span>
+						    </li>
+						    <li title="4" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/city-agent@3x.png">
+						        	<span class="mui-media-body">事业合伙人</span>
+						        </a>
+						        <span class="mui-badge"><!--33人--></span>
+						    </li>
+						    <!--<li title="6" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/area_agent@3x.png">
+						        	<span class="mui-media-body">县级运营商</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>
+						    <li title="5" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/vip_agent@3x.png">
+						        	<span class="mui-media-body">团队渠道商</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>						   
+						    <li title="4" class="mui-table-view-cell">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/Lower-agent@2x.png">
+						        	<span class="mui-media-body">个人分销商</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>-->
+						</ul>
+					</div>
+					<div id="item2" class="mui-control-content">
+						<ul class="mui-table-view">
+						    <li class="mui-table-view-cell" title="1">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/1@3x.png">
+						        	<span class="mui-media-body">用户</span>
+						        </a>
+						        <span class="mui-badge"><!--33人--></span>
+						    </li>
+						    <!--<li class="mui-table-view-cell" title="2">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/2@3x.png">
+						        	<span class="mui-media-body">二掌柜</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>
+						    <li class="mui-table-view-cell" title="3">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/3@3x.png">
+						        	<span class="mui-media-body">三掌柜</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>-->
+						    <!--<li class="mui-table-view-cell" title="4">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/4@3x.png">
+						        	<span class="mui-media-body">四掌柜</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>
+						    <li class="mui-table-view-cell" title="5">
+						        <a class="mui-navigate-right">
+						        	<img class="mui-media-object mui-pull-left" src="../../images/5@3x.png">
+						        	<span class="mui-media-body">五掌柜</span>
+						        </a>
+						        <span class="mui-badge"></span>
+						    </li>-->
+						</ul>
+					</div>				
+				</div>				
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true //开启硬件加速	
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				window.addEventListener('wallet_load',function(event){
+					console.log(22222)
+					location.reload();
+				});
+				if(mui.os.ios){
+				   $('.B').css('margin-top','1px');
+				}else if(mui.os.android){
+					$('.B').css('bottom','4px');
+				}
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+//				alert(token)
+				mui.ajax('http://www.zhxft.com/app/wallet/index',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型	
+					timeout:50000,//超时时间设置为10秒；
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+//						document.getElementById('bill_day').src=arrParse.day_head_portrait;
+//						document.getElementById('bill_week').src=arrParse.week_head_portrait;
+//						document.getElementById('bill_total').src=arrParse.count_head_portrait;
+						document.getElementById('zf_share').innerText=arrParse.wallet_sum_sk!=undefined?arrParse.wallet_sum_sk:0;
+						document.getElementById('repay_share').innerText=arrParse.wallet_sum_hk!=undefined?arrParse.wallet_sum_hk:0;
+						document.getElementById('extension').innerText=arrParse.extension!=undefined?arrParse.extension:0;
+						document.getElementById('dl_profit').innerText=arrParse.wallet_sum_dl!=undefined?arrParse.wallet_sum_dl:0;
+						document.getElementById('company_award').innerText=arrParse.wallet_sum_gs!=undefined?arrParse.wallet_sum_gs:0;
+						$('#item1').children('ul').children('li').eq(0).children('span').text((arrParse.country!=undefined?arrParse.country:0)+'人');
+						$('#item1').children('ul').children('li').eq(1).children('span').text((arrParse.province!=undefined?arrParse.province:0)+'人');	
+						$('#item1').children('ul').children('li').eq(2).children('span').text((arrParse.city!=undefined?arrParse.city:0)+'人');
+//						$('#item1').children('ul').children('li').eq(1).children('span').text((arrParse.area!=undefined?arrParse.area:0)+'人');
+//						$('#item1').children('ul').children('li').eq(2).children('span').text((arrParse.team!=undefined?arrParse.team:0)+'人');
+//						$('#item1').children('ul').children('li').eq(5).children('span').text((arrParse.personal!=undefined?arrParse.personal:0)+'人');
+						
+						$('#item2').children('ul').children('li').eq(0).children('span').text((arrParse.one!=undefined?arrParse.one:0)+'人');
+//						$('#item2').children('ul').children('li').eq(1).children('span').text((arrParse.two!=undefined?arrParse.two:0)+'人');
+//						$('#item2').children('ul').children('li').eq(2).children('span').text((arrParse.three!=undefined?arrParse.three:0)+'人');
+//						$('#item2').children('ul').children('li').eq(3).children('span').text((arrParse.four!=undefined?arrParse.four:0)+'人');
+//						$('#item2').children('ul').children('li').eq(4).children('span').text((arrParse.five!=undefined?arrParse.five:0)+'人');
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);alert(error)
+					}
+				});
+				//更新数据
+				document.getElementById('up_wallet').addEventListener('tap',function(){
+					mui.ajax('http://www.zhxft.com/app/wallet/index',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}
+							document.getElementById('zf_share').innerText=arrParse.wallet_sum_sk!=undefined?arrParse.wallet_sum_sk:0;
+							document.getElementById('repay_share').innerText=arrParse.wallet_sum_hk!=undefined?arrParse.wallet_sum_hk:0;
+							document.getElementById('extension').innerText=arrParse.extension!=undefined?arrParse.extension:0;
+							document.getElementById('dl_profit').innerText=arrParse.wallet_sum_dl!=undefined?arrParse.wallet_sum_dl:0;
+							document.getElementById('company_award').innerText=arrParse.wallet_sum_gs!=undefined?arrParse.wallet_sum_gs:0;
+							$('#item1').children('ul').children('li').eq(0).children('span').text((arrParse.country!=undefined?arrParse.country:0)+'人');
+							$('#item1').children('ul').children('li').eq(1).children('span').text((arrParse.province!=undefined?arrParse.province:0)+'人');	
+							$('#item1').children('ul').children('li').eq(2).children('span').text((arrParse.city!=undefined?arrParse.city:0)+'人');
+							
+							$('#item2').children('ul').children('li').eq(0).children('span').text((arrParse.one!=undefined?arrParse.one:0)+'人');
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+					
+				//分润
+				mui('#share_profit').on('tap','li',function(){
+					var i=$(this).attr('title');
+					var val=$(this).children('div').children('label').text();
+					if(uid!=null){
+						mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,						
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0000'){
+									mui.openWindow({
+										url: 'withdrawals.html',
+										id: 'withdrawals',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},
+									    extras:{
+									      	tx_type:i,pay:val
+									    },
+										waiting: {
+											autoShow: true
+										}
+									});
+								}else if(arrParse.code=='0001'){
+									mui.confirm('你当前并未实名认证(绑定银行卡)，是否实名认证！','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.openWindow({
+												url: '../user/id_authentication.html',
+												id: 'id_authentication',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},
+												styles:{softinputMode:'adjustResize',
+//												bounce: 'vertical',bounceBackground:'#fc1'
+												},
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div')
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});						
+					}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+//										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}										
+				});
+												
+				//收益
+				mui('#tx_type').on('tap','li',function(){
+					var i=$(this).attr('title');
+					var val=$(this).children('div').children('label').text();					
+					if(uid!=null){
+						mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,						
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0000'){
+									mui.openWindow({
+										url: 'withdrawals.html',
+										id: 'withdrawals',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},
+									    extras:{
+									      	tx_type:i,pay:val
+									    },
+										waiting: {
+											autoShow: true
+										}
+									});
+								}else if(arrParse.code=='0001'){
+									mui.confirm('你当前并未实名认证(绑定银行卡)，是否实名认证！','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.openWindow({
+												url: '../user/id_authentication.html',
+												id: 'id_authentication',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},
+												styles:{softinputMode:'adjustResize',
+//												bounce: 'vertical',bounceBackground:'#fc1'
+												},
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div')
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});						
+					}else{
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{
+//										bounce: 'vertical',bounceBackground:'#fc1',
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}										
+				});
+				
+				//点击代理商
+				mui('#item1').on('tap','li',function(){
+//					var i=$(this).index();
+					var i=$(this).attr('title');
+					var num=parseInt($(this).children('span').text());
+					if(num>0){
+						mui.openWindow({
+							url: 'agent_list.html',
+							id: 'agent_list',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+						    extras:{
+						      	list_id:i
+						    },styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						mui.alert('你尚未拥有当前等级的下级代理商','提示','','','div');
+					}
+					
+				});
+				//点击下级
+				mui('#item2').on('tap','li',function(){
+					var i=$(this).attr('title');
+					mui.openWindow({
+						url: 'lower_list.html',
+						id: 'lower_list',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},
+					    extras:{
+					      	list_id:i
+					    },styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+				
+				//龙虎榜
+//				document.querySelector('.billboard').addEventListener('tap',function(){
+//					mui.openWindow({
+//						url: 'billboard.html',
+//						id: 'billboard',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				})
+				
+				//（跳转到的页面）关闭页面跳转动画
+//				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+//				self.show('pop-in',350);
+			})			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1005 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+	</head>
+	<style>
+		.mui-content{width: 100%;height: auto;font-family: "PingFang-SC-Regular";}   	
+    	.mui-grid-9 li{width: 33%;padding: 0;border: none;}
+    	.mui-grid-9 li a{padding: 0;}
+    	.mui-icon img{width: 33%;border-radius: 50%;}
+    	#user_img{border-radius: 122rem;
+			    background-color: #ffe394;
+			    height: 5.3rem;
+			    width: 5.3rem;
+			    padding: 0.3rem;}
+		.user_img{border-radius: 122rem;
+			    background-color: #ffe394;
+			    height: 5.3rem;
+			    width: 5.3rem;
+			    padding: 0.3rem;}	 			    
+		.section_one{width:100%;height:auto;border:1px solid #fff;background:#fff;}		    
+		.section_one_div1{width:75px;height:75px;;margin:1.4rem auto 0;border:}
+		.section_one_div1 div{width:68px;height:68px;border:3px solid #fc1;border-radius:50%;margin:3px auto;}
+		.section_one_div1 div img{width:100%;height:100%;border-radius:50%;}
+		.section_one p{text-align: center;color:#ff7610;font-size:18px;margin-bottom:0.8rem;}
+		
+		#three{border:none;text-shadow: none;}
+		#four{margin:0.625rem 0 0.625rem 0;}
+		#six{margin:0.625rem 0 0.625rem 0;}
+		.mui-navigate-right{border-color:#fc1;}
+		.mui-table-view-cell>.mui-badge{right: 32px;}
+		.mui-badge{background-color: #FFFFFF;color: #808080;font-size: 16px;}
+		
+		#user_head,#news,#one{margin-bottom: 12px;}
+		#user_head .mui-table-view,#header{background-color: #ff5a00;color: #FFFFFF;}
+		#head img{margin-top: 3px;border-radius: 5px;border: 2px solid #FFFFFF;}
+		.mui-table-view-cell{padding-left: 17px;}
+		#head .mui-navigate-right:after, .mui-push-right:after{color: #FFFFFF;}
+		#head .mui-badge{color: #1B82D2;font-size: 10px;border-radius: 2px;right: 10.6%;}
+		#news .mui-badge img{width: 11px;margin-left: 10px;}
+		
+		.mui-popover.mui-popover-action .mui-table-view{color: #108EE9;}
+		.D{
+            width:100%;
+            position: fixed;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:1px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+            z-index: 99;
+        }
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);background-color:#DDDDDD;/*height: 0.5px;*/}
+        .mui-table-view:before{top: 0;}    
+	</style>
+	<body>
+		<!--<div class="D">
+			
+		</div>-->
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;">			
+			<h1 class="mui-title" style="color: #FFFFFF;">我的</h1>
+			<button id="my_set" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" style="color: #FFFFFF;font-size: 15px;margin-right: 16px;">设置</button>
+		</header>
+		<div class="mui-content">
+			<div id="user_head">
+				<ul class="mui-table-view" id="head">				  
+				    <li class="mui-table-view-cell" style="position:relative;">     
+			    		<a id="my_agent" style="background: #ff5a00;" class="mui-navigate-right">
+			    			<img id="head_portrait" src="../../images/logo-no.png" class="mui-navigate-right" style="width:19%;margin-top:3px;min-height: 60px;">
+			    			<span id="user_name" class="span1" style="position:absolute;top:14px;left:25.8%;font-size:18px">
+			    				会员昵称
+			    			</span>
+			    			<span id="user_phone" class="span1" style="position:absolute;top:58%;left:25.8%;font-size:15px">
+			    				暂无信息
+			    			</span>	
+			    		</a>
+			    		<span id="is_real" class="mui-badge" style="color: #999999;">未登录</span>
+				    </li>				    
+				</ul>
+				<!--<ul class="mui-table-view" style="background-color: #FFFFFF;">				  
+				    <li class="mui-table-view-cell" style="position:relative;">     
+		    			<img src="../../images/tj_man@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px;color: #000000;">
+		    				推荐人
+		    			</span>
+		    			<span id="recommender" class="mui-badge" style="right: 16px;">暂无数据</span>
+				    </li>				    
+				</ul>-->
+			</div>
+			
+			<!--two-->
+			<ul class="mui-table-view" id="news">
+			   <li class="mui-table-view-cell" id="news_center" style="position:relative;">     
+		    		<a class="mui-navigate-right">
+		    			<img src="../../images/news@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				消息中心
+		    			</span>
+		    		</a>
+		    		<span id="integral" style="display: none;" class="mui-badge">有未读消息
+		    			<img src="../../images/read-no@3x.png"></span>
+			    </li>
+			</ul>    
+			<!--three-->
+			<ul class="mui-table-view" id="one">			   
+			    <!--<li class="mui-table-view-cell" id="pay_circle" style="position:relative;">     
+	    			<a class="mui-navigate-right">
+	    				<img src="../../images/zf_friend@3x.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+	    				<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+	    					划拨激活码
+	    				</span>
+	    			</a>	    			
+			    </li>-->
+			    <li class="mui-table-view-cell" style="position:relative;">     
+		    		<a id="my_circle" class="mui-navigate-right">
+		    			<img src="../../images/my_photo@3x.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				生成激活码
+		    			</span>
+		    		</a>
+			    </li>
+			</ul> 
+			<ul class="mui-table-view" id="three">	    
+				<!--<li class="mui-table-view-cell" style="position:relative;">     
+		    		<a id="my_profit" class="mui-navigate-right">
+		    			<img src="../../images/user-qy@3x.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				我的收益
+		    			</span>
+		    		</a>
+			    </li>-->
+				<li class="mui-table-view-cell" style="position:relative;">     
+		    		<a id="buy_code" class="mui-navigate-right">
+		    			<img src="../../images/buy-code.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				升级高级用户
+		    			</span>
+		    		</a>
+			    </li>
+			    <li class="mui-table-view-cell" style="position:relative;">     
+		    		<a id="my_rate" class="mui-navigate-right">
+		    			<img src="../../images/Set_rate@3x.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				还款费率
+		    			</span>
+		    		</a>
+			    </li>
+			    <li id="my_grade" class="mui-table-view-cell" style="position:relative;">     
+		    		<a class="">
+		    			<img src="../../images/my_grade@3x.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				我的等级
+		    			</span>
+		    		</a>
+		    		<span id="user_grade" class="mui-badge" style=""><!--right: 16px;国级代理商--></span>
+			    </li>
+			    <li id="up_friend" class="mui-table-view-cell" style="position:relative;">     
+		    		<a class="mui-navigate-right">
+		    			<img src="../../images/up-friend.png"/ class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				代理升级
+		    			</span>
+		    		</a>
+		    		<span id="user_grade" class="mui-badge" style=""></span>
+			    </li>
+			</ul>    
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			    <li id="real_name" class="mui-table-view-cell" style="position:relative;">     
+	    			<a class="mui-navigate-right">
+	    				<img src="../../images/real@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				实名认证
+		    			</span>
+	    			</a>
+	    			<span id="authentication" class="mui-badge" style=""><!--right: 16px;已认证--></span>
+			    </li>
+				<li class="mui-table-view-cell" style="position:relative;">     
+	    			<a id="bank_card" class="mui-navigate-right">
+	    				<img src="../../images/bk_card@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				银行卡管理
+		    			</span>
+	    			</a>
+			    </li>
+			</ul>
+			<!--four-->
+			<ul class="mui-table-view" id="four">									    
+			    <li class="mui-table-view-cell" style="position:relative;">     
+	    			<a id="new_guide" class="mui-navigate-right">
+	    				<img src="../../images/new_guide@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				操作手册
+		    			</span>
+		    		</a>
+			    </li>
+			    <li class="mui-table-view-cell" style="position:relative;">     
+		    		<a id="contact_kf" class="mui-navigate-right">
+		    			<img src="../../images/contact_kf@3x.png" class="mui-navigate-right" style="width:30px;height:30px;">
+		    			<span class="span1" style="position:absolute;top:16px;left:14.6%;font-size:15px">
+		    				联系客服
+		    			</span>
+		    		</a>
+			    </li>
+			</ul>
+								
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+		
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true //开启硬件加速			
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				document.getElementById('head_portrait').style.height=document.getElementById('head_portrait').width+"px";
+				
+//				plus.navigator.setStatusBarBackground('#1B82D2');
+				window.addEventListener('user_load',function(event){
+					location.reload();
+				});
+				window.addEventListener('user_img',function(event){
+					var img = event.detail.img;
+					document.getElementById('head_portrait').src=img;
+				});
+				
+				var is_agent=true;
+				window.addEventListener('user_agent',function(event){
+					var id = event.detail.agent_id;
+					if(id>=4){
+						is_agent=false;
+					}
+					if(id==2){
+						document.getElementById('user_grade').innerText='普通用户';
+					}else if(id==3){
+						document.getElementById('user_grade').innerText='高级用户';
+					}else if(id==4){
+						document.getElementById('user_grade').innerText='事业合伙人';
+					}else if(id==5){
+						document.getElementById('user_grade').innerText='城市合伙人';
+					}else if(id==6){
+						document.getElementById('user_grade').innerText='分公司代理';
+					}					
+				});
+				
+				var home_msg=plus.webview.getLaunchWebview();
+				
+//				if(mui.os.ios){
+//				   
+//				}else if(mui.os.android){
+//					$('.D').css('bottom','1px');
+//				}
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var is_real;
+				mui.ajax('http://www.zhxft.com/app/customer/cusInfo',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							return;
+						}
+						document.getElementById('user_phone').innerText=arrParse.data.phoneNum!=''?arrParse.data.phoneNum:'暂无信息';
+						document.getElementById('user_name').innerText=arrParse.data.name!=null?arrParse.data.name:'会员昵称';
+						document.getElementById('head_portrait').src=arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/u_img@3x.png';
+//						setTimeout(function(){
+//							document.getElementById('head_portrait').style.height=(document.getElementById('head_portrait').offsetWidth)+'px';
+//						},200);
+						
+						if(arrParse.state==1){
+							is_real=false;
+							document.getElementById('is_real').innerText='已实名';
+							document.getElementById('is_real').style.color='#1B82D2';
+							document.getElementById('authentication').innerText='已认证';
+						}else{
+							is_real=true;
+							document.getElementById('is_real').innerText='未实名';
+							document.getElementById('authentication').innerText='未认证';
+						}
+						if(arrParse.type_id>=4){
+							is_agent=false;
+						}
+						if(arrParse.type_id==2){
+							document.getElementById('user_grade').innerText='普通用户';
+						}else if(arrParse.type_id==3){
+							document.getElementById('user_grade').innerText='高级用户';
+						}else if(arrParse.type_id==4){
+							document.getElementById('user_grade').innerText='事业合伙人';
+						}else if(arrParse.type_id==5){
+							document.getElementById('user_grade').innerText='城市合伙人';
+						}else if(arrParse.type_id==6){
+							document.getElementById('user_grade').innerText='分公司代理';
+						}
+						
+//						document.getElementById('recommender').innerText=arrParse.agent!=''?arrParse.agent:'无推荐人';
+						//是否有圈子：1无新：0有
+//						if(arrParse.circle_sate==1){
+//							$('#is_read').hide();
+//							$('#is_read_img').hide();
+//						}else if(arrParse.circle_sate==0){
+//							$('#is_read').show();
+//							$('#is_read_img').show();
+//						}						
+						//是否有消息0：无新
+						if(arrParse.count==0){
+							$('#integral').hide();
+							mui.fire(home_msg,'news_msg',{});
+						}else{
+							$('#integral').show();
+							mui.fire(home_msg,'news_msg_yes',{});
+						}
+//						$('#pay_circle').siblings('span').eq(0).children('img').attr('src',arrParse.head_portrait_circle);						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				window.addEventListener('user_msg',function(event){
+					mui.ajax('http://www.zhxft.com/app/customer/cusInfo',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);								
+							//是否有消息0：无新
+							if(arrParse.count==0){
+								$('#integral').hide();
+								mui.fire(home_msg,'news_msg',{});
+							}else{
+								$('#integral').show();
+								mui.fire(home_msg,'news_msg_yes',{});
+							}
+//							$('#pay_circle').siblings('span').eq(0).children('img').attr('src',arrParse.head_portrait_circle);						
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				
+				//我的设置
+				document.getElementById('my_set').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'my_set.html',
+							id: 'my_set',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//个人信息
+				document.getElementById('head').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'user_info.html',
+							id: 'user_info',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//消息中心
+				document.getElementById('news_center').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'news.html',
+							id: 'news',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				//划拨激活码
+//				document.getElementById('pay_circle').addEventListener('tap',function(){
+//					if(uid!=null){
+//						if(is_agent){
+//							mui.alert('你当前的等级暂不能划拨激活码','提示','','','div');
+//							return;
+//						}
+//						mui.openWindow({
+//							url: 'transfer_code.html',
+//							id: 'transfer_code',
+//							show: {
+//								autoShow:false,
+//								aniShow: 'pop-in',
+//								duration:'350',
+//							},
+//							styles:{softinputMode:'adjustResize',
+////							bounce: 'vertical',bounceBackground:'#fc1'
+//							},
+//							waiting: {
+//								autoShow: true
+//							}
+//						});
+//					}else{
+//						plus.storage.setItem('btype','2')
+//						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+//							if(e.index==0){
+//								mui.openWindow({
+//									url: '../index/login.html',
+//									id: 'login',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									}//额外扩展参数
+//									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//									styles:{softinputMode:'adjustResize',
+////									bounce: 'vertical',bounceBackground:'#fc1'
+//									},
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}
+//						},'div')
+//					}
+//				})
+				
+				//生成激活码
+				document.getElementById('my_circle').addEventListener('tap',function(){
+					if(uid!=null){
+						if(is_agent){
+							mui.alert('你当前的等级暂不能生成激活码','提示','','','div');
+							return
+						}
+						mui.openWindow({
+							url: 'generate_code.html',
+							id: 'generate_code',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//我的收益
+//				document.getElementById('my_profit').addEventListener('tap',function(){
+//					if(uid!=null){
+//						mui.openWindow({
+//							url: '../wallet/wallet.html',
+//							id: 'buy_code',
+//							show: {
+//								autoShow:false,
+//								aniShow: 'pop-in',
+//								duration:'350',
+//							},styles:{
+////								bounce: 'vertical',bounceBackground:'#fc1',
+//							},
+//							waiting: {
+//								autoShow: true
+//							}
+//						});
+//					}else{
+//						plus.storage.setItem('btype','2')
+//						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+//							if(e.index==0){
+//								mui.openWindow({
+//									url: '../index/login.html',
+//									id: 'login',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									}//额外扩展参数
+//									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//									styles:{softinputMode:'adjustResize',
+////									bounce: 'vertical',bounceBackground:'#fc1'
+//									},
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}
+//						},'div')
+//					}
+//				})
+				
+				//够激活码
+				document.getElementById('buy_code').addEventListener('tap',function(){
+					if(uid!=null){
+						if(is_real){
+							mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'id_authentication.html',
+										id: 'id_authentication',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},
+										styles:{softinputMode:'adjustResize',
+										},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div');
+							return;
+						}
+						mui.openWindow({
+							url: 'buy_code.html',
+							id: 'buy_code',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//结算费率
+				document.getElementById('my_rate').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.openWindow({
+							url: 'my_rate.html',
+							id: 'my_rate',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//我的等级
+//				document.getElementById('my_grade').addEventListener('tap',function(){
+//					if(uid!=null){
+//						mui.openWindow({
+//							url: 'my_grade.html',
+//							id: 'my_grade',
+//							show: {
+//								autoShow:false,
+//								aniShow: 'pop-in',
+//								duration:'350',
+//							},createNew:true,
+//							styles:{
+////								bounce: 'vertical',bounceBackground:'#fc1',
+//							},
+//							waiting: {
+//								autoShow: true
+//							}
+//						});
+//					}else{
+//						plus.storage.setItem('btype','2')
+//						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+//							if(e.index==0){
+//								mui.openWindow({
+//									url: '../index/login.html',
+//									id: 'login',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									}//额外扩展参数
+//									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//									styles:{softinputMode:'adjustResize',
+////									bounce: 'vertical',bounceBackground:'#fc1'
+//									},
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//							}
+//						},'div')
+//					}
+//				})
+				
+				//好友升级
+				document.getElementById('up_friend').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.confirm('代理升级需联系信付通APP客服或添加客服微信，是否联系客服升级！','提示',['是','否'],function(e){
+							if(e.index==0){
+								var actionbuttons=[{title:"客服微信"},{title:"客服热线：400-001-0913 "}];  
+				              	var actionstyle={cancel:"取消",buttons:actionbuttons};  
+				              	plus.nativeUI.actionSheet(actionstyle, function(e){  
+				                    if(e.index==1){  
+				                         mui.openWindow({
+											url: 'kf_wx.html',
+											id: 'kf_wx',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											},styles:{
+												bounce: 'vertical',bounceBackground:'#fc1',
+											},
+											waiting: {
+												autoShow: true
+											}
+										}); 
+				                    }else if(e.index==2){  
+				                        //拨打客服电话						  	 
+								        var btnArray = ['拨打', '取消']; 
+								        var Phone = "400-001-0913"; 
+								        mui.confirm('是否拨打 ' + Phone + ' ？', '提示', btnArray, function(e) { 
+								            if (e.index == 0) { 
+								                plus.device.dial(Phone, false); 
+								            }  
+								        },'div'); 
+				                    }  
+					            });
+							}
+						},'div')
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//实名认证
+				document.getElementById('real_name').addEventListener('tap',function(){
+					if(uid!=null){
+//						if(is_real){
+							mui.openWindow({
+								url: 'id_authentication.html',
+								id: 'id_authentication',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},
+								styles:{softinputMode:'adjustResize',
+//								bounce: 'vertical',bounceBackground:'#fc1'
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+//						}else{
+//							mui.alert('你已实名认证！','提示','','','div');
+//						}						
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				
+				//银行卡管理
+				document.getElementById('bank_card').addEventListener('tap',function(){
+					if(uid!=null){
+						if(is_real){
+							mui.confirm('你当前尚未实名认证，实名认证后方可支付，是否前往实名认证！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'id_authentication.html',
+										id: 'id_authentication',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},
+										styles:{softinputMode:'adjustResize',
+										},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div');
+							return;
+						}
+						mui.openWindow({
+							url: 'bank_card_info.html',
+							id: 'bank_card_info',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','2')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:2},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',
+//									bounce: 'vertical',bounceBackground:'#fc1'
+									},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}					
+				})
+				
+				//新手指引
+				document.getElementById('new_guide').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'novice_guide.html',
+						id: 'novice_guide',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				
+				//联系客服
+				document.getElementById('contact_kf').addEventListener('tap',function(){
+					var actionbuttons=[{title:"客服微信"},{title:"客服热线：400-001-0913 "}];  
+	              	var actionstyle={cancel:"取消",buttons:actionbuttons};  
+	              	plus.nativeUI.actionSheet(actionstyle, function(e){  
+	                    if(e.index==1){  
+	                         mui.openWindow({
+								url: 'kf_wx.html',
+								id: 'kf_wx',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},styles:{
+//									bounce: 'vertical',bounceBackground:'#fc1',
+								},
+								waiting: {
+									autoShow: true
+								}
+							}); 
+	                    }else if(e.index==2){  
+	                        //拨打客服电话						  	 
+					        var btnArray = ['拨打', '取消']; 
+					        var Phone = "400-001-0913"; 
+					        mui.confirm('服务时间:工作日上午9:00到下午6:00,是否拨打 ' + Phone + ' ？', '提示', btnArray, function(e) { 
+					            if (e.index == 0) { 
+					                plus.device.dial(Phone, false); 
+					            }  
+					        },'div'); 
+	                    }  
+		            });					
+				})
+				
+				//（跳转到的页面）关闭页面跳转动画
+//				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+//				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

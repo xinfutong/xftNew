@@ -1,0 +1,30 @@
+body{font-family: "微软雅黑";}
+::-webkit-input-placeholder{font-size: 14px;}
+.mui-content{margin-top: 39px;}
+.mui-input-group .mui-input-row{height: 50px;}
+.mui-input-row label{width: 24%;padding: 17px 0;}
+.mui-input-row label~input{width: 76%;}
+.mui-input-group .mui-input-row:after{left: 0;}
+.mui-input-row .li_2_span{
+	width: 25%;
+	position: absolute;
+	right: 6px;
+	padding: 10px 6px;
+	margin-top: 6px;
+}
+.mui-btn-block{
+	height: 50px;
+    margin-top: 43px;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+.mui-content-padded{
+	text-align: center;
+	margin-top: 16px;
+	font-size: 12px;
+}
+input[type=text],input[type=password],input[type=number],input[type=tel]{
+	width: 73%;
+    height: 100%;
+    padding: 13px 15px;
+}

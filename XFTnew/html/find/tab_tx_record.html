@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+	</head>
+    <style>
+    	body{font-family: "微软雅黑";}
+    	/*.mui-icon-back:before, .mui-icon-left-nav:before{color: #999999;}*/
+    	.mui-badge{background-color: #FFFFFF;}
+    	.mui-icon{font-size: 16px;}
+    	.record_left div{font-size: 14px;color: #808080;font-family: "微软雅黑";margin-top: 5px;}
+    	.wait{font-size: 12px;color: #F35833;line-height: 13px;}
+    	.success{color: #3FC736;line-height: 13px;}
+    	.mui-table-view-cell{font-family: "微软雅黑";}
+    	.mui-navigate-right:after, .mui-push-right:after{right: -15px;}
+    	.mui-badge .mui-icon{font-size: 24px;}
+    	#record_list{margin-top: 50px;}
+    	.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+    	/*.mui-bar .mui-icon{font-size: 35px;padding-top: 6px;}*/
+    	/*.mui-bar-nav.mui-bar .mui-icon{margin-left: -2px;}*/
+    </style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">提现记录</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>	
+		<div class="list-t-wrap">
+		    <div id="pullrefresh" class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="list-wrapper">
+		            	<ul id="record_list" class="mui-table-view">
+		                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+		               	</ul>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--<div class="mui-content">
+			<div class="record_content">				
+		        <ul id="record_list" class="mui-table-view">
+				    <li class="mui-table-view-cell">
+				    	<a class="mui-navigate-right">
+					    	<div class="record_left">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">提现时间</span>
+			                	<div class="mui-media-body">2016-12-11 12:23:45</div>
+					    	</div>
+					    	<div class="record_right mui-badge">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">￥188.88</span>			                	
+					    	</div>	
+				    	</a>
+				    </li>
+				    <li class="mui-table-view-cell">
+				    	<a class="mui-navigate-right">
+					    	<div class="record_left">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">提现时间</span>
+			                	<div class="mui-media-body">2016-12-11 12:23:45</div>
+					    	</div>
+					    	<div class="record_right mui-badge">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">￥188.88</span>
+					    	</div>	
+				    	</a>
+				    </li>
+				    <li class="mui-table-view-cell">
+				    	<a class="mui-navigate-right">
+					    	<div class="record_left">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">提现时间</span>
+			                	<div class="mui-media-body">2016-12-11 12:23:45</div>
+					    	</div>
+					    	<div class="record_right mui-badge">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">￥188.88</span>
+					    	</div>	
+				    	</a>
+				    </li>
+				    <li class="mui-table-view-cell">
+				    	<a class="mui-navigate-right">
+					    	<div class="record_left">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">提现时间</span>
+			                	<div class="mui-media-body">2016-12-11 12:23:45</div>
+					    	</div>
+					    	<div class="record_right mui-badge">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">￥188.88</span>
+					    	</div>	
+				    	</a>
+				    </li>
+				    <li class="mui-table-view-cell">
+				    	<a class="mui-navigate-right">
+					    	<div class="record_left">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">提现时间</span>
+			                	<div class="mui-media-body">2016-12-11 12:23:45</div>
+					    	</div>
+					    	<div class="record_right mui-badge">
+					    		<span class="mui-icon" style="font-family: '微软雅黑';">￥188.88</span>
+					    	</div>	
+				    	</a>
+				    </li>
+				</ul>
+			</div>
+		</div>-->
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+//				      down: {
+//				        callback: pulldownRefresh
+//				      },http://www.cnblogs.com/CyLee/p/5324224.html
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速	
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				});	
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				  
+				//关闭等待框
+//				var tx_type=plus.webview.getWebviewById('tx_record').tx_type;
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;
+//				var tx_type=1
+//				if(tx_type==1){
+//					mui.ajax('http://h.saomahuivip.com/app/wallet/walletCloseRecords',{
+//						async:false,
+//						data:{
+//							uid:uid,
+//							token:token
+//						},
+//						dataType:'JSON',//服务器返回json格式数据
+//						type:'post',//HTTP请求类型
+//						success:function(data){
+//							console.log(data);
+//							var arrParse = JSON.parse(data);	
+//							var result=arrParse.pay_close;
+//							var list=document.querySelector('#record_list');
+//							load_len=(parseInt(result.length)/10);
+//							list.innerHTML='';
+//							for (var i=0;i<10;i++) {
+//								list.innerHTML+='<li class="mui-table-view-cell">'
+//							    	+'<a class="mui-navigate-right">'
+//								    	+'<div class="record_left">'
+//								    		+'<span class="mui-icon" style="font-family: "微软雅黑";">提现时间</span>'
+//						                	+'<div class="mui-media-body">'+result[i].created+'</div>'
+//								    	+'</div>'
+//								    	+'<div class="record_right mui-badge">'
+//								    		+'<span class="mui-icon" style="font-family: "微软雅黑";">￥'+result[i].closeMoney+'</span>'
+//								    	+'</div>'	
+//							    	+'</a>'
+//							    +'</li>';															
+//							}						
+//						},
+//						error:function(xhr,error,errorThrown){
+//							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+//							console.log(error);
+//						}
+//					});
+//				}else if(tx_type==2){
+					mui.ajax('http://www.zhxft.com/app/wallet/extension_list',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);	
+							var result=arrParse.pay_close;
+							var list=document.querySelector('#record_list');
+							load_len=(parseInt(result.length)/10);
+							list.innerHTML='';
+							for (var i=0;i<10;i++) {
+								list.innerHTML+='<li class="mui-table-view-cell">'
+							    	+'<a class="mui-navigate-right">'
+								    	+'<div class="record_left">'
+								    		+'<span class="mui-icon" style="font-family: "微软雅黑";">提现时间</span>'
+						                	+'<div class="mui-media-body">'+result[i].created+'</div>'
+								    	+'</div>'
+								    	+'<div class="record_right mui-badge">'
+								    		+'<span class="mui-icon" style="font-family: "微软雅黑";">￥'+result[i].closeMoney+'</span>'
+								    	+'</div>'	
+							    	+'</a>'
+							    +'</li>';															
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+							console.log(error);
+						}
+					});
+//				}
+				
+//			if(mui.os.plus) {  
+//			    mui.plusReady(function() {  
+//			        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//			    });  
+//			} else {  
+//			    mui.ready(function() {
+//			        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//			    });  
+//			} 
+			var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+			function pullupRefresh() 
+			{
+			    setTimeout(function() {
+			      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+			      if(count > load_len){
+			      	mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' })
+//			      	mui.alert('已经没有更多可加载的了','提示','','','div');
+			      }
+			      var cells = document.body.querySelectorAll('li');
+//			      if(tx_type==1){
+//					    mui.ajax('http://h.saomahuivip.com/app/wallet/walletCloseRecords',{
+//							async:false,
+//							data:{
+//								uid:uid,
+//								token:token
+//							},
+//							dataType:'JSON',//服务器返回json格式数据
+//							type:'post',//HTTP请求类型
+//							success:function(data){
+//								console.log(data);
+//								var arrParse = JSON.parse(data);	
+//								var result=arrParse.pay_close;
+//								var list=document.querySelector('#record_list');
+//								for (var i = cells.length, len = i + 10; i < len; i++) {
+//									list.innerHTML+='<li class="mui-table-view-cell">'
+//								    	+'<a class="mui-navigate-right">'
+//									    	+'<div class="record_left">'
+//									    		+'<span class="mui-icon" style="font-family: "微软雅黑";">提现时间</span>'
+//							                	+'<div class="mui-media-body">'+result[i].created+'</div>'
+//									    	+'</div>'
+//									    	+'<div class="record_right mui-badge">'
+//									    		+'<span class="mui-icon" style="font-family: "微软雅黑";">￥'+result[i].closeMoney+'</span>'
+//									    	+'</div>'	
+//								    	+'</a>'
+//								    +'</li>';														
+//								}
+//							},
+//							error:function(xhr,error,errorThrown){
+//								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+//								console.log(error);
+//							}
+//						});
+//					}else if(tx_type==2){
+						mui.ajax('http://www.zhxft.com/app/wallet/extension_list',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);	
+								var result=arrParse.pay_close;
+								var list=document.querySelector('#record_list');
+								for (var i = cells.length, len = i + 10; i < len; i++) {
+									list.innerHTML+='<li class="mui-table-view-cell">'
+								    	+'<a class="mui-navigate-right">'
+									    	+'<div class="record_left">'
+									    		+'<span class="mui-icon" style="font-family: "微软雅黑";">提现时间</span>'
+							                	+'<div class="mui-media-body">'+result[i].created+'</div>'
+									    	+'</div>'
+									    	+'<div class="record_right mui-badge">'
+									    		+'<span class="mui-icon" style="font-family: "微软雅黑";">￥'+result[i].closeMoney+'</span>'
+									    	+'</div>'	
+								    	+'</a>'
+								    +'</li>';														
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+								console.log(error);
+							}
+						});
+//					}
+			    }, 500);
+			} 		
+				
+			    //关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

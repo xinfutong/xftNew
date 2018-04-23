@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title></title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link href="../../css/mui.min.css" rel="stylesheet" />
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+            body {
+                margin: 0;
+            }
+            .mui-content {
+                height: 100%;
+                padding: 0;
+            }
+            .mui-slider {
+                height: 100%;
+            }
+            .mui-slider-group {
+                height: 100%;
+            }
+            .mui-slider-item {
+                height: 100%;
+                width: 100%;
+                margin-left: 0px;
+                margin-right: 0px;
+                border: none;
+            }
+            a {
+                height: 100%;
+            }
+            #into {
+                bottom: 7%;
+                position: absolute;
+                width: 40%;
+                height: 40px;
+                text-align: center;
+                left: 30%;
+                padding: 0;
+                border: 0;
+                background: transparent;
+                z-index: 100;
+                border:1px solid #108ee9;
+                color:#108ee9;
+                border-radius: 25px;
+            }
+            .img_content {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            .mui-slider .mui-slider-group .mui-slider-item img{
+            	width: 100%;height: 100%;
+            }
+            /*.img_content img:first-child {
+                position: absolute;
+                top: 15%;
+            }
+            .img_content img:nth-child(2) {
+                position: absolute;
+                top: 30%;
+            }
+            .img_content img:last-child {
+                position: absolute;
+                bottom: 10%;
+            }*/
+        </style>
+    </head>
+
+    <body>
+        <div class="mui-content" style="height: 100%;overflow: hidden;padding: 0px;margin: 0px;background-color: #181818;">
+            <div id="slider" class="mui-slider">
+                <div class="mui-slider-group">
+                	
+                    <!-- 第一张 -->
+                    <!--<div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">                          
+                            <img src="../../images/banner3.png">
+                        </div>
+                    </div>-->
+                    
+                    <!-- 第二张 -->
+                    <div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">
+                            <!--<img src="img/005.jpg" />-->
+                            <img src="../../images/banner2.png">
+                        </div>
+                    </div>
+                    <!-- 第三张-->
+                    <!--<div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">-->
+                            <!--<img src="img/003.png" />-->
+                            <!--<img src="img/004.png">-->
+                            <!--<button id="into">开始体验</button>-->
+                            <!--<img src="../../images/3.png">
+                        </div>
+                    </div>-->
+                    <!-- 第四张-->
+                    <!--<div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">-->
+                            <!--<img src="img/003.png" />-->
+                            <!--<img src="img/004.png">-->
+                            <!--<button id="into">开始体验</button>-->
+                            <!--<img src="../../images/4.png">
+                        </div>
+                    </div>-->
+                     <!-- 第五张-->
+                     <!--<div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">-->
+                            <!--<img src="img/003.png" />-->
+                            <!--<img src="img/004.png">-->
+                            <!--<button id="into">开始体验</button>-->
+                            <!--<img src="../../images/bannerFive.png">
+                        </div>
+                    </div>-->
+                    <!-- 第六张-->
+                     <div class="mui-slider-item" style="background-color: #181818;">
+                        <div class="img_content">
+                            <!--<img src="img/003.png" />-->
+                            <!--<img src="img/004.png">-->
+                            <button id="into">立即开启</button>
+                            <img src="../../images/banner1.png">
+                        </div>
+                    </div>
+                </div>
+                <!--轮播按钮-->
+                <div class="mui-slider-indicator">
+                    <div class="mui-indicator mui-active"></div>
+                    <div class="mui-indicator"></div>
+                    <!--<div class="mui-indicator"></div>-->
+                    <!--<div class="mui-indicator"></div>-->
+                    <!--<div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>-->
+                </div>
+                
+            </div>
+
+        </div>
+        </div>
+    </body>
+    <script src="../../js/mui.min.js"></script>
+    <script src="../js/mui.js" type="text/javascript" charset="utf-8"></script> 
+    <script type="text/javascript">
+        mui.init();
+        mui.plusReady(function(){
+			// 获取storage、判断是否是第一次使用
+//      	var ino = plus.storage.getItem('launchFlag');
+		 	mui.os.ios&&plus.navigator.setFullscreen(true);         
+            var slider = mui('.mui-slider').slider();           
+//          initPageguid();         
+//          setStatusBarBackgroud();            
+            plus.navigator.closeSplashscreen();
+            mui("#into")[0].addEventListener('tap', function() {  
+            	mui.os.ios&&plus.navigator.setFullscreen(false);
+            	plus.webview.getLaunchWebview().show();plus.webview.getLaunchWebview().reload();
+            	var inx = plus.webview.getWebviewById('../find/find.html');
+				var res = plus.webview.getWebviewById('../wallet/wallet.html');
+				var cad = plus.webview.getWebviewById('../user/user.html');
+				var sim = plus.webview.getWebviewById('../extension/extension.html');
+				mui.fire(inx,'find_load',{});
+				mui.fire(res,'wallet_load',{});
+				mui.fire(cad,'user_load',{});
+				mui.fire(sim,'ex_load',{});
+				plus.nativeUI.showWaiting();
+				sim.addEventListener('loaded',function(e){
+					plus.nativeUI.closeWaiting();
+					plus.webview.getLaunchWebview().show();
+				});
+//          	mui.openWindow({
+//					url:'home.html',
+//					id:'HBilder',
+//					show: {
+//						aniShow: 'fade-in',
+//						duration:'500',
+//					},
+//			//屏蔽转场动画的等待圈圈
+//					waiting:{
+//						autoShow:false,
+//					}
+//				});
+//              mui.fire(plus.webview.getLaunchWebview(), 'login');
+
+//				mui.currentWebview.opener('banner').show('HBilder');
+				var banner_id = plus.webview.getWebviewById('banner');
+				mui.fire(banner_id,'pageflowrefresh');
+//              plus.webview.currentWebview().close('login.html');//等登录注册等页面显示之后再关闭               
+            }); 
+            
+            function initPageguid(){
+                //绑定滑屏相关事件
+                var gallery = mui('.mui-slider')[0];
+                gallery.addEventListener('swiperight', function(e) {
+                    //向左划动
+                    var num = mui('.mui-slider').slider().getSlideNumber() - 1;
+                    setContainerBackg(num);
+                });
+                gallery.addEventListener('swipeleft', function(e) {
+                    //向右划动
+                    var num = mui('.mui-slider').slider().getSlideNumber() + 1;
+                    setContainerBackg(num);
+                });
+            }
+            
+//          function setStatusBarBackgroud () {
+//              if (mui.os.ios) {
+//                  plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+                    //提前设置登陆页背景颜色
+//                  plus.navigator.setStatusBarBackground("#3A75B8");
+//              }
+//          };
+//          function setContainerBackg(num) {
+//              //提前设置背景色
+//              if (num == 0) {
+//                  mui('.mui-content')[0].style.backgroundColor = '#181818';
+//              } else if (num == 2) {
+//                  mui('.mui-content')[0].style.backgroundColor = '#181818';
+//              }
+//          };
+        		
+//      	}
+        	//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+           
+        })  
+
+        document.getElementById('into').addEventListener('tap',function(){
+        	plus.storage.setItem("launchFlag", "林允");
+        });
+        
+  </script>
+</html>

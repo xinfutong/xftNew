@@ -1,0 +1,660 @@
+<!doctype html>  
+<html class="feedback">  
+    <head>  
+        <meta charset="utf-8" />  
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />  
+        <meta name="misapplication-tap-highlight" content="no" />  
+        <meta name="HandheldFriendly" content="true" />  
+        <meta name="MobileOptimized" content="320" />  
+        <title>HTML5 Plus 拍照或者相册选择图片上传</title>  
+        <link rel="stylesheet" href="../../css/mui.min.css">  
+        <link rel="stylesheet" type="text/css" href="../../css/app.css" />  
+        <link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />  
+        <link rel="stylesheet" type="text/css" href="../../css/feedback-page.css" />
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">  
+        <!--<script src="../js/jquery.js"></script>-->  
+        <script type="text/javascript" src="../../js/common.js"></script>  
+        <script type="text/javascript" src="../../js/utitls.js"></script>  
+        <style type="text/css"> 
+        	body{font-family: "微软雅黑";} 
+            .del {  
+                position: absolute;  
+                top:1px;  
+                right: 1px;   
+                display: block;        
+             line-height: 1;  
+                cursor: pointer;  
+                color:#fff;  
+                }  
+  
+            .del:hover {  
+                color:#ff3333;  
+            }  
+        </style>  
+        <style>  
+            .table-view {  
+                position: relative;  
+                margin-top: 0;  
+                margin-bottom: 0;  
+                padding-left: 0;  
+                list-style: none;  
+                background-color: #f5f5f5;  
+            }  
+              
+            .table-view-cell {  
+                position: relative;  
+                overflow: hidden;  
+                padding: 0px 15px;  
+                -webkit-touch-callout: none;  
+                margin-bottom: 1px;  
+            }  
+              
+            .table-view-cell:after {  
+                position: absolute;  
+                right: 0;  
+                bottom: 0;  
+                left: 0px;  
+                height: 1px;  
+                content: '';  
+                -webkit-transform: scaleY(.5);  
+                transform: scaleY(.5);  
+                background-color: #c8c7cc;  
+            }  
+              
+            .table-view-cell>a:not(.btn) {  
+                position: relative;  
+                display: block;  
+                overflow: hidden;  
+                margin: -0px -15px;  
+                padding: inherit;  
+                white-space: nowrap;  
+                text-overflow: ellipsis;  
+                color: inherit;  
+                background-color: #75b9f4;  
+                height: 40px;  
+                line-height: 40px;  
+            }  
+              
+            .navigate-right:after  
+            {  
+                font-family: Muiicons;  
+                font-size: inherit;  
+                line-height: 1;  
+                position: absolute;  
+                top: 50%;  
+                display: inline-block;  
+                -webkit-transform: translateY(-50%);  
+                transform: translateY(-50%);  
+                text-decoration: none;  
+                color: #666;  
+                -webkit-font-smoothing: antialiased;  
+            }  
+              
+            .table-view-cell.collapse .collapse-content {  
+                position: relative;  
+                display: none;  
+                overflow: hidden;  
+                margin: 0px -15px 0px;  
+                padding: 0px 0px !important;  
+                -webkit-transition: height .35s ease;  
+                -o-transition: height .35s ease;  
+                transition: height .35s ease;  
+                background-color: transparent;  
+            }  
+            /*.image-item{  
+                position: relative;float: left;  
+            }  */
+            .image-item .info{  
+                position: absolute;  
+                top:0px;  
+                left:4px;  
+                color: #ff9900;  
+                font-size: 12px;                          
+                  
+            } 
+            .Post{position:absolute;right:3.73%;line-height: 2.75rem;color:#ff7610;} 
+            textarea{width:100%;min-height:6rem;border:none;margin:0;padding;0;margin-top:0.25rem;}
+            
+            /*预览*/
+           	.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+			.feedback .image-item img {
+			    width: 100%;
+			    height: 100%;
+			    border-radius: 5px;
+			    margin-right: 10px;
+			    margin-bottom: 10px;
+			}
+			.feedback .image-item {
+			    width: 5rem;
+			    height: 5rem;
+			    display: inline-block;
+			    position: relative;
+			    margin-right: 5px;
+			}
+			.feedback .image-list {
+			    width: 100%;
+			    background-size: cover;
+			    padding: 8px;
+			    overflow: hidden;
+			    min-height: 94px;
+			}
+			.feedback .image-item{border: 0;margin-bottom: 0;}
+        </style>  
+    </head>  
+    <body>
+    	<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title">发表话题</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回</button>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="post" onclick="uploadimge();">
+				发送
+			</button>
+   	 	</header>
+        <div class="content" style="margin-top:2.75rem;">  
+            <textarea placeholder="这一刻你想说什么..." id="cont"></textarea>
+            <input type="hidden" id="ckjl.id" name="ckjl.id" value="429">  
+            <div class="collapse-content" >  
+                <form>  
+                    <label class="row-label"></label>  
+                    <div id='F_CKJLBS' class="row image-list">                        	
+	                	<div id="FCK_JLBA" style="float:left;">
+	                		<div class="image-item " id="F_CKJLB" onclick="showActionSheet(this)"; style="float:left;">
+	                	</div>                   	
+	                    
+	                    <!--<a style="width:3rem;height:3rem;display: inline-block;">
+	                    	<img src="../../images/sz.png"/></a>-->
+	                    </div>
+	                </div>  
+                </form>  
+            </div>  
+        </div>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/immersed.js" ></script>
+	<script src="../../js/jquery-1.8.0.min.js"></script>
+	<script src="../../js/mui.zoom.js"></script>
+	<script src="../../js/mui.previewimage.js"></script>
+	<script>  
+		var url1 = '';
+	    var procinstid = 0; 
+	    var type = '';
+	    var city = '';
+	    mui.plusReady(function () {
+	    	mui.init({  			
+				hardwareAccelerated:true, //开启硬件加速	
+				styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+			}); 
+	    	// 创建加载内容窗口
+			var topoffset='45px';
+			if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+				topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+			} 
+			document.getElementById('header').style.height=(immersed+44)+'px';
+			document.querySelector('.content').style.marginTop=(immersed+44)+'px';
+			
+	    	//关闭页面跳转动画
+			plus.nativeUI.closeWaiting();
+			//显示当前页面
+			var self = plus.webview.currentWebview();
+			self.show('pop-in',350);
+			
+		  	type = plus.webview.currentWebview().type;
+	//	    alert(type);
+		});
+	    //初始化页面执行操作  
+	//  function plusReady() {  
+	//      //Android返回键监听事件  
+	//      plus.key.addEventListener('backbutton',function(){  
+	//          myclose();  
+	//      },false);  
+	//  }  
+	//  if (window.plus) {  
+	//      plusReady();  
+	//  } else {  
+	//      document.addEventListener('plusready', plusReady, false);  
+	//  }  
+	        //加载页面初始化需要加载的图片信息  
+	        //或者相册IMG_20160704_112620.jpg  
+	        //imgId:图片名称：1467602809090或者IMG_20160704_112620  
+	        //imgkey:字段例如：F_ZDDZZ  
+	        //ID：站点编号ID,例如429  
+	        //src：src="file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/upload/F_ZDDZZ-1467602809090.jpg"  
+        function showImgDetail (imgId,imgkey,id,src) {  
+//      	alert(imgId+"//////"+imgkey)
+            var html = "";  
+            html +='<div id="Img'+imgId+imgkey+'" class="image-item ">';   
+            html +='    <img id="picBig" data-preview-src="" data-preview-group="1" src="'+src+'"/>';  
+            html +='    <span class="del" onclick="delImg(\''+imgId+'\',\''+imgkey+'\','+id+');">';         
+            html +='        <div class="fa fa-times-circle"></div>';      
+            html +='    </span>';   
+            html +='</div>';  
+            $("#FCK_JLBA").append(html);  
+        }  
+        //删除图片  
+        //imgId:图片名称：IMG_20160704_112614  
+        //imgkey:字段，例如F_ZDDZZ  
+        //ID：站点编号ID，例如429  
+        function delImg(imgId,imgkey,id){
+        	var mId = "Img"+imgId+imgkey;
+//      	alert(mId);
+            var bts = ["是", "否"];  
+            plus.nativeUI.confirm("是否删除图片？", function(e) {  
+                    var i = e.index;  
+/*                    if (i == 0) {  
+                        var itemname=id+"img-"+imgkey;//429img-F_ZDDZZ  
+                        var itemvalue=plus.storage.getItem(itemname); 
+                        alert(itemname)
+                        alert(itemvalue)
+                        //{IMG_20160704_112614,_doc/upload/F_ZDDZZ-IMG_20160704_112614.jpg,file:///storage/emulated/0/Android/data/io.dcloud...../doc/upload/F_ZDDZZ-1467602809090.jpg}  
+                        if(itemvalue!=null){  
+                            var index=itemvalue.indexOf(imgId+",");  
+                            if(index==-1){//没有找到  
+                            	alert()
+                                delImgfromint(imgId,imgkey,id,index);  
+                            }else{   
+                                delImgFromLocal(itemname,itemvalue,imgId,imgkey,index); //修改，加了一个index参数  
+                            }  
+                              
+                        }else{  
+                            delImgfromint(imgId,imgkey,id);   
+                        }  
+                    }  */
+                    if (i == 0) {  
+                        files = removeArrayOfN(files,imgId);
+                        document.getElementById(mId).style.display = 'none';
+                    }  
+                },"查勘", bts);  
+            /*var isdel = confirm("是否删除图片？");  
+            if(isdel == false){  
+                return;  
+            }*/     
+              
+        }  
+        function delImgFromLocal(itemname,itemvalue,imgId,imgkey,index){  
+            var wa = plus.nativeUI.showWaiting();  
+            var left=itemvalue.substr(0,index-1);  
+            var right=itemvalue.substring(index,itemvalue.length);  
+            var end=right.indexOf("}");  
+            right=right.substring(end+1,right.length);  
+            var newitem=left+right;  
+            plus.storage.setItem(itemname,newitem);   
+            //myAlert("删除成功");  
+            $("#Img"+imgId+imgkey).remove();  
+            wa.close();  
+        }  
+        //选取图片的来源，拍照和相册  
+        function showActionSheet(conf){  
+              var divid = conf.id;  
+              var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+              var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+              plus.nativeUI.actionSheet(actionstyle, function(e){  
+                    if(e.index==1){  
+                        getImage(divid);  
+                    }else if(e.index==2){  
+                        galleryImg(divid);  
+                    }  
+              } );  
+        }  
+        function galleryImg(divid){
+        		plus.gallery.pick( function(e){
+        		//alert(e.files.length);
+        		var zm=0;
+        		//setTimeout(file,200);
+	    	    //function file(){
+	    	    if(e.files.length<10){
+	    	    	for(var i=0;i<e.files.length;i++){
+	    	    		plus.io.resolveLocalFileSystemURL(e.files[i], function(entry) {
+					         compressImage(entry.toLocalURL(),entry.name,divid); 
+				    }, function(e) {
+					   plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+				    });
+	    	    	}
+    	        }else{
+    	        	mui.alert('话题图片数量只能发表9张以下！','提示','','','div');
+    	        }
+                }, function ( e ) {
+    	           console.log( "取消选择图片" );
+                },{filename: "_doc/camera/",
+                   filter:"image",
+                   multiple:true
+                });
+         }
+        // 拍照  
+        function getImage(divid) {  
+            var cmr = plus.camera.getCamera();  
+            cmr.captureImage(function(p) {  
+                //alert(p);//_doc/camera/1467602809090.jpg  
+                plus.io.resolveLocalFileSystemURL(p, function(entry) {  
+//alert(entry.toLocalURL());//file:///storage/emulated/0/Android/data/io.dcloud...../doc/camera/1467602809090.jpg  
+                    //alert(entry.name);//1467602809090.jpg  
+                    compressImage(entry.toLocalURL(),entry.name,divid);  
+                }, function(e) {  
+                    plus.nativeUI.toast("读取拍照文件错误：" + e.message);  
+                });  
+            }, function(e) {  
+            }, {  
+                filename: "_doc/camera/",  
+                index: 1  
+            });  
+        }  
+        //压缩图片  
+        var files = new Array;
+		var num = 0;
+        function compressImage(url,filename,divid){ 
+        	
+            var name="_doc/upload/"+divid+"-"+filename;//_doc/upload/F_ZDDZZ-1467602809090.jpg  
+            plus.zip.compressImage({  
+                    src:url,//src: (String 类型 )压缩转换原始图片的路径  
+                    dst:name,//压缩转换目标图片的路径  
+                    quality:20,//quality: (Number 类型 )压缩图片的质量.取值范围为1-100  
+                    overwrite:true//overwrite: (Boolean 类型 )覆盖生成新文件  
+                },  
+                function(event) {   
+                    //uploadf(event.target,divid);  
+                    var path = name;//压缩转换目标图片的路径  
+                    //event.target获取压缩转换后的图片url路  
+                    //filename图片名称  
+                    files[num] = name ;
+					num++;
+					
+					var id = document.getElementById("ckjl.id").value;  
+					showImgDetail(name,divid,id,url); 
+                   // saveimage(event.target,divid,filename,path);  
+                    
+                },function(error) {
+//              	alert(JSON.stringify(error))
+                    plus.nativeUI.toast("压缩图片失败，请稍候再试");  
+            });  
+        }  
+        //保存信息到本地  
+        /**  
+         *   
+         * @param {Object} url  图片的地址  
+         * @param {Object} divid  字段的名称  
+         * @param {Object} name   图片的名称  
+         */  
+        function saveimage(url,divid,name,path){  
+        	url1 = url;
+            //alert(url);//file:///storage/emulated/0/Android/data/io.dcloud...../doc/upload/F_ZDDZZ-1467602809090.jpg  
+            //alert(path);//_doc/upload/F_ZDDZZ-1467602809090.jpg  
+            var  state=0;  
+            var wt = plus.nativeUI.showWaiting();  
+          //  plus.storage.clear();   
+            name=name.substring(0,name.indexOf("."));//图片名称：1467602809090  
+            var id = document.getElementById("ckjl.id").value;  
+            var itemname=id+"img-"+divid;//429img-F_ZDDZ  
+            var itemvalue=plus.storage.getItem(itemname);  
+            if(itemvalue==null){  
+                itemvalue="{"+name+","+path+","+url+"}";//{IMG_20160704_112614,_doc/upload/F_ZDDZZ-IMG_20160704_112614.jpg,file:///storage/emulated/0/Android/data/io.dcloud...../doc/upload/F_ZDDZZ-1467602809090.jpg}  
+            }else{    
+                itemvalue=itemvalue+"{"+name+","+path+","+url+"}";  
+            }  
+            plus.storage.setItem(itemname, itemvalue);  
+              
+            var src = 'src="'+url+'"';  
+            //alert("itemvalue="+itemvalue);  
+            showImgDetail(name,divid,id,src);  
+            wt.close();  
+              
+        }  
+        //上传图片，实例中没有添加上传按钮  
+	    function uploadimge() {
+	    	var inu = plus.storage.getItem('uid');
+			var inp = plus.storage.getItem('token');
+	    	var text = document.getElementById('cont').value;
+	    	if(text == '' || text == undefined){
+	    		mui.alert('内容不能为空','提示','确定','','div');
+	    	}else if(inu == "" || inp == ""){
+//  			createUpload();
+//				gallery();
+				mui.alert('你还没有登录','提示','确定','','div');
+	    	}else{
+	    		gallery();
+				
+	    	}
+		
+ 		} 
+		/**
+		 * 上传照相文件
+		 * @param {Object} uploadUrl
+		 * @param {Object} p
+		 * @param {Object} datas
+		 * @param {Object} _callback 
+		 * 
+		 */
+//		function _uploadFile(uploadUrl,p,datas,_callback){
+//			var files=[{name:"file",path:p}];
+//			execUploadFile(uploadUrl,files,datas,_callback);
+//		}
+		/**
+		 * 实际执行文件上传   datas为：{key:value}
+		 * @param {Object} uploadUrl
+		 * @param {Object} files
+		 * @param {Object} datas
+		 * @param {Object} _callback
+		 */
+		function gallery(){
+			var inu = plus.storage.getItem('uid');
+			var inp = plus.storage.getItem('token');
+			var content = document.getElementById('cont').value;
+//	        plus.gallery.pick(
+//	            function(files){
+	                plus.nativeUI.showWaiting();
+	                var task = null;
+	                task = plus.uploader.createUpload(
+	                    'http://www.zhxft.com/app/customer/publishCircle',
+	                    { method:"POST",priority:100},
+	                    function (t,status){
+	                        plus.nativeUI.closeWaiting();
+	                        var data=JSON.parse(t.responseText);
+	                        console.log(t.responseText);
+	                        if(data.state==0){	                        	
+	                        	mui.toast('发表话题成功');
+		                        var cad = plus.webview.getWebviewById('pay_circle');
+								mui.fire(cad,'pageflowrefresh');							
+		                        mui.back();
+	                        }else if(data.state==1){
+	                        	mui.alert('发表话题失败','提示','','','div')
+	                        }
+	                        	                        
+	                    }
+	                );
+//	                for(i in files.files){
+//	                    task.addFile(files.files[i],{key:'uper'+i,'name':files.files[i].substr(files.files[i].lastIndexOf('/'))});
+//	                }
+					for(var i = 0;i<files.length;i++){
+						task.addFile(files[i],{key:'uper'+i,'name':files[i].substr(files[i].lastIndexOf('/'))});
+					}
+	                task.addData('uid',inu);
+					task.addData('token',inp);
+					task.addData('content',content);
+//					task.addData('city',city);
+//					if(type == 1){
+//						type = '1';
+//					}else if(type == 2){
+//						type = '2';
+//					}else if(type == 3){
+//						type = '3';
+//					}else if(type == 4){
+//						type = '4';
+//					}
+//					task.addData('type',type);
+	                task.start();
+//	            },
+//	            function(e){mui.toast('取消了选择');},{multiple:true,maximum:9}
+//	        );
+	   }
+	   function returnIndex_file(files,filesContent){
+			for (var i = 0; i < files.length; i++) {
+				if (files[i] == filesContent) {
+					return i;
+				}
+			}
+		}
+		function removeArrayOfN(files,filesContent){ 
+			var index = returnIndex_file(files,filesContent);
+		    var files1 = [];  
+		    for(var i = 0; i < files.length; i++) {  
+		        if(i == index){continue}
+		        files1.push(files[i]);
+		    }  
+		    files.length = 0;//将arr的长度设为零  
+		    for(var i = 0; i < files1.length; i++){  
+		        files[i] = files1[i]//重新给arr赋值  
+		    }  
+		    return files;//返回传进的数组  
+		}  
+</script>  
+</body>  
+</html>  

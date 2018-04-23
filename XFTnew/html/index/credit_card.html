@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		.mui-table-view .mui-media-object{max-width: none;width: 30.666%;height: 61px;border-radius: 5px;}
+		.mui-table-view-chevron .mui-table-view-cell{padding-right: 43px;}
+		.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){margin-right: -50px;white-space: inherit;}
+		.mui-media-body p{
+			display: -webkit-box;
+		    -webkit-box-orient: vertical;
+		    -webkit-line-clamp: 3;
+		    overflow: hidden;
+		    line-height: 15px;
+		    font-size: 12px;color: #505050;
+		}
+		.mui-table-view .mui-media-body{font-size: 16px;color: #000000;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">申请信用卡</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<ul id="list" class="mui-table-view mui-table-view-chevron">
+				<!--<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-right" src="../../images/xy-card-1@3x.png">
+						<div class="mui-media-body">
+							CBD
+							<p>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class='mui-navigate-right' href="javascript:;">
+						<img class="mui-media-object mui-pull-right" src="../../images/xy-card-2@3x.png">
+						<div class="mui-media-body">
+							远眺
+							<p>静静的看这个世界，最后终于疯了</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class='mui-navigate-right' href="javascript:;">
+						<img class="mui-media-object mui-pull-right" src="../../images/xy-card-3@3x.png">
+						<div class="mui-media-body">
+							远眺
+							<p>静静的看这个世界，最后终于疯了</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-right" src="../../images/xy-card-4@3x.png">
+						<div class="mui-media-body">
+							CBD
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>-->
+			</ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				  ({				    		
+					hardwareAccelerated:true //开启硬件加速			
+				  });	
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px'; 
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');  
+				mui.ajax('http://www.zhxft.com/app/index/loan_list',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						type_id:'1'
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						var list=document.getElementById('list');
+						for (var i=0;i<arrParse.datas.length;i++) {
+							list.innerHTML+='<li title="'+arrParse.datas[i].url+'" class="mui-table-view-cell mui-media">'
+								+'<a class="mui-navigate-right">'
+									+'<img class="mui-media-object mui-pull-right" src="'+arrParse.datas[i].img+'">'
+									+'<div class="mui-media-body">'
+										+arrParse.datas[i].title
+										+'<p>'+arrParse.datas[i].content+'</p>'
+									+'</div>'
+								+'</a>'
+							+'</li>';
+						}				
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				mui('#list').on('tap','li',function(e){
+					var url = this.getAttribute("title");
+					plus.runtime.openURL(url);
+				});
+				  
+			    //关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,895 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/iconfont.css" />
+		<link href="../../css/public.css" rel="stylesheet"/>
+		<link href="../../css/index.css" rel="stylesheet"/>
+	</head>
+	<style>
+		/*.mui-bar-nav~.mui-content{padding-top: 0;}*/
+		.add_repay{
+			width:4rem;height:4rem;position:absolute;right:7.2%;top:1.56rem;background:url(../../images/xzhk@3x.png) 0 0 no-repeat;background-size:100% 100%;
+		}
+		.repaying{
+			width:4rem;height:4rem;position:absolute;right:7.2%;top:1.56rem;background:url(../../images/zzhk@3x.png) 0 0 no-repeat;background-size:100% 100%;
+		}
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-slider-indicator .mui-active.mui-indicator{
+        	background: #ff6d2a;
+        }  
+        .mui-slider-indicator .mui-indicator{box-shadow: none;}  
+        .xy_bank-1{
+        	background:url(../../images/xy-bank-1@3x.png)no-repeat;
+			background-size:100% 123%;	/*max-height: 187px;*/
+			/*height: 200px;*/background-position-y: -18%;
+    		width: 100%;padding: 0 4%;padding-top: 22px;
+        }
+        .xy_bank-1-b{background-color: #f46a6a;}
+        .xy_bank-2{
+        	background:url(../../images/xy-bank-2@3x.png)no-repeat;
+			background-size:100% 122%;	/*max-height: 187px;*/
+			/*height: 194px;*/background-position-y: -18%;
+    		width: 100%;padding: 0 4%;padding-top: 22px;
+        }
+        .xy_bank-2-b{background-color: #47b97b;}
+        .xy_bank-3{
+        	background:url(../../images/xy-bank-3@3x.png)no-repeat;
+			background-size:100% 122%;	
+			/*height: 200px;*//*max-height: 190px;*/
+    		width: 100%;padding: 0 4%;padding-top: 22px;
+        }
+         .xy_bank-3-b{background-color: #667dbc;}
+        .card_list{color: #FFFFFF;}
+        .card_list .mui-table-view-cell>a:not(.mui-btn){padding: 0;}
+        .card_list .mui-table-view:after,.card_list .mui-table-view:before{height: 0;}
+        .mui-btn{padding: 1.2% 12px;border-color: #fff;color: #FFFFFF;}
+        
+        .card_list .mui-navigate-right span{position: absolute;font-size: 19px;color: #fff;letter-spacing:8px;top: -2px;}
+        .card_list .mui-navigate-right p{font-size: 10px;color: #fff;display: inline-block;}
+        .card_list .mui-navigate-right img{width: 12%;margin-right: 18px;}
+        .mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;padding-top: 18px;">			
+			<h1 class="mui-title">智能还款</h1>	
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>			
+		</header>
+		<div class="mui-content" style="">			
+			<ul class="mui-table-view" id="credit_card">
+			    <li class="mui-table-view-cell mui-media" style="margin-top:0.65rem;height:2.84rem;position:relative;">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="../../images/card@3x.png">
+			            <!--<img class="mui-media-object mui-pull-right" style="width: 22px;height: 22px;" src="../../images/add-card.png">-->
+			            <span class="mui-media-body">
+			                	信用卡管理			               
+			            </span>
+			            <div class="mui-media-body  mui-pull-right" style="font-size: 14px;color: #999999;">
+			            	<img class="mui-media-object mui-pull-right" style="width: 22px;height: 22px;" src="../../images/add-card.png">
+			                	信用卡管理			               
+			            </div>
+			        </a>
+			    </li>
+			</ul>
+			<!--未添加卡片状态-->
+			<div class="section">
+				<div class="section_logo"></div>
+				<p class="section_p">请添加信用卡进行支付</p>
+				<div id="add_card_no" class="section_updata"><span style="font-size:24px;">+</span>添加信用卡</div>
+			</div>
+			<!--已添加卡片状态-->
+			<div class="section_two">
+				<!--<div class="card_list xy_bank-1">
+					<ul class="mui-table-view" style="background-color: inherit;">
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right" style="position: relative;padding-left: 10px;">
+					        	<img src="../../images/nh@3x.png" style=""/>
+					        	<span style="">中国银行</span>
+					        	<p style="">BANK OF CHINA</p>
+					        </a>
+					    </li>					    
+					</ul>
+					<div class="xy_bank-1-b" style="padding: 9px 0;padding-left: 10px;">
+						<label>周星驰</label>
+						<span style="margin-left: 31px;">**** **** **** 8888</span>
+					</div>
+					<div style="padding: 9px 0;padding-left: 10px;">
+						<label>账单日 10日</label>
+						<span style="margin-left: 39px;">还款日 20日</span>
+					</div>
+					<div style="padding-left: 10px;margin-top: 10px;padding-bottom: 12px;">
+						<button type="button" class="mui-btn mui-btn-outlined" style="color: #f24e4e;background-color: #FFFFFF;">历史还款</button>
+						<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 42px;color: #f24e4e;background-color: #FFFFFF;">新增还款</button>
+					</div>
+				</div>
+				<div class="card_list xy_bank-2">
+					<ul class="mui-table-view" style="background-color: inherit;">
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right" style="position: relative;padding-left: 10px;">
+					        	<img src="../../images/nh@3x.png" style=""/>
+					        	<span style="">中国银行</span>
+					        	<p style="">BANK OF CHINA</p>
+					        </a>
+					    </li>					    
+					</ul>
+					<div class="xy_bank-2-b" style="padding: 9px 0;padding-left: 10px;">
+						<label>周星驰</label>
+						<span style="margin-left: 31px;">**** **** **** 8888</span>
+					</div>
+					<div style="padding: 9px 0;padding-left: 10px;">
+						<label>账单日 10日</label>
+						<span style="margin-left: 39px;">还款日 20日</span>
+					</div>
+					<div style="padding-left: 10px;margin-top: 10px;padding-bottom: 14px;">
+						<button type="button" class="mui-btn mui-btn-outlined">历史还款</button>
+						<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 42px;">新增还款</button>
+					</div>
+				</div>
+				<div class="card_list xy_bank-3">
+					<ul class="mui-table-view" style="background-color: inherit;">
+					    <li class="mui-table-view-cell">
+					        <a class="mui-navigate-right" style="position: relative;padding-left: 10px;">
+					        	<img src="../../images/nh@3x.png" style=""/>
+					        	<span style="">中国银行</span>
+					        	<p style="">BANK OF CHINA</p>
+					        </a>
+					    </li>					    
+					</ul>
+					<div class="xy_bank-3-b" style="padding: 9px 0;padding-left: 10px;">
+						<label>周星驰</label>
+						<span style="margin-left: 31px;">**** **** **** 8888</span>
+					</div>
+					<div style="padding: 9px 0;padding-left: 10px;">
+						<label>账单日 10日</label>
+						<span style="margin-left: 39px;">还款日 20日</span>
+					</div>
+					<div style="padding-left: 10px;margin-top: 10px;padding-bottom: 13px;">
+						<button type="button" title="31" class="ls-repay mui-btn mui-btn-outlined">历史还款</button>
+						<button type="button" title="30" class="walit-repay mui-btn mui-btn-outlined" style="margin-left: 42px;">新增还款</button>
+					</div>
+				</div>												-->
+			<!--<span class="add-repay"></span><span class="ls-repay"></span>-->
+			</div>
+			<!--底部添加信用卡按钮-->
+			<div id="add_card" class="section_updata_two"><span style="font-size:24px;">+</span>添加信用卡</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<!--<script type="text/javascript" src="../../js/jlyGlobal.js" ></script>
+		<script type="text/javascript" src="../../js/jlyUser.js" ></script>
+		<script type="text/javascript" src="../../js/tab-webview-main.js" ></script>-->			
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript" src="../../js/util.js" ></script>
+		<script type="text/javascript">
+			var aniShow = {};
+//			(function(){				
+//				$('.card_list').height($('.card_list').width()/1.6)
+//			})();
+			mui.plusReady(function(){
+				mui.init({  
+					hardwareAccelerated:true, //开启硬件加速					
+				});
+				if(mui.os.ios){
+					// 创建加载内容窗口
+					var topoffset='45px';
+					if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+						topoffset=(Math.round(plus.navigator.getStatusbarHeight())+15)+'px';
+					} 
+					document.getElementById('header').style.height=(immersed+44)+'px';
+					document.querySelector('.mui-content').style.paddingTop=(immersed+44)+'px';
+				   	
+				}else if(mui.os.android){
+					document.getElementById('header').style.height=(immersed+44)+'px';
+//					document.querySelector('.message').style.marginTop=(immersed)+'px';
+					
+//					$('.D').css(ttom','1px');
+//					document.querySelector('.a').style.height=parseFloat(document.querySelector('.a').height-1);
+//					document.querySelector('.b').style.height=parseFloat(document.querySelector('.b').height-1)
+				}
+//				plus.storage.clear()
+				document.querySelector('.mui-content').style.marginBottom=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.paddingTop=(immersed+44)+'px';
+//				$('.mui-content').height(window.screen.height+immersed+44);
+
+				
+
+
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');													
+				
+				window.addEventListener('repay_customEvent',function(event){
+					uid=plus.storage.getItem('uid');
+					token=plus.storage.getItem('token');
+				  	//通过event.detail可获得传递过来的参数内容
+//				  	if(event.detail.load_type==2){
+					  	mui.ajax('http://www.zhxft.com/app/creditCard/listCard',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,						
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								var list=document.querySelector('.section_two');
+								list.innerHTML='';
+								var card_start='';
+								var num='';
+								var color_class='';
+								var div_jj='';
+								var btn_bot='';
+								for (var i=0;i<arrParse.info.length;i++) {
+									if(i<3){
+										switch (i)
+										{
+										case 0:
+										  color_class='xy_bank-1';
+										  div_jj='xy_bank-1-b';
+										  btn_bot='padding-bottom: 12px;';
+										  font_bg='color: #f24e4e';
+										  break;	
+										case 1:
+										  color_class='xy_bank-2';
+										  div_jj='xy_bank-2-b';
+										  btn_bot='padding-bottom: 14px;';
+										  font_bg='color: #32b16c';
+										  break;	
+										case 2:
+										  color_class='xy_bank-3';
+										  div_jj='xy_bank-3-b';
+										  btn_bot='padding-bottom: 13px;';
+										  font_bg='color: #556fb5';
+										  break;										
+										}
+									}
+									
+									if(i>2){
+										num=i%3;
+									}
+									switch (num)
+									{
+									case 0:
+									  color_class='xy_bank-1';
+									  div_jj='xy_bank-1-b';
+									  btn_bot='padding-bottom: 12px;';
+									  font_bg='color: #f24e4e';
+									  break;	
+									case 1:
+									  color_class='xy_bank-2';
+									  div_jj='xy_bank-2-b';
+									  btn_bot='padding-bottom: 14px;';
+									  font_bg='color: #32b16c';
+									  break;	
+									case 2:
+									  color_class='xy_bank-3';
+									  div_jj='xy_bank-3-b';
+									  btn_bot='padding-bottom: 13px;';
+									  font_bg='color: #556fb5';
+									  break;										
+									}
+									if(arrParse.info[i].state=='待还款'){
+										card_start='<button title="'+arrParse.info[i].id+'" type="button" class="add-repay mui-btn mui-btn-outlined" style="background-color: #fff;margin-left: 42px;'+font_bg+'">新增还款</button>'
+									}else if(arrParse.info[i].state=='还款中'){
+										card_start='<button title="2" type="button" class="mui-btn mui-btn-outlined" style="margin-left: 42px;background-color: #fff;'+font_bg+'">正在还款</button>'
+									}
+									
+									list.innerHTML+='<div class="card_list '+color_class+'" id="'+arrParse.info[i].id+'" title="'+arrParse.info[i].id+'">'
+										+'<div class="card-info">'
+										+'<ul class="mui-table-view" style="background-color: inherit;">'
+										    +'<li class="mui-table-view-cell">'
+										        +'<a class="mui-navigate-right" style="position: relative;padding-left: 10px;">'
+										        	+'<img src="'+arrParse.info[i].bankLogo+'" style=""/>'
+										        	+'<span style="">'+arrParse.info[i].bankName+'</span>'
+										        	+'<p style="">'+arrParse.info[i].enbankname+'</p>'
+										        +'</a>'
+										    +'</li>'					    
+										+'</ul>'
+										+'<div class="'+div_jj+'" style="padding: 9px 0;padding-left: 10px;">'
+											+'<label>'+arrParse.info[i].accountName+'</label>'
+											+'<span style="margin-left: 31px;">**** **** **** '+arrParse.info[i].endNum+'</span>'
+										+'</div>'
+										+'<div style="padding: 9px 0;padding-left: 10px;">'
+											+'<label>账单日 '+arrParse.info[i].accountDay+'日</label>'
+											+'<span style="margin-left: 39px;">还款日 '+arrParse.info[i].repaymentDay+'日</span>'
+										+'</div>'
+										+'</div>'
+										+'<div style="padding-left: 10px;margin-top: 10;'+btn_bot+'">'
+											+'<button title="'+arrParse.info[i].id+'" type="button" class="ls-repay mui-btn mui-btn-outlined" style="background-color: #fff;'+font_bg+'">历史还款</button>'
+											+card_start
+										+'</div>'
+									+'</div>'
+								}								
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+//					}else if(event.detail.load_type==1){
+//						plus.webview.getLaunchWebview().reload();
+//					}					
+				});
+				window.addEventListener('repay_customEvent1',function(event){	
+					var id = event.detail.card_id;
+					$('#'+id+'').remove();								
+				});
+				window.addEventListener('repay_list',function(event){	
+					var id = event.detail.id;
+					$('#repay_'+id+'').removeClass('add_repay');
+					$('#repay_'+id+'').addClass('repaying');
+				});						
+				
+				if (uid!=null && token!=null) {
+					mui.ajax('http://www.zhxft.com/app/creditCard/listCard',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							var list=document.querySelector('.section_two');
+							var card_start='';
+							var num='';
+							var color_class='';
+							var div_jj='';
+							var font_bg='';
+							if(arrParse.code=='0005' || arrParse.state=='error' || arrParse.info.length<0 || arrParse.info==''){
+								document.querySelector('.section_two').style.display='none';
+								document.querySelector('#add_card').style.display='none';
+								document.querySelector('.section').style.display='block';
+								return;
+							}
+							for (var i=0;i<arrParse.info.length;i++) {
+								if(i<3){
+									switch (i)
+									{
+									case 0:
+									  color_class='xy_bank-1';
+									  div_jj='xy_bank-1-b';
+									  font_bg='color: #f24e4e';
+									  break;	
+									case 1:
+									  font_bg='color: #32b16c';	
+									  color_class='xy_bank-2';
+									  div_jj='xy_bank-2-b';
+									  break;	
+									case 2:
+									  color_class='xy_bank-3';
+									  div_jj='xy_bank-3-b';
+									  font_bg='color: #556fb5';
+									  break;										
+									}
+								}
+								
+								if(i>2){
+									num=i%3;
+								}
+								switch (num)
+								{
+								case 0:
+								  font_bg='color: #f24e4e';	
+								  color_class='xy_bank-1';
+								  div_jj='xy_bank-1-b';
+								  break;	
+								case 1:
+								  color_class='xy_bank-2';
+								  div_jj='xy_bank-2-b';
+								  font_bg='color: #32b16c';
+								  break;	
+								case 2:
+								  color_class='xy_bank-3';
+								  div_jj='xy_bank-3-b';
+								  font_bg='color: #556fb5';
+								  break;										
+								}
+								if(arrParse.info[i].state=='待还款'){
+									card_start='<button title="'+arrParse.info[i].id+'" type="button" class="add-repay mui-btn mui-btn-outlined" style="margin-left: 42px;background-color: #fff;'+font_bg+'">新增还款</button>'
+								}else if(arrParse.info[i].state=='还款中'){
+									card_start='<button title="2" type="button" class="mui-btn mui-btn-outlined" style="margin-left: 42px;background-color: #fff;'+font_bg+'">正在还款</button>'
+								}
+								
+								list.innerHTML+='<div class="card_list '+color_class+'" id="'+arrParse.info[i].id+'" title="'+arrParse.info[i].id+'">'
+									+'<div class="card-info">'
+									+'<ul class="mui-table-view" style="background-color: inherit;">'
+									    +'<li class="mui-table-view-cell">'
+									        +'<a class="mui-navigate-right" style="position: relative;padding-left: 10px;">'
+									        	+'<img src="'+arrParse.info[i].bankLogo+'" style=""/>'
+									        	+'<span style="">'+arrParse.info[i].bankName+'</span>'
+									        	+'<p style="">'+arrParse.info[i].enbankname+'</p>'
+									        +'</a>'
+									    +'</li>'					    
+									+'</ul>'
+									+'<div class="'+div_jj+'" style="padding: 9px 0;padding-left: 10px;">'
+										+'<label>'+arrParse.info[i].accountName+'</label>'
+										+'<span style="margin-left: 31px;">**** **** **** '+arrParse.info[i].endNum+'</span>'
+									+'</div>'
+									+'<div style="padding: 9px 0;padding-left: 10px;">'
+										+'<label>账单日 '+arrParse.info[i].accountDay+'日</label>'
+										+'<span style="margin-left: 39px;">还款日 '+arrParse.info[i].repaymentDay+'日</span>'
+									+'</div>'
+									+'</div>'
+									+'<div style="padding-left: 10px;margin-top: 10;padding-bottom: 12px;">'
+										+'<button title="'+arrParse.info[i].id+'" type="button" class="ls-repay mui-btn mui-btn-outlined" style="background-color: #fff;'+font_bg+'">历史还款</button>'
+										+card_start
+									+'</div>'
+								+'</div>'
+								
+//								list.innerHTML+='<div class="card_list" id="'+arrParse.info[i].id+'" title="'+arrParse.info[i].id+'">'
+//									+'<ul class="mui-table-view" style="background:#0194FF;border-radius: 5px 5px 0 0;margin-top:0.65rem;">'
+//								    	+'<li class="mui-table-view-cell mui-media" style="height:1.75rem;">'
+//									        +'<a href="javascript:;" class="mui-navigate-right" style="padding: 0;padding-left: 11px;">'
+//									            +'<img class="mui-media-object mui-pull-left" src="'+arrParse.info[i].bankLogo+'" style="line-height:1.75rem;'
+//													+'max-width: 1.25rem;height: 1.25rem;margin-top: 4px;">'
+//									            +'<div class="mui-media-body" style="font-size:16px;color:#fff;">'
+//									                +'<span style="position:absolute;top:0.13rem;left:14%;">'+arrParse.info[i].bankName+'</spoan>'
+//									                +'<span>尾号'+arrParse.info[i].endNum+'</span>'								               
+//									            +'</div>'
+//									        +'</a>'
+//									    +'</li>'
+//									+'</ul>'
+//									+'<ul class="mui-table-view" style="border-radius: 0 0 5px 5px;box-shadow: 0 0 10px #C3C3C3">'
+//										+card_start
+//									    +'<li class="mui-table-view-cell mui-table-view-cell-p1" style="color:#505050;width: 75%;">持卡人:<span style="margin-left:3%;">'+arrParse.info[i].accountName+'</span><span style="margin-left:9%;display: inline-block;width:18%;height:1.28rem;background:#2ba8ff;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;">'+arrParse.info[i].state+'</span></li>'
+//									    +'<li class="mui-table-view-cell total_mony">'
+//									    	+'<div>'
+//									    		+'<p class="total_mony_p1">'+arrParse.info[i].creditLimit+'</p>'
+//									    		+'<p class="total_mony_p2">额度</p>'
+//									    	+'</div>'
+//									    	+'<div>'
+//									    		+'<p class="total_mony_p1">'+arrParse.info[i].accountDay+'日</p>'
+//									    		+'<p class="total_mony_p2">账单日</p>'
+//									    	+'</div>'
+//									    	+'<div>'
+//									    		+'<p class="total_mony_p1" style="text-align: center;">'+arrParse.info[i].repaymentDay+'日</p>'
+//									    		+'<p class="total_mony_p2">最后还款日</p>'
+//									    	+'</div>'
+//									    +'</li>'
+//									+'</ul>'
+//								+'</div>';
+							}
+							
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				} else{
+					document.querySelector('#add_card').style.display='none';
+					document.querySelector('.section_two').style.display='none';
+					document.querySelector('.section').style.display='block';
+				}								
+				
+				// 创建悬浮窗口
+				var floatw=null;
+				function floatWebview(card_id){
+					if(floatw){ // 避免快速多次点击创建多个窗口
+						return;
+					}
+					floatw=plus.webview.create("sms.html","sms",
+						{width:'80%',height:'55%',margin:"auto",background:"rgba(0,0,0,0.8)",
+						scrollIndicator:'none',scalable:false,popGesture:'none'},
+						{c_id:card_id}
+					);
+					floatw.addEventListener("loaded",function(){
+						floatw.show('fade-in',300);
+						floatw=null;
+					},false);
+				}
+				
+				//防止点击重叠
+				function stopBubbling(e) {
+			        e = window.event || e;
+			        if (e.stopPropagation) {
+			            e.stopPropagation();      //阻止事件 冒泡传播
+			        } else {
+			            e.cancelBubble = true;   //ie兼容
+			        }
+			    }
+				//信用卡管理
+				mui('.section_two').on('tap','.card_list',function(e){
+					var _con = $('.ls-repay'); // 设置目标区域
+					var id=$(this).attr('title');
+				    if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+				    	mui.openWindow({
+							url: 'Card_management.html',
+							id: 'Card_management',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},extras:{card_id:id},
+							styles:{
+//								bounce: 'vertical',bounceBackground:'#fc1',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+				    }else{
+				    	mui.openWindow({
+							url: 'payment_history.html',
+							id: 'payment_history',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+						    extras:{
+						      	card_id:id
+						    },
+							waiting: {
+								autoShow: true
+							}
+						});
+//			    		mui.ajax('http://www.zhxft.com/app/account/type_id',{
+//							async:false,
+//							data:{
+//								uid:uid,
+//								token:token,					
+//							},
+//							dataType:'JSON',//服务器返回json格式数据
+//							type:'post',//HTTP请求类型
+//							success:function(data){
+//								console.log(data);
+//								var arrParse = JSON.parse(data);
+//								if(arrParse.state==1){
+//									mui.openWindow({
+//										url: 'repay-record.html',
+//										id: 'repay-record',
+//										show: {
+//											autoShow:false,
+//											aniShow: 'pop-in',
+//											duration:'350',
+//										},extras:{card_id:id},											
+//										waiting: {
+//											autoShow: true
+//										}
+//									});
+//								}else{
+//									mui.alert('你当前用户等级(商户)过低，暂不能提交还款计划，购买激活码即可提交还款计划','温馨提示','','','div');
+//								}
+//							},
+//							error:function(xhr,error,errorThrown){
+//								console.log(error);
+//							}
+//						});			    				    		
+				    }										
+				})
+				//新增还款
+				mui('.section_two').on('tap','.add-repay',function(e){
+					var id=$(this).attr('title');
+		    		mui.ajax('http://www.zhxft.com/app/account/type_id',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,					
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.state==1){
+								mui.ajax('http://www.zhxft.com/app/creditCard/is_bindcard',{
+									async:false,
+									data:{
+										uid:uid,
+										token:token,
+										bankId:id
+									},
+									dataType:'JSON',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									success:function(data){
+										console.log(data);
+										var arrParse = JSON.parse(data);								
+										if(arrParse.code=='0000'){
+											mui.openWindow({
+												url: 'new_Repayment_plan.html',
+												id: 'new_Repayment_plan',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},extras:{card_id:id},								
+												waiting: {
+													autoShow: true
+												}
+											});
+										}else if(arrParse.code=='0004'){
+											mui.confirm('此卡尚未绑定还款协议，是否前往绑定还款协议！','提示',['是','否'],function(e){
+												var i=e.index;
+												if(i==0){
+													floatWebview(id);
+												}
+											},'div');
+										}else if(arrParse.code=='0005'){
+											mui.confirm('此卡尚未绑定还款协议，是否前往绑定还款协议！','提示',['是','否'],function(e){
+												var i=e.index;
+												if(i==0){
+													floatWebview(id);
+												}
+											},'div');
+										}
+									},
+									error:function(xhr,error,errorThrown){
+										console.log(error);
+									}
+								});
+							}else{
+								mui.alert('你当前用户等级(普通用户)过低，暂不能提交还款计划，升级高级用户即可提交还款计划','温馨提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});	
+					stopBubbling(e);										
+				})
+				//添加信用卡
+				document.getElementById('add_card').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,					
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0000'){
+									mui.openWindow({
+										url: 'repay_bind_card.html',
+										id: 'repay_bind_card',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},styles:{
+//											softinputMode:'adjustResize',
+//										bounce: 'vertical',bounceBackground:'#fc1',
+										},
+										waiting: {
+											autoShow: true
+										}
+									});	
+								}else{
+									mui.confirm('你尚未认证实名制，是否前往绑定实名！','提示',['是','否'],function(e){
+										var i=e.index;
+										if(i==0){
+											mui.openWindow({
+												url: '../user/id_authentication.html',
+												id: 'id_authentication',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},styles:{
+//													softinputMode:'adjustResize',
+//												bounce: 'vertical',bounceBackground:'#fc1',
+												},
+												extras:{
+													
+												},//额外扩展参数
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','1')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',bounce: 'vertical',bounceBackground:'#fc1',},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				document.getElementById('add_card_no').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,					
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0000'){
+									mui.openWindow({
+										url: 'repay_bind_card.html',
+										id: 'repay_bind_card',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},styles:{
+//											softinputMode:'adjustResize',
+//										bounce: 'vertical',bounceBackground:'#fc1',
+										},
+										waiting: {
+											autoShow: true
+										}
+									});	
+								}else{
+									mui.confirm('你尚未认证实名制，是否前往绑定实名！','提示',['是','否'],function(e){
+										var i=e.index;
+										if(i==0){
+											mui.openWindow({
+												url: '../user/id_authentication.html',
+												id: 'id_authentication',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},styles:{
+//													softinputMode:'adjustResize',
+//												bounce: 'vertical',bounceBackground:'#fc1',
+												},
+												extras:{
+													
+												},//额外扩展参数
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','1')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',bounce: 'vertical',bounceBackground:'#fc1',},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}					
+				})
+				document.getElementById('credit_card').addEventListener('tap',function(){
+					if(uid!=null){
+						mui.ajax('http://www.zhxft.com/app/creditCard/isReal',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,					
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0000'){
+									mui.openWindow({
+										url: 'repay_bind_card.html',
+										id: 'repay_bind_card',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										},styles:{
+//											softinputMode:'adjustResize',
+//										bounce: 'vertical',bounceBackground:'#fc1',
+										},
+										waiting: {
+											autoShow: true
+										}
+									});	
+								}else{
+									mui.confirm('你尚未认证实名制，是否前往绑定实名！','提示',['是','否'],function(e){
+										var i=e.index;
+										if(i==0){
+											mui.openWindow({
+												url: '../user/id_authentication.html',
+												id: 'id_authentication',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												},styles:{
+//													softinputMode:'adjustResize',
+//												bounce: 'vertical',bounceBackground:'#fc1',
+												},
+												extras:{
+													
+												},//额外扩展参数
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div');
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+					}else{
+						plus.storage.setItem('btype','1')
+						mui.confirm('你当前并未登录，是否前往登录！','提示',['是','否'],function(e){
+							if(e.index==0){
+								mui.openWindow({
+									url: '../index/login.html',
+									id: 'login',
+									show: {
+										autoShow:false,
+										aniShow: 'pop-in',
+										duration:'350',
+									}//额外扩展参数
+									,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									styles:{softinputMode:'adjustResize',bounce: 'vertical',bounceBackground:'#fc1',},
+									waiting: {
+										autoShow: true
+									}
+								});
+							}
+						},'div')
+					}
+				})
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in');
+			});
+			
+		</script>
+	</body>
+
+</html>

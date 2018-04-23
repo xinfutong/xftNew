@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<link href="../css/myTeam.css" rel="stylesheet" />-->
+		<link href="../../css/pablic_wz.css" rel="stylesheet" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		
+		<style>
+			html,body,.mui-content{overflow: hidden;}
+			/*.mui-content,body{background-color: #FFFFFF;}*/								
+			/*.mui-bar .mui-btn-link{color: #FF5A00;}*/
+    		/*.mui-btn-primary{background: #FF5A00;border: none;}*/
+    		.mui-input-row{padding: 0 11px;}
+    		.mui-input-row label~input{padding-left: 18px;width: 75%;/*float: left;*/background: #F0F0F0;font-size: 16px;}
+    		.mui-input-row label{width: auto;background: #007aff;
+			    border-radius: 5px;float: right;padding: 11px 0.5rem;
+			    color: #fff;font-size: 16px;
+		    }
+		    #copy_code{background: #fff;
+		    color: #007aff;padding: 10px 0.5rem;margin-left: 5%;
+		    border: 1px solid;}
+		    input[type=text]{width: 60%;background: #e5e5e5;border: 0;}
+		    .Surplus{border-radius: 10px;background: #FFFFFF;padding: 100px 0;
+		    text-align: center;color: #505050;font-size: 15px;}
+		    .mui-scroll-wrapper{top: 170px;overflow-y: auto;}
+		    #code_num{color: #007aff;}
+		    .wait_for{border-radius: 10px;background: #FFFFFF;color: #505050;font-size: 15px;}
+		    .wait_for label{float: right;}
+		    .wait_for .mui-table-view-cell{padding: 7px 15px;}
+		    .wait_for h5{margin: 7px 0;}
+		    .mui-table-view{background-color: initial;}
+		    .mui-table-view:after{height: 0;}
+		    ::-webkit-input-placeholder{font-size: 15px;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: 0 0px 1px #DDDDDD;background-color: #FFFFFF;">			
+			<h1 class="mui-title">生成激活码</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<!--<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">-->
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+							<div class="mui-input-row" style="margin-top: 10px;z-index: 99;">
+						        <input id="active_code" readonly="readonly" type="text" class="mui-input-clear" placeholder="请记住或复制此激活码">
+						    	<label id="copy_code">复制</label>
+						    	<label id="active">生成</label>						        
+							</div>
+						    <!--<div class="mui-input-row" style="padding: 0 20%;">
+						        <label id="active">生成</label>
+						        <label id="copy_code">复制</label>
+						    </div>-->
+						<!--</div>
+			        </div>
+			    </div>
+			</div>-->
+			<div id="find_head" style="padding: 10px 10px;z-index: 99;position: fixed;top: 104px;">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1" style="height:2.06rem;">
+						剩余数量
+					</a>
+					<a class="mui-control-item" href="#item2" style="height:2.06rem;">
+						待使用
+					</a>
+					<a class="mui-control-item" href="#item3" style="height:2.06rem;">
+						已使用
+					</a>
+					<a class="mui-control-item" href="#item4" style="height:2.06rem;">
+						分发明细
+					</a>
+				</div>
+			</div>
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" style="" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper" style="padding: 0 11px;margin-bottom: 50px;">			            	
+							<div id="item1" class="list-wrapper mui-control-content mui-active">								
+								<div class="Surplus">
+									剩余<span id="code_num"></span>个激活码
+								</div>
+							</div>
+							<div id="item2" class="mui-control-content">	
+								<div class="wait_for">
+									<ul id="code2" class="mui-table-view">
+									    <!--<li class="mui-table-view-cell">
+									        <h5><span>激活码</span><label>sz55d8e</label></h5>
+									        <h5><span>生成时间</span><label>2018-12-11:10:10:10</label></h5>
+									    </li>									    -->
+									</ul>
+								</div>
+							</div>
+							<div id="item3" class="mui-control-content">
+								<div class="wait_for">
+									<ul id="code3" class="mui-table-view">
+									    <!--<li class="mui-table-view-cell">
+									        <h5><span>激活码</span><label>sz55d8e</label></h5>
+									        <h5><span>生成时间</span><label>2018-12-11:10:10:10</label></h5>
+									        <h5><span>使用用户</span><label>2018-12-11:10:10:10</label></h5>
+									    </li>									    -->
+									</ul>
+								</div>
+							</div>
+							<div id="item4" class="mui-control-content">
+								<div class="wait_for">
+									<ul id="code4" class="mui-table-view">
+									    <!--<li class="mui-table-view-cell">
+									        <h5><span>分发数量</span><label>sz55d8e</label></h5>
+									        <h5><span>分发时间</span><label>2018-12-11:10:10:10</label></h5>
+									        <h5><span>分发用户</span><label>2018-12-11:10:10:10</label></h5>
+									    </li>									    -->
+									</ul>
+								</div>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			</div>    
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+//				        callback: pullupRefresh
+				      }
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+				
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+					document.querySelector('#find_head').style.top=(immersed+100)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.top=(immersed+170)+'px';
+				}else if(mui.os.android){
+					document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+					document.querySelector('#find_head').style.top=(immersed+100)+'px';
+//					document.querySelector('#pullrefresh').style.position='inherit';
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+				
+				window.addEventListener('agent_back',function(event){	
+					mui.back();
+				});
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var load_len;
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/customer/my_activation_code',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						load_len=(parseInt(arrParse.count)/10);
+						var list2=document.getElementById('code2');
+						var list3=document.getElementById('code3');
+						var list4=document.getElementById('code4');
+						var show4=true;
+						var show2=true;
+						var show3=true;	
+						document.getElementById('code_num').innerText=arrParse.code_num.activation_code;
+						for (var i=0;i<arrParse.info_code.length;i++) {							
+							list2.innerHTML+='<li class="mui-table-view-cell">'
+						        +'<h5><span>激活码</span><label>'+arrParse.info_code[i].code+'</label></h5>'
+						        +'<h5><span>生成时间</span><label>'+arrParse.info_code[i].created+'</label></h5>'						    
+						    +'</li>';
+						}
+						for (var i=0;i<arrParse.code_use.length;i++) {							
+							list3.innerHTML+='<li class="mui-table-view-cell">'
+						        +'<h5><span>激活码</span><label>'+arrParse.code_use[i].code+'</label></h5>'
+						        +'<h5><span>生成时间</span><label>'+arrParse.code_use[i].time+'</label></h5>'
+						        +'<h5><span>使用用户</span><label>'+arrParse.code_use[i].use_name+'('+arrParse.code_use[i].use_phoneNum+')</label></h5>'
+						    +'</li>';
+						}
+						for (var i=0;i<arrParse.datas.length;i++) {							
+							list4.innerHTML+='<li class="mui-table-view-cell">'
+						        +'<h5><span>分发数量</span><label>'+arrParse.datas[i].deploy_num+'</label></h5>'
+						        +'<h5><span>分发时间</span><label>'+arrParse.datas[i].set_date+'</label></h5>'
+						        +'<h5><span>分发用户</span><label>'+arrParse.datas[i].deploy_loginId+'</label></h5>'
+						    +'</li>';
+						}
+						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				var count = 0;
+				function pullupRefresh() 
+			  	{
+			    	setTimeout(function() {
+				        mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+				        if(count > load_len){
+				      		mui.toast('已经没有更多可加载的了',{ duration:'long', type:'div' }) 
+				        }
+				        var cells = document.body.querySelectorAll('.section_hk');
+				        page++;
+				        var num=page*10;
+						mui.ajax('http://www.zhxft.com/app/customer/my_activation_code',{
+							async:false,
+							data:{
+								uid:uid,
+								token:token,
+								limit:num
+							},
+							dataType:'JSON',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							success:function(data){
+								console.log(data);
+								var arrParse = JSON.parse(data);
+								if(arrParse.code=='0006'){
+									plus.storage.clear();
+									plus.storage.setItem("launchFlag", "林允");
+									mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+										if(e.index==0){
+											mui.openWindow({
+												url: '../index/login.html',
+												id: 'login',
+												show: {
+													autoShow:false,
+													aniShow: 'pop-in',
+													duration:'350',
+												}//额外扩展参数
+												,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+												styles:{softinputMode:'adjustResize'},
+												waiting: {
+													autoShow: true
+												}
+											});
+										}
+									},'div')
+									return;
+								}
+								load_len=(parseInt(arrParse.count)/10);
+								var list2=document.getElementById('code2');
+								var list3=document.getElementById('code3');
+								var list4=document.getElementById('code4');
+								var show4=true;
+								var show2=true;
+								var show3=true;	
+								document.getElementById('code_num').innerText=arrParse.code_num.set_date;
+								for (var i=0;i<arrParse.info_code.length;i++) {							
+									list2.innerHTML+='<li class="mui-table-view-cell">'
+								        +'<h5><span>激活码</span><label>'+arrParse.info_code[i].code+'</label></h5>'
+								        +'<h5><span>生成时间</span><label>'+arrParse.info_code[i].created+'</label></h5>'						    
+								    +'</li>';
+								}
+								for (var i=0;i<arrParse.code_use.length;i++) {							
+									list3.innerHTML+='<li class="mui-table-view-cell">'
+								        +'<h5><span>激活码</span><label>'+arrParse.code_use[i].code+'</label></h5>'
+								        +'<h5><span>生成时间</span><label>'+arrParse.code_use[i].time+'</label></h5>'
+								        +'<h5><span>使用用户</span><label>'+arrParse.code_use[i].use_name+'('+arrParse.code_use[i].use_phoneNum+')</label></h5>'
+								    +'</li>';
+								}
+								for (var i=0;i<arrParse.datas.length;i++) {							
+									list4.innerHTML+='<li class="mui-table-view-cell">'
+								        +'<h5><span>分发数量</span><label>'+arrParse.datas[i].deploy_num+'</label></h5>'
+								        +'<h5><span>分发时间</span><label>'+arrParse.datas[i].set_date+'</label></h5>'
+								        +'<h5><span>分发用户</span><label>'+arrParse.datas[i].deploy_loginId+'</label></h5>'
+								    +'</li>';
+								}
+							},
+							error:function(xhr,error,errorThrown){
+								console.log(error);
+							}
+						});
+			    	}, 500);
+			  	}
+				
+				document.getElementById('active').addEventListener('tap',function(){					
+					mui.ajax('http://www.zhxft.com/app/customer/generate_list',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,							
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: '../index/login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}else if(arrParse.info.code==5){
+								mui.alert('生成激活码失败！','提示','','','div');
+							}else if(arrParse.info.code==23){
+								mui.alert('你的激活码数量不足！','提示','','','div');
+							}else if(arrParse.info.code==0){
+								document.getElementById('active_code').value=arrParse.xin_code;
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+				
+				//复制文字
+				var pl_id;
+				document.getElementById('copy_code').addEventListener('tap',function(){
+					pl_id=document.getElementById('active_code').value;
+					if(mui.os.ios){
+					   copy_txt(pl_id)
+					}else if(mui.os.android){
+						copyToClip(pl_id);
+					}
+				})
+				
+				//复制
+				function copyToClip(txt){
+				    var Context = plus.android.importClass("android.content.Context");
+				    var main = plus.android.runtimeMainActivity();
+				    var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+				    plus.android.invoke(clip,"setText",txt);
+				    mui.alert('复制激活码成功','提示','','','div');
+//				    mui.toast('复制激活码成功',{ duration:'long', type:'div' }) 
+				}
+				function copy_txt(txt){
+					var UIPasteboard  = plus.ios.importClass("UIPasteboard");
+					//这步会有异常因为UIPasteboard是不允许init的，init的问题会在新版中修改 
+					var generalPasteboard = UIPasteboard.generalPasteboard();
+					// 设置/获取文本内容: www.bcty365.com
+					generalPasteboard.setValueforPasteboardType(txt, "public.utf8-plain-text");
+					var value = generalPasteboard.valueForPasteboardType("public.utf8-plain-text");
+					 mui.alert('复制激活码成功','提示','','','div');
+//					mui.toast('复制激活码成功',{ duration:'long', type:'div' }) 
+				}
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})	
+		</script>
+	</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="../../css/preview.css" rel="stylesheet" />
+	</head>
+	<style>
+		#promptBtn,#again-Btn{
+			width:44%;height:2.75rem;margin-left:4%;margin-top:1.53rem;font-size:18px;letter-spacing: 2px;
+			border:none;
+		}
+		.mui-content{margin-bottom: 30px;}
+		.plan-state-1{background: url(../../images/plan-img-1@3x.png)no-repeat;background-size: 33px;
+		background-position-y: center;background-position-x: 7px;padding-left: 3.5rem;}
+		.plan-state-2{background: url(../../images/plan-img-2@3x.png)no-repeat;background-size: 33px;
+		background-position-y: center;background-position-x: 7px;padding-left: 3.5rem;}
+		.plan-time{background: url(../../images/plan-time@3x.png)no-repeat;background-size: 15px;
+		background-position-y: center;background-position-x: 11px;padding-left: 2.5rem;
+		color: #FFFFFF;font-size: 12px;}
+		.mui-table-view{margin: 0 0.9rem;border-radius: 5px;margin-top: 10px;}
+		.plan-top{background-color: #FF5A00;color: #FFFFFF;padding: 0;border-top-left-radius: 5px;
+		border-top-right-radius: 5px;padding-right: 15px;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 id="title" class="mui-title">预览还款计划</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div id="look_plan">
+			           			<!--<ul class="mui-table-view">						   
+								    <li class="plan-top mui-table-view-cell" style="">
+								    	<div class="mui-table-view-cell-div plan-time">
+								    		<p style="font-size: 12px;color: #FFFFFF;">2017-12月12日</p>							    		
+								    	</div>
+								    	<div style="font-size: 12px;line-height: inherit;">手续费:5.12元</div>
+								    </li>
+								    <li class="mui-table-view-cell plan-state-1">
+								    	<div class="mui-table-view-cell-div">
+								    		<p>还款时间</p>
+								    		<p>2017-10-12 12:12:12</p>
+								    	</div>
+								    	<div>¥222.00</div>
+								    </li>
+								    <li class="mui-table-view-cell plan-state-2">
+								    	<div class="mui-table-view-cell-div">
+								    		<p>消费时间</p>
+								    		<p>2017-10-12 12:12:12</p>
+								    	</div>
+								    	<div>¥222.00</div>
+								    </li>								    
+								</ul>-->
+			           		</div>
+			           		
+							<div>
+								<button id="again-Btn" type="button" class="next mui-btn mui-btn-primary" style="background:#FFFFFF;color: #FF5A00;border: 1px solid #FF5A00;">重置计划</button>
+								<button id="promptBtn" type="button" class="next mui-btn mui-btn-primary" style="background:#FF5A00;">提交计划</button>
+							</div>
+							
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速	
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+1)+'px';
+					document.querySelector('.mui-scroll').style.paddingBottom=(immersed+1)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+				}
+				document.querySelector('#pullrefresh').style.paddingBottom=(immersed+54)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var card_id=plus.webview.getWebviewById('preview').cardId;
+				var repayAmount=plus.webview.getWebviewById('preview').repayAmount;
+				var num=plus.webview.getWebviewById('preview').deposit;
+				var fee=plus.webview.getWebviewById('preview').fee;
+				var day1=plus.webview.getWebviewById('preview').day1;
+				var day2=plus.webview.getWebviewById('preview').day2;
+//				var pay=plus.webview.getWebviewById('preview').pay;
+				mui.ajax('http://www.zhxft.com/app/plan_news/makePlan',{
+					async:false,
+					data:{
+						cardId:card_id,
+						uid:uid,
+						token:token,
+						type:1,
+						repayAmount:repayAmount,
+						num:num,
+						fee:fee,
+						day1:day1,
+						day2:day2
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var list=document.getElementById('look_plan');
+						var plan_type;
+						mui.alert('还款期间请保证信用卡状态正常，并保持信用卡至少“'+(parseFloat(arrParse.deposit_xin)+parseFloat(fee))+'”余额，否则可能导致还款失败哦！','温馨提示','','','div');
+//						if(arrParse.code=='0003'){
+//							mui.alert('还款天数不能小于5天','提示','','','div');
+//						}else if(arrParse.code=='0004'){
+//							mui.alert('提交计划失败','提示','','','div');
+//						}else if(arrParse.code=='0008'){
+//							mui.alert('开始日期不能小于账单日','提示','','','div');
+//						}else if(arrParse.code=='0009'){
+//							mui.alert('结束日期不能大于还款日','提示','','','div');
+//						}else if(arrParse.code=='0010'){
+//							mui.alert('还款中','提示','','','div');
+//						}
+						for (var i=0;i<arrParse.index_data.length;i++) {							
+//							if(arrParse[i].type==1){
+//								plan_type='还款时间';
+//							}else if(arrParse[i].type==2){
+//								plan_type='消费时间';
+//							}	
+							var plan_str='';
+							var state_state='';
+							for(var j=0;j<3;j++){
+								if(arrParse.index_data[i][j].type==1){
+									plan_type='还款时间';
+									state_state='plan-state-1';
+								}else if(arrParse.index_data[i][j].type==2){
+									plan_type='消费时间';
+									state_state='plan-state-2';
+								}
+								plan_str+='<li class="mui-table-view-cell '+state_state+'">'
+								    	+'<div class="mui-table-view-cell-div">'
+								    		+'<p>'+plan_type+'</p>'
+								    		+'<p>'+arrParse.index_data[i][j].payTime+'</p>'
+								    	+'</div>'
+								    	+'<div>¥'+arrParse.index_data[i][j].amount+'</div>'
+								    +'</li>';
+							}
+							list.innerHTML+='<ul class="mui-table-view">'						   
+								    +'<li class="plan-top mui-table-view-cell" style="">'
+								    	+'<div class="mui-table-view-cell-div plan-time">'
+								    		+'<p style="font-size: 12px;color: #FFFFFF;">'+arrParse.index_data[i].time+'</p>'							    		
+								    	+'</div>'
+								    	+'<div style="font-size: 12px;line-height: inherit;">手续费:'+arrParse.index_data[i].momey+'元</div>'
+								    +'</li>'
+								    +plan_str
+//								    +'<li class="mui-table-view-cell plan-state-1">'
+//								    	+'<div class="mui-table-view-cell-div">'
+//								    		+'<p>还款时间</p>'
+//								    		+'<p>2017-10-12 12:12:12</p>'
+//								    	+'</div>'
+//								    	+'<div>¥222.00</div>'
+//								    +'</li>'
+//								    +'<li class="mui-table-view-cell plan-state-2">'
+//								    	+'<div class="mui-table-view-cell-div">'
+//								    		+'<p>消费时间</p>'
+//								    		+'<p>2017-10-12 12:12:12</p>'
+//								    	+'</div>'
+//								    	+'<div>¥222.00</div>'
+//								    +'</li>'	
+//								    +'<li class="mui-table-view-cell plan-state-2">'
+//								    	+'<div class="mui-table-view-cell-div">'
+//								    		+'<p>消费时间</p>'
+//								    		+'<p>2017-10-12 12:12:12</p>'
+//								    	+'</div>'
+//								    	+'<div>¥222.00</div>'
+//								    +'</li>'
+								+'</ul>';
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				document.getElementById('promptBtn').addEventListener('tap',function(){
+					var kj_back=plus.webview.getWebviewById('new_Repayment_plan');
+					mui.ajax('http://www.zhxft.com/app/plan_news/makePlan',{
+						async:false,
+						data:{
+							cardId:card_id,
+							uid:uid,
+							token:token,
+							type:2,
+							repayAmount:repayAmount,
+							num:num,
+							fee:fee,
+							day1:day1,
+							day2:day2
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.code=='0000'){
+								var detailPage = plus.webview.getWebviewById('repay');
+								var inx = plus.webview.getWebviewById('../find/find.html');
+								mui.fire(inx,'find_load',{});
+								mui.fire(detailPage,'repay_customEvent',{});
+								mui.confirm('计划提交成功！是否返回智能还款页','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.fire(kj_back,'kj_back');
+									}
+								},'div');
+//								mui.openWindow({
+//									url: 'kj_pay.html',
+//									id: 'kj_pay',
+//									show: {
+//										autoShow:false,
+//										aniShow: 'pop-in',
+//										duration:'350',
+//									},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+//									extras:{
+////										pay:pay,
+//										m_id:arrParse.missionId,
+//										cardId:card_id,
+//										order_id:arrParse.orderNo
+//									},//额外扩展参数
+//									styles:{softinputMode:'adjustResize',bounce: 'vertical',bounceBackground:'#fc1'},
+//									waiting: {
+//										autoShow: true
+//									}
+//								});
+//								mui.toast('计划提交成功！',{ duration:'long', type:'div' })
+//								mui.alert('计划提交成功','提示','','','div');
+							}else if(arrParse.code=='0003'){
+								mui.alert(arrParse.msg,'提示','','','div');
+							}else if(arrParse.code=='0004'){
+								mui.alert('提交计划失败','提示','','','div');
+							}else if(arrParse.code=='0008'){
+								mui.alert('开始日期不能小于账单日','提示','','','div');
+							}else if(arrParse.code=='0009'){
+								mui.alert('结束日期不能大于还款日','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+				
+				document.getElementById('again-Btn').addEventListener('tap',function(){
+					location.reload();
+				})
+				
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,100 @@
+.mui-content{width:100%;height:auto;margin-top:3.35rem;}
+.header{width:100%;height:6.28rem;;margin-top:0.53rem;}
+.header_ul{width:100%;height:100%;}
+.header_ul li{width:25%;height:100%;float:left;background:#fff;}
+.header_ul li div{width:54.4%;height:3.187rem;margin:0.843rem auto 0;}
+.header_ul li p{text-align: center;margin-top:0.325rem;}
+
+.xctt{width:100%;height:4.25rem;background:#fff;margin:0.59rem 0 0.59rem 0;}
+.xctt_left{width:26%;height:2.15rem;float:left;margin-top:1.06rem;margin-left:3.33%;}
+.xctt_left img{width:100%;height:100%;}
+.xctt_right{width:65%;height:100%;;float:right;margin-left:4.6%;}
+.xctt_right_div1{width:100%;height;font-size:14px;margin-top:0.75rem;white-space:nowrap;}
+.xctt_right_div1 span{display:inline-block;width:6px;height:6px;background:#A1A1A1;border-radius:50%;float:left;margin-top:0.5rem;margin-right:1.6%;}
+.xctt_right_div1 div{width:100%;float:left;line-height: 26px;}
+.xctt_right_div2{width:100%;height;font-size:14px;margin-top:0.45rem;white-space:nowrap;}
+.xctt_right_div2 span{display:inline-block;width:6px;height:6px;background:#A1A1A1;border-radius:50%;float:left;margin-top:0.35rem;margin-right:1.6%;}
+.xctt_right_div2 div{width:100%;float:left;}
+
+.tuan{width:100%;height:5.156rem;}
+.tuan img{width:100%;height:100%;}
+
+.kemu{width:100%;height:auto;margin-top:0.59rem;padding-top:0.375rem;background:#fff;;margin-bottom:0.43rem;padding-bottom:0.53rem;}
+.kemu_ul{width:100%;height:auto;}
+.kemu_ul li{width:48.1%;height:auto;float:left;}
+.kemu_ul li:nth-child(1){margin-left:1%;}
+.kemu_ul li:nth-child(2){margin-left:1.6%;}
+.kemu_ul li:nth-child(3){margin-top:0.53rem;ma rgin-left:1%;}
+.kemu_ul li:nth-child(4){margin-top:0.53rem;margin-left:1.6%;}
+.kemu_ul li img{width:100%;}
+.kemu_ul li p{text-align: center;margin-bottom:0;}
+
+/*mui自带样式*/
+.mui-control-content {
+	background-color: white;
+	min-height: 215px;
+}
+.mui-control-content .mui-loading {
+	margin-top: 50px;
+}
+.mui-col-xs-4{width:25%;}
+.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{background-color:#ff7610;}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color:#ff7610;}
+.mui-slider-indicator{background:#fff;}
+
+/*底部切换区域*/
+.section{width:100%;height:auto;padding-top:0.8rem;padding-bottom:0.45rem;}
+.section_left{width:2.65rem;height:2.65rem;float:left;margin-left:2.26%;border-radius:50%;}
+.section_left img{width:100%;height:100%;border-radius:50%;}
+
+.section_right{width:81%;height:auto;float:left;margin-left:2.8%;}
+.section_right_p1{font-size:16px;color:#ff7610;}
+.section_right_p2{margin-top:0.53rem;font-size:15px;}
+
+.section_right_div{width:100%;height:auto;padding-top:0.75rem;}
+.section_right_div_one{width:50%;height:auto;float:left;padding-left:2%;}
+.section_right_div_one p{font-size:14px;}
+
+.section_right_div_two{width:50%;height:auto
+;float:left;}
+.left{width:50%;height:15px;float:left;font-size:12px;line-height: 15px ;padding-left:15%;}
+.left div{width:15px;height:15px;float:left;}
+.left div:nth-child(1) img{width:100%;height:100%;}
+.left span{margin-left:10px;}
+
+.right{width:50%;height:15px;float:left;line-height: 15px ;font-size:12px;padding-left:10%;}
+.right div{width:15px;height:15px;float:left;}
+.right div:nth-child(1) img{width:100%;height:100%;}
+.right span{margin-left:10px;}
+/*Image*/
+.top_ul{width:100%;height:auto;margin-top:1rem;!important}
+.top_ul li{width:4.93rem;height:4.93rem;float:left;margin:0.25rem 2% 0.25rem 2%;}
+.top_ul li img{width:100%;height:100%;}
+
+.a1{display:inline-block;width:4.93rem;height:4.93rem;border:1px solid #bfbfbf;float:left;margin:0.25rem 1.5% 0.25rem 2%;float:left;text-align: center;line-height:4.93rem;font-size:100px;color:#e8e8e8;}
+
+#xctt_right_div1_p1{width:92%;color:#222222;overflow: hidden;text-overflow: ellipsis;}
+#xctt_right_div1_p2{width:92%;color:#222222;overflow: hidden;text-overflow: ellipsis;}
+
+
+.Border{position:relative;}
+.Border:before{
+	content: "";/* 注意这里为双引号 */
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #E8E8E8;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.5, 0.5);
+    -o-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+}  

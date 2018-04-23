@@ -1,0 +1,716 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		* {
+		-webkit-touch-callout:none;
+		-webkit-user-select:none;
+		-khtml-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		user-select:none;
+		}
+
+		body{font-family: "微软雅黑";}
+		.mui-content{margin-bottom: 40px;}
+		.rate_type{background-color: #FFFFFF;padding-right: 14px;
+			position: relative;border-bottom: 1px solid #DDDDDD;
+		}
+		.left{width: 17%;float: left;padding-bottom: 60px;}
+		.left img{width: 40px;margin-top: 14px;margin-left: 16%;border-radius: 8px;}
+		.center img{width: 80px;margin-bottom: 15px;}
+		.center{padding: 12px 0;padding-bottom: 0;width: 83%;
+    	float: left;margin-bottom: 20px;}
+		.center h5{color: #000000;font-size: 16px;font-weight: 500;}
+		.center h4{color: #000000;font-size: 15px;padding-top: 9px;padding-bottom: 20px;
+		font-weight: 300;color: #505050;line-height: 18px;}
+		.mui-bottom p{padding-bottom: 11px;margin: 0;font-size: 12px;padding-left: 16.5%;}
+		.mui-bottom p label{margin-left: 2.9%;margin-right: 2.9%;}
+		.mui-grid-view.mui-grid-9{background-color: #FFFFFF;border: 0;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{border: 0;padding: 0;}
+		.mui-table-view-cell img{width: 95%;margin: 0;}
+		
+		.top_ul{width:100%;height:auto;margin-top:1rem;}
+	.top_ul li{width:4.93rem;height:4.93rem;float:left;margin:0.25rem 2% 0.25rem 2%;}
+	.top_ul li img{width:100%;height:100%;}
+	
+	.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		.mui-preview-header {
+			height: 44px;
+			top: 0;
+		}
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 15px auto 4;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0; 
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: auto;
+			height: auto;  
+			max-width: 100%;
+			max-height: 100%;
+		} 
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%; 
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		p img {
+			max-width: 100%;
+			height: auto;
+		}
+		.panelComment {
+			padding: 5px;
+			height: 45px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelPrice {
+			padding: 5px;
+			height: 85px;
+			width: 100%;
+			border-top: .5px solid #bfbfbf;
+			position: fixed;
+			bottom: 0px;
+			z-index: 99999;
+			background-color: #fafafa;
+		}
+		
+		.panelComment input[type="text"]
+		{
+			width: 80%;
+			height: 35px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 4px 0px 0px 4px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+		}
+		
+		.panelComment input[type="button"],
+		.panelPrice input[type="button"] {
+			width: 20%;
+			height: 35px;
+			border-radius: 0px 4px 4px 0px;
+		}
+		
+		.panelPrice input[type="text"] {
+			height: 35px;
+			width: 100%;
+			margin-bottom: 5px;
+			line-height: 20px;
+			padding: 2px 5px;
+			border: 1px solid #ebebeb;
+			border-radius: 0px;
+			border-radius: 4px;
+		}
+		
+		.panelPrice input[type="number"] {
+			height: 35px;
+			width: 80%;
+			color: #ee4745;
+			line-height: 20px;
+			padding: 2px 5px;
+			border-radius: 0px;
+			border: 1px solid #ebebeb;
+			border-right: none;
+			border-radius: 4px 0px 0px 4px;			
+		}
+		.bot_right{float: right;display: inline-block;width: 45%;}
+		.bot_right span{padding: 15px 0;}
+		.send{position: fixed;z-index: 800;bottom: -15px;width: 100%;}
+		.send img{width: 45px;position: absolute;top: 8px;right: 0px;padding: 0 10px;}
+		.mui-bar .mui-btn-link,a{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>	
+	<body>
+		
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">文案图片</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+			<!--<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 年内</h4>				
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span>						
+						<span style="float: right;display: inline-block;width: 40%;">
+							<span>
+								<a>保存图片</a>								
+							</span>							
+							<span class="comment" style="margin-left: 7%;">
+								<a>复制文字</a>								
+							</span>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 水电费</h4>	
+					<img src="../../images/phone-1@3x.png" />
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span>
+						<span style="float: right;display: inline-block;width: 40%;">
+							<span>
+								<a>保存图片</a>								
+							</span>							
+							<span class="comment" style="margin-left: 7%;">
+								<a>复制文字</a>								
+							</span>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="rate_type">
+				<div class="left">
+					<img src="../../images/xc_img@3x.png" />
+				</div>
+				<div class="center">
+					<h5><b>景甜</b></h5>
+					<h4>今天是520了我今晚要去喝点酒不想再压抑自 己的感情感觉真的很累然后大声告诉你我爱你 水电费</h4>	
+					<ul class="mui-table-view mui-grid-view mui-grid-9">
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                    <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />	
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                   <img src="../../images/phone-1@3x.png" />	
+			            </li>
+			            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+			                    <img src="../../images/phone-1@3x.png" />
+			            </li>
+			            
+		        	</ul>
+				</div>
+				<div class="mui-bottom">
+					<p>
+						<span>05-12 12:14</span>
+						<span style="float: right;display: inline-block;width: 40%;">
+							<span>
+								<a>保存图片</a>								
+							</span>							
+							<span class="comment" style="margin-left: 7%;">
+								<a>复制文字</a>								
+							</span>
+						</span>
+					</p>
+				</div>
+			</div>-->
+		</div>
+		<div class="send" style="display: none;">
+			<input type="text" id="sent_content" placeholder="在此输入评论内容！"/>
+			<img id="send_comment" src="../../images/send@3x.png" />
+		</div>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+//				      down: {
+//				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+//						auto: false, //可选,默认false.自动下拉刷新一次
+//						contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+//						contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+//						contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+//				        callback: pulldownRefresh
+//				      },//http://www.cnblogs.com/CyLee/p/5324224.html
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速					
+				}); 
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+				
+				
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				
+				//	图片预览方法调用
+				mui.previewImage();
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				
+				//页面监听事件,监听退出登录之后的刷新
+				window.addEventListener("pageflowrefresh", function (e) {
+				    location.reload();
+				});
+				
+				var load_len;
+				mui.ajax('http://www.zhxft.com/app/index1/copy_list',{
+					async:false,
+					data:{
+											
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						var result=arrParse.copy;
+						var list=document.querySelector('.list-wrapper');
+						load_len=(parseFloat(result.length)/10);
+						list.innerHTML='';
+						for (var i=0;i<10;i++) {
+							list.innerHTML+='<div class="rate_type" id="div'+result[i].id+'">'
+							+'<div class="left">'
+								+'<img src="../../images/logo.png" />'
+							+'</div>'
+							+'<div class="center" title="'+result[i].id+'">'
+								+'<h5><b>'+result[i].title+'</b></h5>'
+								+'<h4>'+result[i].content+'</h4>'					
+								+'<ul id="list_'+result[i].id+'" class="mui-table-view mui-grid-view mui-grid-9">'
+						           				
+					        	+'</ul>'
+							+'</div>'
+							+'<div class="mui-bottom">'
+								+'<p>'
+									+'<span style="margin-right: 2.9%;">'+result[i].time+'</span>'
+//										+'<a id="del'+result[i].id+'">删除</a>'
+									+'<span class="bot_right">'
+										+'<span title="'+result[i].id+'" class="dz_yes" style="margin-right: 15%;">'
+											+'<a>保存图片</a>'
+											+'<img src="'+result[i].img1+'" style="display: none;" />'
+											+'<img src="'+result[i].img2+'" style="display: none;" />'
+											+'<img src="'+result[i].img3+'" style="display: none;" />'
+										+'</span>'
+										+'<span title="'+result[i].content+'" class="comment">'
+											+'<a>复制文字</a>'												
+										+'</span>'	
+									+'</span>'
+								+'</p>'
+							+'</div>';
+							if(result[i].img1!=null){
+								document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+					                +'<img src="'+result[i].img1+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+					            +'</li>';
+							}							
+					        if(result[i].img2!=null){
+					        	document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+					                +'<img src="'+result[i].img2+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+					            +'</li>';
+					        }					        
+					        if(result[i].img3!=null){
+					        	document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+					                +'<img src="'+result[i].img3+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+					            +'</li>'; 
+					        }					           
+//								for (var j=0;j<result[i].image.length;j++) {
+//									document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+//						                +'<img src="'+result[i].image[j]+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+//						            +'</li>'
+//								}							
+						}						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+				function pullupRefresh() 
+				{
+				    setTimeout(function() {
+				      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+				      if(count > load_len){
+				      	mui.alert('已经没有更多可加载的了','提示','','','div');
+				      }
+				      var cells = document.body.querySelectorAll('.rate_type');
+				      mui.ajax('http://www.zhxft.com/app/index1/copy_list',{
+						async:false,
+						data:{
+							
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							var result=arrParse.copy;
+							var list=document.querySelector('.list-wrapper');
+							for (var i = cells.length, len = i + 10; i < len; i++) {
+								list.innerHTML+='<div class="rate_type" id="div'+result[i].id+'">'
+								+'<div class="left">'
+									+'<img src="../../images/logo.png" />'
+								+'</div>'
+								+'<div class="center">'
+									+'<h5><b>'+result[i].title+'</b></h5>'
+									+'<h4>'+result[i].content+'</h4>'					
+									+'<ul id="list_'+result[i].id+'" class="mui-table-view mui-grid-view mui-grid-9">'
+					            
+						        	+'</ul>'
+								+'</div>'
+								+'<div class="mui-bottom">'
+									+'<p>'
+										+'<span style="margin-right: 2.9%;">'+result[i].time+'</span>'
+										+'<span class="bot_right">'
+											+'<span title="'+result[i].id+'" class="dz_yes" style="margin-right: 17%;">'
+												+'<a>保存图片</a>'
+												+'<img src="'+result[i].img1+'" style="display: none;" />'
+												+'<img src="'+result[i].img2+'" style="display: none;" />'
+												+'<img src="'+result[i].img3+'" style="display: none;" />'
+											+'</span>'
+											+'<span title="'+result[i].content+'" class="comment">'
+												+'<a>复制文字</a>'												
+											+'</span>'	
+										+'</span>'
+									+'</p>'
+								+'</div>';
+								if(result[i].img1!=null){
+									document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+					                +'<img src="'+result[i].img1+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+					            	+'</li>';
+					            }
+								if(result[i].img2!=null){
+						        	document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+						                +'<img src="'+result[i].img2+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+						            +'</li>';
+						        }  
+						        if(result[i].img1!=null){
+						        	document.querySelector('#list_'+result[i].id+'').innerHTML+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">'
+						                +'<img src="'+result[i].img3+'" data-preview-src="" data-preview-group="1" data-content="这里是文字说明"/>'
+						            +'</li>';
+						        }    
+							}	
+						},
+						error:function(xhr,error,errorThrown){
+							//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+							console.log(error);
+						}
+					});
+				    }, 500);
+				}	
+				
+				//保存图片
+				var mask=mui.createMask();//遮罩层
+				mui('.mui-bottom').on('tap','.dz_yes',function(){
+					var id=$(this).attr('title');
+					for (var i=0;i<$(this).children('img').length;i++) {
+						console.log($(this).children('img').eq(i).attr('src'));
+						var img_url=$(this).children('img').eq(i).attr('src');
+						if(img_url!='' || img_url!=null){
+							plus.nativeUI.showWaiting('正在保存...', '正在保存...');
+							mask.show();//显示遮罩层
+							createDownload($(this).children('img').eq(i).attr('src'));
+						}
+						doScaledTimeout(img_url);
+					}
+				});
+				function doScaledTimeout(i) {
+				  setTimeout(function() {
+//				    alert(i)
+				  }, 1000);
+				}
+				
+				//复制文字
+				var pl_id;
+				mui('.mui-bottom').on('tap','.comment',function(){
+					pl_id=$(this).attr('title');
+					if(mui.os.ios){
+					   copy_txt(pl_id)
+					}else if(mui.os.android){
+						copyToClip(pl_id);
+					}
+					 				
+				});
+				//复制
+				function copyToClip(txt){
+				    var Context = plus.android.importClass("android.content.Context");
+				    var main = plus.android.runtimeMainActivity();
+				    var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+				    plus.android.invoke(clip,"setText",txt);
+				    mui.toast('复制文字成功',{ duration:'long', type:'div' }) 
+				}
+				function copy_txt(txt){
+					var UIPasteboard  = plus.ios.importClass("UIPasteboard");
+					//这步会有异常因为UIPasteboard是不允许init的，init的问题会在新版中修改 
+					var generalPasteboard = UIPasteboard.generalPasteboard();
+					// 设置/获取文本内容: www.bcty365.com
+					generalPasteboard.setValueforPasteboardType(txt, "public.utf8-plain-text");
+					var value = generalPasteboard.valueForPasteboardType("public.utf8-plain-text");
+					mui.toast('复制文字成功',{ duration:'long', type:'div' }) 
+				}
+
+				//下载图片
+				function createDownload(img_url) {					
+				  	var suffix='oy';
+				  	var no_img=img_url.substring(img_url.lastIndexOf('/')+1);
+				  	if(mui.os.android){
+				  		suffix='/'+no_img;
+				  	}
+					//下载此文件
+					var downLoader = plus.downloader.createDownload(img_url, {
+					    method: 'GET',
+					    filename: '_downloads/image' + suffix
+					}, function(download, status) {
+						if ( status == 200 ) { 
+//								alert( "Download success: " + download.filename );
+						} else {
+//								 alert( "Download failed: " + status ); 
+						} 
+					    var fileName = download.filename;//下载图片地址名称
+					    console.log('文件名:' + fileName);
+					    console.log('下载状态：' + status);
+					    //保存图片
+						plus.gallery.save(fileName, function(e) {
+							//检测保存图片信息
+							plus.io.resolveLocalFileSystemURL( fileName, function( entry ) {
+								// 可通过entry对象操作test.html文件 
+								entry.file( function(file){
+									console.log(file);
+									var fileReader = new plus.io.FileReader();
+									var data=JSON.stringify(file);	
+									fileReader.readAsText(file, 'utf-8');
+									fileReader.onloadend = function(evt) {
+										plus.nativeUI.closeWaiting();
+							        	mask.close();//关闭遮罩层
+										mui.toast('保存图片成功',{ duration:'long', type:'div' }) 
+										console.log(evt);
+									}
+//									mui.alert('保存图片成功！','提示','','','div');
+								});
+							}, function ( e ) {
+							});
+							console.log(fileName);
+//							    mui.confirm("打开相册", "打开相册？", ["打开", "不看"], function(event) {
+//							        var gindex = event.index;
+//							        if(gindex == 0) {
+//							        	//打开相册
+//							            plus.gallery.pick(function(file) {
+////							            	plus.storage.setItem('share_img',file);
+//							            	console.log(file);
+//							                mui.toast("你选择了图片：" + file);
+//							            }, function(error) {
+//							                console.log(error);
+//							            }, {
+//							                filter: 'image'
+//							            });
+//							        }
+//							    });
+						});
+					});
+					downLoader.start();//下载开始执行
+//						alert( "Resolve file URL failed: " + e.message );
+					return false;					
+				}				
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,738 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<link rel="stylesheet" href="../../css/swiper.min.css" />
+	</head>
+	<script type="text/javascript">
+		var shares=null;
+		// H5 plus事件处理
+		function plusReady(){
+			updateSerivces();
+			if(plus.os.name=="Android"){  
+                main = plus.android.runtimeMainActivity();  
+                Intent = plus.android.importClass("android.content.Intent");  
+                File = plus.android.importClass("java.io.File");  
+                Uri = plus.android.importClass("android.net.Uri");  
+            }
+		}
+		if(window.plus){
+			plusReady();
+		}else{
+			document.addEventListener('plusready', plusReady, false);
+		}
+		/**
+		 * 更新分享服务
+		 */
+		function updateSerivces(){
+			plus.share.getServices(function(s){
+				shares={};
+				for(var i in s){
+					var t=s[i];
+					shares[t.id]=t;
+				}
+			}, function(e){
+				outSet('获取分享服务列表失败：'+e.message);
+			});
+		}
+		/**
+		 * 调用系统分享
+		  */
+		function shareSystem(){
+			outSet('调用系统分享');
+			var msg={content:sharecontent.value};
+			if(pic&&pic.realUrl){
+				msg.pictures=[pic.realUrl];
+			}
+			plus.share.sendWithSystem?plus.share.sendWithSystem(msg, function(){
+				outLine('Success');
+				console.log('Success');
+			}, function(e){
+				outLine('Failed: '+JSON.stringify(e));
+				console.log('Failed: '+JSON.stringify(e));
+			}):shareSystemNativeJS();
+		}
+		function shareSystemNativeJS() {
+			if(plus.os.name!=='Android'){
+				plus.nativeUI.alert('此平台暂不支持系统分享功能!');
+				return;
+			}
+			var intent=new Intent(Intent.ACTION_SEND);
+			if(pic&&pic.realUrl){
+				var p = '';
+				p = pic.realUrl;
+				if(p.substr(0,7)==='file://'){
+					p=p.substr(7);
+				}else if(p.sub(0)!=='/'){
+					p=plus.io.convertLocalFileSystemURL(p);
+				}
+			}
+			var f = new File(p);
+			var uri = Uri.fromFile(f);
+			if(f.exists()&&f.isFile()){
+				console.log('image/*');
+				intent.setType('image/*');
+				intent.putExtra(Intent.EXTRA_STREAM,uri);
+			}else{
+				console.log('text/plain');
+				intent.setType('text/plain');
+			}
+			intent.putExtra(Intent.EXTRA_SUBJECT,'HelloH5');
+			intent.putExtra(Intent.EXTRA_TEXT,sharecontent.value);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			main.startActivity(Intent.createChooser(intent,'系统分享HelloH5'));
+		}
+		/**
+		   * 分享操作
+		   * @param {JSON} sb 分享操作对象s.s为分享通道对象(plus.share.ShareService)
+		   * @param {Boolean} bh 是否分享链接
+		   */
+		function shareAction(sb,bh) {
+//			outSet('分享操作：');
+			if(!sb||!sb.s){
+				outLine('无效的分享服务！');
+				return;
+			}
+//			var msg={content:sharecontent.value,extra:{scene:sb.x}};
+			var msg={content:'欢迎使用信付通！',extra:{scene:sb.x}};
+			
+//			pic.realUrl=document.getElementById('pic').src;
+//			pic.realUrl=document.querySelector('.mui-active').src;
+			console.log(pic.realUrl);
+			var path='oy';
+			//压缩图片大小
+			
+            var th_img;
+			if(bh){
+				msg.href=sharehref.value;
+				if(sharehrefTitle&&sharehrefTitle.value!=''){
+					msg.title=sharehrefTitle.value;
+				}
+				if(sharehrefDes&&sharehrefDes.value!=''){
+					msg.content=sharehrefDes.value;
+				}
+				msg.thumbs=['_www/logo.png'];
+				msg.pictures=['_www/logo.png'];
+			}else{
+				if(mui.os.ios){
+					plus.zip.compressImage({    
+		                src: pic.realUrl, 
+		                dst: pic.realUrl,       
+		                quality: 10, //压缩图片的质量大小   _doc/share.png
+		                overwrite: true    
+		           }, function(e) {
+//		            	th_img=pic.realUrl;
+//		            	alert(JSON.stringify(e));	
+//		            	alert(pic.realUrl)
+//		            	msg.thumbs=[th_img];
+						msg.thumbs=[pic.realUrl];
+						msg.pictures=[pic.realUrl];
+						// 发送分享
+						if(sb.s.authenticated){
+							console.log('---已授权---');
+							shareMessage(msg, sb.s);
+						}else{
+							console.log('---未授权---');
+							sb.s.authorize(function(){
+								shareMessage(msg,sb.s);
+							}, function(e){
+								console.log('认证授权失败：'+e.code+' - '+e.message);
+							});
+						}
+		                console.log(e);   
+		                console.log(pic.realUrl);
+		           }, function(err) {   
+		                console.error("压缩失败：" + err.message);    
+		            });		            
+				}else{	
+					console.log(pic.realUrl)
+					//ios分享显示图片需要缩略图
+					if(pic&&pic.realUrl){
+						msg.thumbs=[pic.realUrl];
+						msg.pictures=[pic.realUrl];
+					}
+					// 发送分享
+					if(sb.s.authenticated){
+						console.log('---已授权---');
+						shareMessage(msg, sb.s);
+					}else{
+						console.log('---未授权---');
+						sb.s.authorize(function(){
+							shareMessage(msg,sb.s);
+						}, function(e){
+							console.log('认证授权失败：'+e.code+' - '+e.message);
+						});
+					}
+				}				
+			}
+			
+		}
+		/**
+		   * 发送分享消息
+		   * @param {JSON} msg
+		   * @param {plus.share.ShareService} s
+		   */
+		function shareMessage(msg, s){
+//			alert(JSON.stringify(msg))
+			console.log(JSON.stringify(msg))
+			s.send(msg, function(){
+				console.log('分享到"'+s.description+'"成功！')
+			}, function(e){
+//				alert(JSON.stringify(e))
+				console.log('分享到"'+s.description+'"失败: '+JSON.stringify(e))
+			});
+		}
+		/**
+		 * 解除所有分享服务的授权
+		 */
+		function cancelAuth(){try{
+			outSet('解除授权：');
+			for(var i in shares){
+				var s=shares[i];
+				if(s.authenticated){
+					outLine('取消"'+s.description+'"');
+				}
+				s.forbid();
+			}
+			// 取消授权后需要更新服务列表
+			updateSerivces();
+			outLine('操作成功！');}catch(e){alert(e);}
+		}				
+		
+		// 打开分享
+//		function shareShow(){
+//			var shareBts=[];
+//			// 更新分享列表
+//			var ss=shares['weixin'];
+//			if(navigator.userAgent.indexOf('qihoo')<0){  //在360流应用中微信不支持分享图片
+//				ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
+//				shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+//			}
+//			ss=shares['sinaweibo'];
+//			ss&&shareBts.push({title:'新浪微博',s:ss});
+//			ss=shares['qq'];
+//			ss&&ss.nativeClient&&shareBts.push({title:'QQ',s:ss});
+//			// 弹出分享列表
+//			shareBts.length>0?plus.nativeUI.actionSheet({title:'分享',cancel:'取消',buttons:shareBts}, function(e){
+//				(e.index>0)&&shareAction(shareBts[e.index-1],false);
+//			}):plus.nativeUI.alert('当前环境无法支持分享操作!');
+//		}
+		// 打开分享
+		function shareShow(){
+			var shareBts=[];
+			pic.realUrl=pic.src;			
+			// 更新分享列表
+			var ss=shares['weixin'];
+//			if(navigator.userAgent.indexOf('qihoo')<0){  //在360流应用中微信不支持分享图片
+//				ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}),
+//				shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+//			}
+			ss&&shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'});
+			ss&&shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'});
+			ss=shares['sinaweibo'];
+			ss&&shareBts.push({title:'新浪微博',s:ss});
+			ss=shares['qq'];
+			ss&&ss.nativeClient&&shareBts.push({title:'QQ',s:ss});
+			// 弹出分享列表
+			console.log(shareBts)
+			shareBts.length>0?plus.nativeUI.actionSheet({title:'分享',cancel:'取消',buttons:shareBts}, function(e){
+				(e.index>0)&&shareAction(shareBts[e.index-1],false);
+			}):plus.nativeUI.alert('当前环境无法支持分享操作!');
+		}
+	</script>
+	<style>
+		body,.mui-content{font-family: "微软雅黑";background-color: inherit;overflow-y: hidden;}
+		#header{background-color: #FF5A00;box-shadow: none;}
+		.mui-bar .mui-btn-link{color: #FFFFFF;}
+		html{background: url(../../images/code-bg@3x.png)no-repeat;background-size:100%;
+		background-position-y: 44px;overflow: hidden;}
+		.mui-slider{
+			width: 82%;margin-left: 18%;z-index: inherit;/*left: 36%;margin: 0 5.5%;padding-left: 20%;*/
+		}
+		.mui-slider img{border-radius: 15px;}
+		/*.mui-active{
+			z-index: 900;left: 16%;width: 100%;
+		}*/
+		.left{
+			position: absolute;
+		    top: 44px;
+		    right: 90.5%;
+		    width: 100%;
+		    text-align: right;
+		}
+		.right{
+			position: absolute;
+		    top: 44px;
+		    right: -90.5%;
+		    width: 100%;overflow: hidden;
+		}
+		.left img,.right img{width: 64%;border-radius: 15px;
+		/*border-top-left-radius: 50%;
+    	border-top-right-radius: 50%;*/
+    	}
+		.warning{
+			border: 1px solid #ff5a00;
+		    background-color: #ff5a00;
+		    width: 72.5%;
+		    border-radius: 22px;
+		    margin-left: 12.4%;
+		    margin-top: 60px;
+		    height: 45px;
+		    color: #FFFFFF;
+		    font-size: 22px;
+		}
+		.bot_logo{margin-top: 38px;text-align: center;}
+		.bot_logo img{width: 22.133333%;}
+		.mui-slider .mui-slider-group .mui-slider-item{width: 78%;}
+		/*.mui-slider .mui-slider-group .mui-active{margin-right: 11%;}*/
+		body {
+	      /*background: #fff;*/
+	      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	      font-size: 14px;
+	      color:#000;
+	      margin: 0;
+	      padding: 0;
+	    }
+	    .swiper-container {
+	      width: 100%;
+	      padding-top: 50px;
+	      /*padding-bottom: 50px;*/
+	    }
+	    .swiper-slide {
+	      background-position: center;
+	      background-size: cover;text-align: center;
+	      width: 65%;
+	      /*height: 300px;*/
+	    }
+	    .swiper-slide-shadow-left,.swiper-slide-shadow-right{border-radius: 15px;}
+	    .swiper-slide img{
+	    	width: 100%;border-radius: 15px;
+	    }
+	</style>		
+	<link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title" style="color: #FFFFFF;">二维码图片</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			      <div class="swiper-slide">
+			      	 <img id="slider-one" src="http://lorempixel.com/600/600/nature/1" />
+			      </div>
+			      <div class="swiper-slide">
+			      	<img  id="slider-two" src="http://lorempixel.com/600/600/nature/2" />
+			      </div>
+			      <div class="swiper-slide">
+			      	<img id="slider-three" src="http://lorempixel.com/600/600/nature/3" />
+			      </div>
+			      <div class="swiper-slide">
+			      	<img id="slider-four" src="http://lorempixel.com/600/600/nature/4" />
+			      </div>
+			      <!--<div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/5)"></div>
+			      <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/6)"></div>
+			      <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/7)"></div>
+			      <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/8)"></div>
+			      <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/9)"></div>
+			      <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/10)"></div>-->
+			    </div>
+			    <!-- Add Pagination -->
+			    <!--<div class="swiper-pagination"></div>-->
+			 </div>
+			<!--<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+				  	<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="" id="slider-start">
+						</a>
+					</div>
+				    <div class="mui-slider-item mui-active" id="start_img" style="margin-right: 11%;">
+				      	<a href="#">
+							<img src="" id="slider-one">
+						</a>
+				    </div>
+				    <div class="mui-slider-item">
+				      	<a href="#">
+							<img src="" id="slider-two">
+						</a>
+				    </div>
+				    <div class="mui-slider-item">
+				      	<a href="#">
+							<img src="" id="slider-three">
+						</a>
+				    </div>
+				    <div class="mui-slider-item">
+				      	<a href="#">
+							<img src="" id="slider-four">
+						</a>
+				    </div>
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="" id="slider-end">
+						</a>
+					</div>
+				</div> 	
+			</div>
+			<div class="left">
+				<img id="img_left" style="margin-top: 20px;" src="" />
+			</div>-->
+			<button id="go_share" type="button" class="mui-btn warning">立即分享</button>
+			<div class="bot_logo">
+				<img src="../../images/about@3x.png" />
+			</div>
+			<img id="pic" style="display: none;" src="../../images/share-1@3x.png"/>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/swiper.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.swiper-container', {
+		      effect: 'coverflow',
+		      grabCursor: true,
+		      centeredSlides: true,
+		      slidesPerView: 'auto',
+		      coverflowEffect: {
+		        rotate: 50,
+		        stretch: 0,
+		        depth: 100,
+		        modifier: 1,
+		        slideShadows : true,
+		      },
+		      pagination: {
+		        el: '.swiper-pagination',
+		      },
+		    });
+			mui.plusReady(function(){
+				mui.init
+				  ({				    		
+					hardwareAccelerated:true, //开启硬件加速	
+					swipeBack:false, //启用右滑关闭功能  											
+				  });
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px'; 
+//				if(immersed>25){
+//					document.querySelector('.left').style.top='68px';
+//				}
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var  img_url;
+				var img_num='img0';
+				mui.ajax('http://www.zhxft.com/app/index1/extension_pics',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						if(arrParse.datas.length<1){
+							var sc_img=plus.webview.getWebviewById('../extension/extension.html');
+							mui.fire(sc_img,'generate_img',{});
+						}
+						img_url=arrParse.datas[0].src;						
+//						alert(plus.storage.getItem('share_img').indexOf(img_url.substring(img_url.lastIndexOf('/')+1)))
+//						document.querySelector('#slider-start').src=arrParse.datas[3].src;
+						document.querySelector('#slider-one').src=arrParse.datas[0].src;
+						document.querySelector('#slider-two').src=arrParse.datas[1].src;
+						document.querySelector('#slider-three').src=arrParse.datas[2].src;
+						document.querySelector('#slider-four').src=arrParse.datas[3].src;
+//						document.querySelector('#slider-end').src=arrParse.datas[0].src;
+//						document.getElementById('img_left').src=arrParse.datas[3].src;
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				window.addEventListener('code_load',function(event){
+					mui.ajax('http://www.zhxft.com/app/index1/extension_pics',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);						
+							img_url=arrParse.datas[0].src;						
+//							document.querySelector('#slider-start').src=arrParse.datas[3].src;
+							document.querySelector('#slider-one').src=arrParse.datas[0].src;
+							document.querySelector('#slider-two').src=arrParse.datas[1].src;
+							document.querySelector('#slider-three').src=arrParse.datas[2].src;
+							document.querySelector('#slider-four').src=arrParse.datas[3].src;
+//							document.querySelector('#slider-end').src=arrParse.datas[0].src;
+//							document.getElementById('img_left').src=arrParse.datas[3].src;
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				
+				//mui禁止滚动条和禁止滚动  
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});  
+//				mui('.mui-content').scroll().setStopped(true);
+				
+				 
+//				document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+//					$('.mui-active').css('margin-right','11%');
+//					img_num='img'+event.detail.slideNumber;
+//					switch (event.detail.slideNumber)
+//					{
+//					case 0:						
+//					  img_url=document.querySelector('#slider-one').src;					  
+//					  document.getElementById('img_left').src=document.querySelector('#slider-four').src;
+//					  break;
+//					case 1:
+//					  img_url=document.querySelector('#slider-two').src;
+//					  document.getElementById('img_left').src=document.querySelector('#slider-one').src;
+//					  break;
+//					case 2:
+//					  img_url=document.querySelector('#slider-three').src;	
+//					  document.getElementById('img_left').src=document.querySelector('#slider-two').src;
+//					  break;
+//					case 3:
+//					  img_url=document.querySelector('#slider-four').src; 
+//					  document.getElementById('img_left').src=document.querySelector('#slider-three').src;
+//					  break;
+//					}
+//				});
+				
+				document.getElementById('go_share').addEventListener('tap',function(){
+					img_url=$('.swiper-slide-active').children('img').attr('src');
+//					alert(img_url);return
+//					shareShow()
+					createDownload(img_url);
+				});
+				
+				//下载图片
+				function createDownload(img_url) {					
+				  	var suffix='oy';
+				  	var file=plus.storage.getItem(img_num);
+//				  	var file=plus.storage.getItem('share_img');
+				  	var no_img=img_url.substring(img_url.lastIndexOf('/')+1);
+				  	if(mui.os.android){
+				  		suffix='/'+no_img;
+				  	}
+				  	if(file!=null){
+					  	if(file.indexOf(no_img)>0){
+					  		//检测【file】此图片是否存在，不存在即保存本地，反之
+						  	plus.io.resolveLocalFileSystemURL( file, function( entry ) {
+								// 可通过entry对象操作test.html文件 
+								entry.file( function(file){
+									var fileReader = new plus.io.FileReader();
+									var data=JSON.stringify(file);
+									fileReader.readAsText(file, 'utf-8');
+									fileReader.onloadend = function(evt) {	
+										//当检测文件存在时
+										document.getElementById('pic').src=plus.storage.getItem(img_num);	
+										shareShow()
+									}
+									return true;
+								} );
+							}, function ( e ) {
+								//当检测文件不存在时
+								//下载此文件
+								var downLoader = plus.downloader.createDownload(img_url, {
+								    method: 'GET',
+								    filename: '_downloads/image' + suffix
+								}, function(download, status) {
+									if ( status == 200 ) { 
+										console.log( "Download success: " + download.filename );
+									} else {
+		//								 alert( "Download failed: " + status ); 
+									} 
+								    var fileName = download.filename;//下载图片地址名称
+								    console.log('文件名:' + fileName);
+								    console.log('下载状态：' + status);	
+								    //保存图片
+									plus.gallery.save(fileName, function(e) {
+										//检测保存图片信息
+//										alert(fileName)
+										plus.io.resolveLocalFileSystemURL( fileName, function( entry ) {
+											// 可通过entry对象操作test.html文件 
+											entry.file( function(file){
+												console.log(file.fullPath);
+												plus.storage.setItem(img_num,file.fullPath)
+	//											plus.storage.setItem('share_img',file.fullPath);
+												document.getElementById('pic').src=file.fullPath;
+												var fileReader = new plus.io.FileReader();
+												var data=JSON.stringify(file);	
+												fileReader.readAsText(file, 'utf-8');
+												fileReader.onloadend = function(evt) {
+													console.log(evt);
+												}
+												shareShow()
+											});
+										}, function ( e ) {
+										});
+										console.log(fileName);	
+									});
+								});
+								downLoader.start();//下载开始执行
+		//						alert( "Resolve file URL failed: " + e.message );
+								return false;
+							} );
+					  	}else{		
+					  		//下载此文件
+							var downLoader = plus.downloader.createDownload(img_url, {
+							    method: 'GET',
+							    filename: '_downloads/image' + suffix
+							}, function(download, status) {
+								if ( status == 200 ) { 
+									console.log( "Download success: " + download.filename );
+								} else {
+	//								 alert( "Download failed: " + status ); 
+								} 
+							    var fileName = download.filename;//下载图片地址名称
+							    console.log('文件名:' + fileName);
+							    console.log('下载状态：' + status);
+							    //保存图片
+								plus.gallery.save(fileName, function(e) {
+									//检测保存图片信息
+									plus.io.resolveLocalFileSystemURL( fileName, function( entry ) {
+										// 可通过entry对象操作test.html文件 
+										entry.file( function(file){
+											console.log(file);
+											plus.storage.setItem(img_num,file.fullPath);
+	//										plus.storage.setItem('share_img',file.fullPath);
+											document.getElementById('pic').src=file.fullPath;
+											var fileReader = new plus.io.FileReader();
+											var data=JSON.stringify(file);	
+											fileReader.readAsText(file, 'utf-8');
+											fileReader.onloadend = function(evt) {
+												console.log(evt);
+											}
+											shareShow()
+										});
+									}, function ( e ) {
+									});
+									console.log(fileName);							    
+								});
+							});
+							downLoader.start();//下载开始执行
+							return false;
+					  	}				  						
+					}else{	
+						//下载此文件
+						var downLoader = plus.downloader.createDownload(img_url, {
+							method: 'GET',
+							filename: '_downloads/image' + suffix
+						}, function(download, status) {
+							if ( status == 200 ) { 
+								console.log( "Download success: " + download.filename );
+							} else {
+								
+							} 
+						    var fileName = download.filename;//下载图片地址名称
+						    console.log('文件名:' + fileName);
+						    console.log('下载状态：' + status);
+						    //保存图片
+							plus.gallery.save(fileName, function(e) {
+								//检测保存图片信息
+								plus.io.resolveLocalFileSystemURL( fileName, function( entry ) {
+									// 可通过entry对象操作test.html文件 
+									entry.file( function(file){
+										console.log(file);
+										plus.storage.setItem(img_num,file.fullPath);
+										document.getElementById('pic').src=file.fullPath;
+										var fileReader = new plus.io.FileReader();
+										var data=JSON.stringify(file);	
+										fileReader.readAsText(file, 'utf-8');
+										fileReader.onloadend = function(evt) {
+											console.log(evt);
+										}
+										shareShow()
+									});
+								}, function ( e ) {
+								});
+								console.log(fileName);							    
+							});
+						});
+						downLoader.start();//下载开始执行
+						return false;
+					}
+				}  	
+				
+				//查找本地文件是否存在
+				function bd_file(file){
+					plus.io.resolveLocalFileSystemURL( file, function( entry ) {
+						// 可通过entry对象操作test.html文件 
+						entry.file( function(file){
+							var fileReader = new plus.io.FileReader();
+							var data=JSON.stringify(file);
+							console.log(file.fullPath);
+//							alert("getFile:" + JSON.stringify(file));
+							fileReader.readAsText(file, 'utf-8');
+							fileReader.onloadend = function(evt) {
+//								alert("11" + evt);
+//								alert("evt.target" + evt.target);
+//								alert(evt.target.result);
+							}
+//							alert(file.size + '--' + file.name);
+							return data;
+						} );
+					}, function ( e ) {
+						alert( "Resolve file URL failed: " + e.message );
+						return false;
+					} );
+				}
+				
+			    //关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			});
+			//mui禁止滚动条和禁止滚动  
+//			document.addEventListener('touchstart',function(e){e.preventDefault();})
+		</script>
+	</body>
+
+</html>

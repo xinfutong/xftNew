@@ -1,0 +1,55 @@
+body{font-family: "微软雅黑";}
+		.mui-content{margin-top: 10px;}
+		.Receivables{text-align: center;margin-bottom: 10px;}
+		.Receivables label{margin-left: 10px;}
+		#sk_money{text-align: right;margin-bottom: 0;border-left: 0;border-right: 0;}
+		p{text-align: center;background-color: #F3F3F3;margin: 0;padding: 5px 0;}
+		.mui-radio{border-bottom: 1px solid #DDDDDD;padding: 14px 19px;}
+		.mui-radio label{width: auto;margin-top: 5px;color: #FFFFFF;border-radius: 5px;float: left;padding: 0;}
+		.mui-radio span{display: inline-block;width: 100%;text-align: center;padding: 10px 0;}
+		.mui-radio input[type=radio]{top: 20px;padding-left: 84%;right: 48px;}
+		.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{color: #2AC845;}
+		.mui-btn-one{margin: 0 4%;margin-top: 75px;width: 92%;padding: 9px 0;border-radius: 5px;}
+		.pay_content{width: 50%;float: left;margin-left: 10px;}
+		.prompt{/*text-align: center;*/padding: 10px 15px;color: red;font-size: 15px;}
+		/*.mui-bar .mui-icon{font-size: 35px;padding-top: 6px;}*/
+    	/*.mui-bar-nav.mui-bar .mui-icon{margin-left: -2px;}*/
+    	
+.pay_head{
+	/*padding: 0 15px;*/
+	background-color: #FFFFFF;
+	position: relative;
+}
+.head_left{
+	width: 100%;
+	float: left;
+	padding: 29px 15px 32px 15px;
+	background-color: #FFFFFF;
+}
+.head_left img{width: 30%;}
+.head_left ul{
+	padding: 0;
+	float: right;
+	width: 66%;
+    margin: 0;
+}
+.head_left ul li{
+	list-style: none;
+	color: #000000;
+	font-size: 13px;
+	line-height: 25px;
+}
+.chioce{
+	background-color: #FFFFFF;
+	width: 100%;
+    border: 0;
+    padding: 0;
+    margin-top: 37px;
+}
+.pay_content div{
+	text-align: left;
+	color: #000000;
+}
+.mui-radio label img{
+	width: 30px;
+}

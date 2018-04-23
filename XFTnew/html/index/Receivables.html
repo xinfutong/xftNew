@@ -1,0 +1,528 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<script>
+			var type_id=0;
+		</script>	
+		<script type="text/javascript" src="../../js/keyboard.js"></script>
+	</head>
+	<style>
+		body{font-family: "微软雅黑";}
+		#header,.receivables{background-color: #FF5A00;color: #FFFFFF;}
+		.receivables{height: 59%;padding-top: 10px;}
+		.receivables_img .mui-grid-9 li{width: 33%;padding: 0;border: none;}
+    	.receivables_img .mui-grid-9 li a{padding: 0;}
+    	.receivables_img .mui-icon img{width: 33%;border-radius: 50%;border: 1px solid #2D95E0;}
+    	.receivables_img #user_img{border-radius: 122rem;
+			    /*background-color: #ffe394;*/
+			    height: 5.3rem;
+			    width: 100%;
+			    /*padding: 0.3rem;*/}
+		/*.receivables_img .user_img{border-radius: 122rem;
+			    background-color: #ffe394;
+			    height: 5.3rem;
+			    width: 5.3rem;
+			    padding: 0.3rem;}*/
+		.receivables_img .mui-grid-view.mui-grid-9{border: none;height: 100%;}
+		.receivables_type .mui-grid-9 li{width: 33.3333%;}	
+		.receivables_type img{width: 100%;vertical-align: middle;height: 90%;} 
+		.receivables_type .mui-icon{display: inline-block;   
+	    /*border-radius: 25%;
+	    padding: 12% 19.2%;background-color: #11324a;*/
+	    } 
+	    .active{ border: 1px solid #2D95E0;}
+	    .receivables_type .mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	    	padding: 0 8px;height: 100%;background-color: inherit;
+	    }
+	    .mui-grid-view.mui-grid-9{border: none;/*background: #0080dc;*/}
+	    .mui-grid-view.mui-grid-9 .mui-table-view-cell{border: none;}
+	    .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{color: #FFFFFF;font-size: 10px;}
+		.user_list{background-color: #FFFFFF;color: #000000;}
+		.mui-table-view:after{height: 0;}
+		.mui-input-row label~input{float: none;font-size: 270%;height: auto;padding: 0;width: 81%;}
+		.mui-input-row label{width: auto;font-size: 30px;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){height: 100%;padding: 8.6% 0;}
+		.receivables_type .mui-grid-view.mui-grid-9 .mui-media .mui-icon{height: 75%;width: 60%;}
+		.mui-table-view-cell{padding: 2% 15px;}
+		.mui-input-row label{padding: 4% 15px;padding-bottom: 0;}
+		
+		.a{
+            position: absolute;
+            left:25%;
+            height:100%;
+            border-right:0.5px solid #999999;
+            -webkit-transform:scaleX(0.5);
+            transform:scaleX(0.5);
+        }
+        .b{
+            position: absolute;
+            left:50%;
+            height:100%;
+            border-right:0.5px solid #999999;
+            -webkit-transform:scaleX(0.5);
+            transform:scaleX(0.5);
+        }
+        .A{
+            width:75%;
+            position: absolute;
+            top:25%;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+        }
+        .B{
+            width:75%;
+            position: absolute;
+            top:50%;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+        }
+        .C{
+            width:75%;
+            position: absolute;
+            top:75%;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+        }
+        .D{
+            width:100%;
+            position: absolute;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+        }
+        .no_active{
+        	/*border: 1px solid #11324A;*/
+        }
+        .icon_kj{
+			background:url(../../images/jy-record@2x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_wx{
+			background:url(../../images/share-profit@2x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_zfb{
+			background:url(../../images/my-rate@2x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_qq{
+			background:url(../../images/qq_type@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.icon_bd{
+			background:url(../../images/bd_type@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.mui-active>#kj{
+			background:url(../../images/jy-record@2x.png)no-repeat;
+			background-size:100%;
+		}
+		.mui-active>#wx{
+			background:url(../../images/share-profit@2x.png)no-repeat;
+			background-size:100%;	
+		}
+		.mui-active>#zfb{
+			background:url(../../images/my-rate@2x.png)no-repeat;
+			background-size:100%;	
+		}
+		.mui-active>#qq{
+			background:url(../../images/qq_yes@3x.png)no-repeat;
+			background-size:100%;	
+		}
+		.home_bg{
+			background: url(../../images/index.gif)no-repeat;
+			background-size: 100%;background-position-y: bottom;
+		}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{margin-top: 0;}
+		.fk_bot{
+            width:92%;
+            position: absolute;
+            /*top:99.4%;*/
+           	bottom: 4px;
+            border-top:0.5px solid #999999;
+            -webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);
+            margin-left: 4%;
+            
+        }
+        .mui-grid-view.mui-grid-9{background-color: inherit;}
+        #user_name{position: absolute;bottom: 0;}
+        /*#kj,#wx,#qq,#zfb,#bd{max-width: 61px;}*/
+        #sk_money{color: #999999;}
+        #sk_img{
+        	width: 24px;
+		    position: absolute;
+		    top: 20%;
+        }
+        #receivables_type .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+        	height: 18px;padding-bottom: 3px;
+        }
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        .mui-bar .mui-btn-link{color: #FFFFFF;}        
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;padding-top: 18px;">
+			<!--<button id="record" style="color: #FFFFFF;" class="mui-btn mui-btn-link mui-pull-left">交易记录</button>-->
+			<h1 style="color: #FFFFFF;" class="mui-title">收款</h1>	
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+			<!--<button id="sp_course" class="mui-btn mui-btn-link mui-pull-right">视频教程</button>-->
+		</header>
+		<div class="mui-content">						
+			<div class="receivables">
+				<div class="" style="height: 68%;padding-top: 2%;">
+					<div class="receivables_img" style="height: 51%;background: #FF5A00;"><!--style="height: 37%;"-->
+						<ul class="mui-table-view mui-grid-view mui-grid-9" style="height: 100%;text-align: center;background-color:inherit"><!--background-color: #FF5A00;-->					            
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="height: 100%;padding: 0;border: none;background-color:inherit"><!--background-color: #FF5A00;-->
+							    <a id="change_info" style="padding: 0;">
+							        <span class="mui-icon" style="width: 71%;min-width: 90px;height: 80%;"><!---->
+							        	<div id="user_img" style="border-radius: 5rem;height: 100%;min-width: 90px;">
+								            <img id="head_img" src="../../images/no_login@3x.png" style="min-height: 62px;min-width: 62px;height: 100%;">
+								        </div>
+							        </span>
+							        <div id="user_name" class="mui-media-body" style="color: #FFFFFF;font-size: 14px;">
+							            	点击头像登录<!--收款人：景小甜-->
+							        </div>
+							    </a>
+							</li>					            
+						</ul>
+					</div>
+					<div class="receivables_type" style="height: 47%;margin-top: 1%;"><!--style="height: 30%;"-->
+						<ul id="receivables_type" style="background-color: inherit;height: 100%;" class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				            	<a href="#" class="mui-active">
+				                    <span id="kj" class="mui-icon icon_kj">
+				                    	<!--<img style="padding: 8px 0;height: 100%;" src="../../images/kjzf@3x.png" />-->
+				                    </span>
+				                    <div class="mui-media-body">交易记录</div></a></li>
+				            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				            	<a href="#">
+				                    <span id="wx" class="mui-icon icon_wx no_active">
+				                    	<!--<img style="padding-top: 8px;" src="../../images/wx@3x.png" />-->
+				                    </span>
+				                    <div class="mui-media-body">分润收益</div></a></li>
+				            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				            	<a href="#">
+				                    <span id="zfb" class="mui-icon icon_zfb"><!--active-->
+				                    	<!--<img style="padding-top: 8px;padding-left: 2px;" src="../../images/zfb@3x.png" />-->
+				                    	<!--<span class="mui-badge">5</span>-->
+				                    </span>
+				                    <div class="mui-media-body">当前费率<label id="my_rate"></label></div>
+				            	</a></li>
+				            <!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" >
+				            	<a href="#">
+				                    <span id="qq" class="mui-icon icon_qq no_active">
+				                    	
+				                    </span>
+				                    <div class="mui-media-body">QQ支付</div></a></li>
+				            
+				            <li id="bd_wallet" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				            	<a href="#">
+				                    <span id="bd" class="mui-icon icon_bd no_active" style="">				                    	
+				                    </span>
+				                    <div class="mui-media-body">即将推出</div></a></li>-->
+				        </ul>
+					</div>
+				</div>				
+				<div class="user_list" style="height: 33%;">
+					<ul class="mui-table-view" style="height: 35%;">
+					    <li class="mui-table-view-cell" style="position: relative;">
+					    	<img id="sk_img" style="width: 24px;" src="../../images/kjzf@3x.png" />
+					    	<span style="color: #000000;font-size: 15px;padding-left: 30px;">收款金额</span>
+					        <!--<a href="share_record.html">分润明细</a>-->
+					    </li>
+					</ul>
+					<div class="mui-input-row" style="position: relative;">
+						<div class="fk_bot"></div>
+						<label>￥</label>
+						<input id='sk_money' readonly="readonly" type="tel" value="0.00" class="mui-input" placeholder="">
+					</div>
+				</div>				
+			</div>			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<!--<script>
+			var type_id=0;
+		</script>	-->
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<!--<script type="text/javascript" src="../../js/keyboard.js"></script>-->
+		<script type="text/javascript">
+			var aniShow = {};
+			mui.plusReady(function(){
+				mui.init({  
+					hardwareAccelerated:true, //开启硬件加速
+				});
+				
+				if(mui.os.ios){
+					// 创建加载内容窗口
+					var topoffset='45px';
+					if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+						topoffset=(Math.round(plus.navigator.getStatusbarHeight())+15)+'px';
+					} 
+//					document.getElementById('header').style.height=(immersed+14)+'px';
+					if(immersed>25){
+						document.querySelector('.receivables_img').style.marginTop=(20)+'px';
+					}									   
+				}else if(mui.os.android){
+//					$('.D').css('bottom','1px');
+					document.querySelector('.a').style.height=parseFloat(document.querySelector('.a').height-1);
+					document.querySelector('.b').style.height=parseFloat(document.querySelector('.b').height-1)
+//					$('.a').css('height'calc(100% - 1px));
+//					$('.b').css('height',calc(100% - 1px));
+				}
+				if(immersed>25){
+					$('.mui-content').height(document.documentElement.clientHeight-44-immersed);
+				}else{
+					$('.mui-content').height(document.documentElement.clientHeight-44-immersed-20);
+				}
+				
+				document.getElementById('head_img').style.width=document.getElementById('head_img').height+"px";
+
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var u_img=plus.storage.getItem('head_img')!=''?plus.storage.getItem('head_img'):'../../images/no_login@3x.png';
+				var u_name=plus.storage.getItem('name')!=''?(plus.storage.getItem('name')!=undefined?('收款人：'+plus.storage.getItem('name')):'点击头像登录'):'未实名认证';
+				
+				window.addEventListener('home_back',function(event){
+					mui.back();
+				});
+				
+				window.addEventListener('home_img',function(event){
+					 var img = event.detail.img;
+					document.getElementById('head_img').src=img;
+				});
+				
+				window.addEventListener('sk_customEvent',function(event){
+				  	//通过event.detail可获得传递过来的参数内容
+//				  	location.reload();
+				  	var img = event.detail.img!=''?event.detail.img:'../../images/no_login@3x.png';
+				  	var name=event.detail.name!=''?(event.detail.name!='点击头像登录'?'收款人：'+event.detail.name:event.detail.name):'未实名认证';
+				  	document.getElementById('head_img').src=img;
+				  	document.getElementById('user_name').innerText=name;
+					mui.ajax('http://www.zhxft.com/app/index1/index',{
+						async:false,
+						data:{
+							uid:plus.storage.getItem('uid'),
+							token:plus.storage.getItem('token'),						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							plus.storage.setItem('head_img',arrParse.head_portrait);
+							plus.storage.setItem('name',arrParse.name);
+							plus.storage.setItem('phone',arrParse.phoneNum);
+							if(arrParse.info.code==6){
+								plus.storage.clear();								
+							}else{
+								document.getElementById('head_img').src=(arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/no_login@3x.png');
+								document.getElementById('user_name').innerText=(arrParse.name!=''?'收款人：'+arrParse.name:'未实名认证');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				});
+				if (uid!=null && token!=null) {
+					mui.ajax('http://www.zhxft.com/app/index1/index',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,						
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							plus.storage.setItem('head_img',arrParse.head_portrait);
+							plus.storage.setItem('name',arrParse.name);
+							plus.storage.setItem('phone',arrParse.phoneNum);
+							if(arrParse.info.code==6){
+								plus.storage.clear();								
+							}else{
+								document.getElementById('my_rate').innerText=arrParse.no_rate+'%';
+								document.getElementById('head_img').src=(arrParse.head_portrait!=''?arrParse.head_portrait:'../../images/no_login@3x.png');
+								document.getElementById('user_name').innerText=(arrParse.name!=''?'收款人：'+arrParse.name:'未实名认证');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+//					document.getElementById('head_img').src=u_img;
+				} else{
+					document.getElementById('user_name').innerText='点击头像登录';
+					document.getElementById('head_img').src='../../images/no_login@3x.png';
+				}
+
+				//点击头像登录
+				document.getElementById('head_img').addEventListener('tap',function(){
+					if (plus.storage.getItem('uid')==null && plus.storage.getItem('token')==null) {
+						mui.openWindow({
+							url: 'login.html',
+							id: 'login',
+							show: {
+								autoShow:false,
+								aniShow: 'pop-in',
+								duration:'350',
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					}
+				})
+				//交易记录
+//				document.getElementById('record').addEventListener('tap',function(){
+//					mui.openWindow({
+//						url: 'deal_total.html',
+//						id: 'deal_total',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				})
+				
+//				document.getElementById('sp_course').addEventListener('tap',function(){					
+//					mui.openWindow({
+//						url: 'sp_course.html',
+//						id: 'sp_course',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});
+//				})
+				
+				mui("#receivables_type").on("tap","li",function(){
+					if($(this).attr('id')=='bd_wallet'){
+						mui.alert('该支付方式还未推出开放使用！','提示','','','div');
+						return;
+					}
+				  	$(this).children('a').addClass('mui-active');
+				  	$(this).siblings().children('a').removeClass('mui-active');			  
+				  	
+				  	var index=$(this).index();
+				  	switch(index)
+					{
+						case 0:
+							type_id=0;
+							mui.openWindow({
+								url: 'transaction_record.html',
+								id: 'transaction_record',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								styles:{
+//									bounce: 'vertical',bounceBackground:'#fc1',
+								},
+								waiting: {
+									autoShow: true
+								}, extras:{
+							      	c_id:3,
+							    }
+							});
+					  	break;
+						case 1:
+							type_id=1;
+							mui.openWindow({
+								url: 'sk_share.html',
+								id: 'sk_share',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},createNew:true,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+								styles:{
+//									bounce: 'vertical',bounceBackground:'#fc1',
+								},
+								waiting: {
+									autoShow: true
+								}
+							});
+						  	break;
+						case 2:
+						type_id=2;
+							mui.openWindow({
+								url: 'share_money.html',
+								id: 'share_money',
+								show: {
+									autoShow:false,
+									aniShow: 'pop-in',
+									duration:'350',
+								},
+		//						extras:{card_id:id},								
+								waiting: {
+									autoShow: true
+								}
+							});
+							break;
+//						case 3:
+//						type_id=3;
+//							document.getElementById('sk_img').src='../../images/qq@3x.png';
+//							break;	
+					}
+				});				
+				
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in');
+			});
+			(function(){
+				$('.mui-content').height(document.documentElement.clientHeight-44);
+				document.getElementById('head_img').style.width=document.getElementById('head_img').height+"px";
+				//响应式正方形支付类型
+				$('#receivables_type').children('li').children('a').children('span').height($('#receivables_type').children('li').children('a').children('span').width());
+//				var input1 = document.getElementById('text1');
+//				var input2 = document.getElementById('text2');
+//				
+//				input1.onclick = function(){
+//					new KeyBoard(input1);
+//				};
+//				
+//				input2.onclick = function(){
+//					new KeyBoard(input2);
+//				};
+				//自制软盘
+				var money=document.getElementById('sk_money');
+				money.onclick = function(){
+					new KeyBoard(money);
+				};
+				window.onload=function(){
+					document.getElementById('sk_money').onclick();
+				}
+				
+			})();
+		</script>
+	</body>
+
+</html>

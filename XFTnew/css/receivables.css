@@ -1,0 +1,47 @@
+body{font-family: "微软雅黑";background-color: #439057;}
+.mui-content{padding: 10px;background-color: #439057;}
+.sk_code{background-color: #FFFFFF;border-radius: 20px;margin-top: 50px;}
+.sk_head{background-color: #FAFAFA;color: #439057;font-size: 15px;padding: 17px 18px;
+background-image: url(../images/sk_head@3x.png);background-repeat: no-repeat;background-size: 18px;
+background-position:left;padding-left: 50px;background-position-x: 17px;border-radius:10px 10px 0 0 ;}
+.sk_head img{width: 18px;}
+.sk_content{padding: 34px 25%;}
+.sk_content img{width: 100%;margin-bottom: 12px;}
+.sk_content  span{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin-top: 12px;
+	font-size: 30px;
+}
+.sk_phone{
+	/*background-image: url(../images/shop_info@3x.png);background-repeat: no-repeat;background-size: 18px;*/
+	/*background-position:left;*/
+	background-color: #FFFFFF;margin-top: 19px;/*padding: 14px;*/
+	border-radius: 5px;
+	/*background-position-x: 17px;*/
+	/*padding-left: 17px;*/font-size: 15px;
+}
+.sk_phone span{
+	color: #439057;
+}
+.sk_phone label{
+	color: #000000;float: right;
+}
+.shop_info{
+	background-image: url(../images/shop_info@3x.png);background-repeat: no-repeat;
+	background-size: 18px;;background-position-x: 17px;background-position:left;
+	display: inline-block;
+    padding-left: 25px;
+}
+.sk_phone div{
+	/*border-top: 1px solid #CCCCCC;*/
+	padding-left: 17px;
+	padding: 14px;
+}
+input[type=button]{
+	border: 0;
+	width: 49%;
+	padding: 14px 0;
+	font-family: "微软雅黑";
+}

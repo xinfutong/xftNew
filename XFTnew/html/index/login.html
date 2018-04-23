@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/reg.css" />
+	</head>
+	<style>
+		html, body {
+		    height: 100%;
+		    margin: 0px;
+		    padding: 0px;
+		    overflow: hidden;
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		}
+		body,.mui-content{background-color: #FFFFFF;}
+		.mui-content-padded{text-align: initial;padding: 0 24px;margin: 0;}
+		.mui-bar{background-color: #FFFFFF;}
+		.reg_input{margin-top: 50px;padding: 0 24px;}
+		.logo{text-align: center;padding-top: 21px;}
+		.logo img{width: 70px;border-radius: 5px;}
+		/*.mui-action-back label{font-family: "微软雅黑";}*/
+		.mui-input-group:before{height: 0;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        h5{
+        	text-align: center;font-size: 12px;
+		    color: #999999;
+		    margin-top: 5.5rem;
+        }
+        .mui-bar .mui-btn-link,a{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}    
+    	.agreement{text-align: center;}
+        .reg_agree{position: absolute;top: 10%;font-size: 13px;left: 50px;color: #FF5A00;}
+        /*.mui-checkbox.mui-left input[type=checkbox]{left: 12px;}*/
+        .mui-checkbox input[type=checkbox]{top: 2px;}
+        .agreement .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
+        	font-size: 24px;
+        }
+        .mui-bar .mui-btn-link,.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{color: #FF5A00;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title"></h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="logo">
+								<img id="user_img" src="../../images/logo_img@3x.png" />
+							</div>
+							<div class="reg_input">
+								<form action="" method="post" class="mui-input-group">
+									<div class="mui-input-row">
+										<label>手机号</label>
+										<input id='phone' type="tel" maxlength="11" class="mui-input-clear mui-input" placeholder="请输入手机号">
+									</div>
+									<div class="mui-input-row">
+										<label>密码</label>
+										<input id='password' type="password" maxlength="15" class="mui-input-clear mui-input" placeholder="请输入密码(密码长度15位以下)">
+									</div>					
+								</form>
+							</div>
+							<div class="mui-content-padded">
+								<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+							</div>
+							<div class="agreement">
+								<div class="mui-input-row mui-checkbox mui-left" style="display: inline-block;width: 100%;">
+								  <label style="width: 5%;"></label>
+								  <input name="checkbox1" value="1" type="checkbox" checked="checked">
+								  <h4 id="reg_agree" class="reg_agree">登陆/注册我已经阅读并同意信付通用户协议</h4>
+								</div>
+							</div>
+							<div class="mui-content-padded">			
+								<p>
+									<a id="reg">快速注册</a>
+									<a id="forget_pass" style="float: right;">忘记密码？</a>
+								</p>
+							</div>
+							<h5>太平洋保险为您保驾护航</h5>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<!--<script type="text/javascript" src="../../js/jlyGlobal.js" ></script>
+		<script type="text/javascript" src="../../js/jlyUser.js" ></script>-->
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  	
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+//				var uuid = plus.push.getClientInfo().clientid;
+				var version;
+				plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+					version = wgtinfo.version;
+				});
+				
+				var back_type=plus.storage.getItem('btype');
+//				alert(back_type)
+				document.getElementById('login').addEventListener('tap',function(){
+					if(!$("input[type='checkbox']").is(':checked')){//判断是否勾选
+						mui.alert('请勾选"登陆/注册我已经阅读并同意信付通用户协议"，勾选后方可登录使用！','温馨提示','','','div');
+						return;
+					}					
+					var mobile=document.getElementById('phone').value;
+					var pwd=document.getElementById('password').value;
+					var os = '';
+					if(mui.os.ios){
+						os = 'ios';
+					}else{
+						os = 'android';
+					}
+					mui.ajax('http://www.zhxft.com/app/account/login',{
+						async:false,
+						data:{
+							login:mobile,
+							password:pwd,
+							uuid:'',
+							version:version,
+							os:os
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==0){
+//								jlyUser.setLocalUserData(JSON.stringify(arrParse));//存储用户信息
+								plus.storage.setItem('uid',arrParse.uid);
+								plus.storage.setItem('token',arrParse.token);
+								
+								var open_id=plus.webview.currentWebview().opener().id;
+								if(open_id!='../find/find.html' && open_id!='../wallet/wallet.html' && open_id!='../user/user.html' && open_id!='../extension/extension.html' && plus.webview.getLaunchWebview().id!='hbuilder'){
+									plus.webview.currentWebview().opener().reload();
+								}
+								
+								var detailPage = plus.webview.getLaunchWebview();
+								mui.fire(detailPage,'customEvent',{
+//								    img:arrParse.head_portrait,
+//								    name:arrParse.name,
+//								    load_type:back_type
+								});
+								var inx = plus.webview.getWebviewById('../find/find.html');
+								var res = plus.webview.getWebviewById('../wallet/wallet.html');
+								var cad = plus.webview.getWebviewById('../user/user.html');
+								var sim = plus.webview.getWebviewById('../extension/extension.html');
+//								setTimeout(function(){
+									mui.fire(inx,'find_load',{});
+									mui.fire(res,'wallet_load',{});
+									mui.fire(cad,'user_load',{});
+									mui.fire(sim,'ex_load',{});
+//								},300);
+//								inx.reload();
+//								res.reload();
+//								cad.reload();
+//								sim.reload();
+//								console.log(uuid);
+//								console.log(version);
+//								console.log(os);
+//								sim.reload();
+								
+								if(back_type==1){
+									console.log(11111)
+									plus.nativeUI.showWaiting();
+									sim.addEventListener('loaded',function(e){
+										console.log(333)
+										plus.nativeUI.closeWaiting();
+										mui.back();
+									});
+								}else{
+									console.log(22222)
+									plus.nativeUI.showWaiting();
+									sim.addEventListener('loaded',function(e){
+										plus.nativeUI.closeWaiting();
+										mui.back();
+									});
+//									setTimeout(function(){
+//										mui.back();
+//										plus.nativeUI.closeWaiting();
+//									},1000);
+									
+								}
+								
+								
+							}else if(arrParse.info.code==2){
+								mui.alert('手机号与密码不能为空！','提示','','','div');
+							}else if(arrParse.info.code==4){
+								mui.alert('手机号与密码不正确！','提示','','','div');
+//								mui.alert('该用户手机号'+mobile+'不存在，请确认是否注册！','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+				
+				document.getElementById('reg_agree').addEventListener('tap',function(){
+			    	mui.openWindow({
+						url: 'user_agree.html',
+						id: 'user_agree',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},
+						extras:{
+							
+						},//额外扩展参数
+						waiting: {
+							autoShow: true
+						}
+					});
+			    })
+				
+				document.getElementById('forget_pass').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'forget_pass.html',
+						id: 'forget_pass',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{softinputMode:'adjustResize',
+//						bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				document.getElementById('reg').addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'reg.html',
+						id: 'reg',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},styles:{softinputMode:'adjustResize',
+//						bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				})
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="../../css/preview.css" rel="stylesheet" />
+	</head>
+	<style>
+		#promptBtn,#again-Btn{
+			width:44%;height:2.75rem;margin-left:4%;margin-top:1.53rem;font-size:18px;letter-spacing: 2px;
+			border:none;
+		}
+		.mui-content{margin-bottom: 30px;}
+		.plan-state-1{background: url(../../images/plan-img-1@3x.png)no-repeat;background-size: 33px;
+		background-position-y: center;background-position-x: 7px;padding-left: 3.5rem;}
+		.plan-state-2{background: url(../../images/plan-img-2@3x.png)no-repeat;background-size: 33px;
+		background-position-y: center;background-position-x: 7px;padding-left: 3.5rem;}
+		.plan-time{background: url(../../images/plan-time@3x.png)no-repeat;background-size: 15px;
+		background-position-y: center;background-position-x: 11px;padding-left: 2.5rem;
+		color: #FFFFFF;font-size: 12px;}
+		.mui-table-view{margin: 0 0.9rem;border-radius: 5px;margin-top: 10px;}
+		.plan-top{background-color: #108EE9;color: #FFFFFF;padding: 0;border-top-left-radius: 5px;
+		border-top-right-radius: 5px;padding-right: 15px;}
+		.mui-table-view-cell div:nth-child(2){height: auto;line-height: 1.65rem;text-align: right;}
+		.mui-table-view-cell div:nth-child(2) p:nth-child(1){height: 18px;font-size: 18px;}
+		.mui-table-view-cell div:nth-child(2) p:nth-child(2){height: 0;}
+		.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 id="title" class="mui-title">预览还款计划</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div id="look_plan">
+			           			<!--<ul class="mui-table-view">						   
+								    <li class="plan-top mui-table-view-cell" style="">
+								    	<div class="mui-table-view-cell-div plan-time">
+								    		<p style="font-size: 12px;color: #FFFFFF;">2017-12月12日</p>							    		
+								    	</div>
+								    	<div style="font-size: 12px;line-height: inherit;">手续费:5.12元</div>
+								    </li>
+								    <li class="mui-table-view-cell plan-state-1">
+								    	<div class="mui-table-view-cell-div">
+								    		<p>还款时间</p>
+								    		<p>2017-10-12 12:12:12</p>
+								    	</div>
+								    	<div class="mui-table-view-cell-div">
+								    		<p>¥222.00</p>
+								    		<p style="color: #00ae14;">执行成功</p>								    		
+								    	</div>
+								    </li>
+								    <li class="mui-table-view-cell plan-state-2">
+								    	<div class="mui-table-view-cell-div">
+								    		<p>消费时间</p>
+								    		<p>2017-10-12 12:12:12</p>
+								    	</div>
+								    	<div class="mui-table-view-cell-div">
+								    		<p>¥222.00</p>
+								    		<p style="color: #fd8f00;">等待执行</p>								    		
+								    	</div>
+								    </li>
+								    <li class="mui-table-view-cell plan-state-2">
+								    	<div class="mui-table-view-cell-div">
+								    		<p>消费时间</p>
+								    		<p>2017-10-12 12:12:12</p>
+								    	</div>
+								    	<div class="mui-table-view-cell-div">
+								    		<p>¥222.00</p>
+								    		<p style="color: #ff0000;">执行失败</p>								    		
+								    	</div>
+								    </li>
+								</ul>-->
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速						
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+45)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+1)+'px';
+					document.querySelector('.mui-scroll').style.paddingBottom=(immersed+1)+'px';
+					document.querySelector('.mui-scroll-wrapper').style.position='inherit';
+				}
+				document.querySelector('#pullrefresh').style.paddingBottom=(immersed+54)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var plan_id=plus.webview.getWebviewById('Repayment_plan').plan_id;
+				plan_id=parseInt(plan_id);
+				mui.ajax('http://www.zhxft.com/app/wallet1/planDetail',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,	
+						mid:plan_id
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var list=document.getElementById('look_plan');
+						var result=arrParse.data;
+						var repay_state1;
+						var repay_state2;
+						var repay_state3;
+						var state_color1;
+						var state_color2;
+						var state_color3;
+						for (var i=0;i<result.length;i++) {
+							if(result[i][0].state==0){
+								repay_state1='等待执行'
+								state_color1='#fd8f00';
+							}else if(result[i][0].state==1){
+								repay_state1='执行成功';
+								state_color1='#00ae14';
+							}else if(result[i][0].state==2){
+								repay_state1='执行失败';
+								state_color1='#ff0000';
+							}
+							if(result[i][1].state==0){
+								repay_state2='等待执行';
+								state_color2='#fd8f00';
+							}else if(result[i][1].state==1){
+								repay_state2='执行成功';
+								state_color2='#00ae14';
+							}else if(result[i][1].state==2){
+								repay_state2='执行失败';
+								state_color2='#ff0000';
+							}
+							if(result[i][2].state==0){
+								repay_state3='等待执行';
+								state_color3='#fd8f00';
+							}else if(result[i][2].state==1){
+								repay_state3='执行成功';
+								state_color3='#00ae14';
+							}else if(result[i][2].state==2){
+								repay_state3='执行失败';
+								state_color3='#ff0000';
+							}
+							list.innerHTML+='<ul class="mui-table-view">'						   
+							    +'<li class="plan-top mui-table-view-cell" style="">'
+							    	+'<div class="mui-table-view-cell-div plan-time">'
+							    		+'<p style="font-size: 12px;color: #FFFFFF;">'+result[i].time+'</p>'							    		
+							    	+'</div>'
+							    	+'<div style="font-size: 12px;line-height: inherit;">手续费:'+result[i].momey+'元</div>'
+							    +'</li>'
+							    +'<li class="mui-table-view-cell plan-state-1">'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>还款时间</p>'
+							    		+'<p>'+result[i][2].payTime+'</p>'
+							    	+'</div>'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>¥'+result[i][2].amount+'</p>'
+							    		+'<p style="color: '+state_color3+';">'+repay_state3+'</p>'								    		
+							    	+'</div>'
+							    +'</li>'
+							    +'<li class="mui-table-view-cell plan-state-2">'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>消费时间</p>'
+							    		+'<p>'+result[i][1].payTime+'</p>'
+							    	+'</div>'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>¥'+result[i][1].amount+'</p>'
+							    		+'<p style="color: '+state_color2+';">'+repay_state2+'</p>'								    		
+							    	+'</div>'
+							    +'</li>'
+							    +'<li class="mui-table-view-cell plan-state-2">'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>消费时间</p>'
+							    		+'<p>'+result[i][0].payTime+'</p>'
+							    	+'</div>'
+							    	+'<div class="mui-table-view-cell-div">'
+							    		+'<p>¥'+result[i][0].amount+'</p>'
+							    		+'<p style="color: '+state_color1+';">'+repay_state1+'</p>'								    		
+							    	+'</div>'
+							    +'</li>'
+							+'</ul>'
+								    
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+												
+				
+				//关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

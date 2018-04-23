@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<link href="../../css/payment_history.css" rel="stylesheet" />
+		
+		<style>
+			.box-shadow-2{  
+			  -webkit-box-shadow:0 0 10px #c3c3c3;  
+			  -moz-box-shadow:0 0 10px #c3c3c3;  
+			  box-shadow:0 0 10px #c3c3c3;  
+			}
+			.mui-table-view{background-color: inherit;}
+			.section .mui-table-view{background-color: #FFFFFF;}
+			.mui-bar .mui-btn-link{color: #FF5A00;}
+    	.mui-btn-primary{background: #FF5A00;border: none;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background-color: #FFFFFF;">			
+			<h1 class="mui-title">还款记录</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper" style="">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+		                	<!--<div class="section">
+								<ul class="mui-table-view box-shadow-2" style="border-radius:5px;">
+									<div class="right_jt mui-navigate-right"></div>
+								    <li class="mui-table-view-cell">
+								        <a class="">
+								        	<div class="mui-navigate-right-left">
+								        		<div class="mui-navigate-right-left-logo">
+								        			<img src="../../images/zgyh@3x.png"/ style="width:100%;height:100%;">
+								        		</div>
+								        	</div>
+								        	<div class="mui-navigate-right-right">
+								        		<p class="bank_type"><span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span><span style="margin-left:6%;display: inline-block;width:25%;height:1.28rem;background:#DDDDDD;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;">还款中</span></p>
+								        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+								        	</div>
+								        </a>
+								    </li>
+								    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+								        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+								        	<div id="one_div">
+								        		<p class="pOne">12000</p>
+								        		<p class="pTwo">还款金额</p>
+								        	</div>
+								        	<div>
+								        		<p class="pOne">10月</p>
+								        		<p class="pTwo">还款笔数</p>
+								        	</div>
+								        	<div>
+								        		<p class="pOne">30元</p>
+								        		<p class="pTwo">手续费</p>
+								        	</div>
+								        </a>
+								    </li>
+								</ul>
+							</div>
+							<div class="section">
+								<ul class="mui-table-view box-shadow-2" style="border-radius:5px;">
+									<div class="right_jt mui-navigate-right"></div>
+								    <li class="mui-table-view-cell">
+								        <a class="">
+								        	<div class="mui-navigate-right-left">
+								        		<div class="mui-navigate-right-left-logo">
+								        			<img src="../../images/zgyh@3x.png"/ style="width:100%;height:100%;">
+								        		</div>
+								        	</div>
+								        	<div class="mui-navigate-right-right">
+								        		<p class="bank_type"><span style="">中国银行<span class="cardNumber">(尾号<span>8888</span>)</span></span><span style="margin-left:6%;display: inline-block;width:25%;height:1.28rem;background:#DDDDDD;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;">还款中</span></p>
+								        		<p class="Plan_date">计划日期:<span class="Plan_date_span">2017.10.10</span></p>
+								        	</div>
+								        </a>
+								    </li>
+								    <li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">
+								        <a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">
+								        	<div id="one_div">
+								        		<p class="pOne">12000</p>
+								        		<p class="pTwo">还款金额</p>
+								        	</div>
+								        	<div>
+								        		<p class="pOne">10月</p>
+								        		<p class="pTwo">还款笔数</p>
+								        	</div>
+								        	<div>
+								        		<p class="pOne">30元</p>
+								        		<p class="pTwo">手续费</p>
+								        	</div>
+								        </a>
+								    </li>
+								</ul>
+							</div>			               	-->
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init
+				({
+				    pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      up: {
+				      	height:50,//可选.默认50.触发上拉加载拖动距离
+				      	auto:false,//可选,默认false.自动上拉加载一次
+				      	contentnomore:'没有更多数据了',
+				        contentrefresh: '正在加载...',
+				        callback: pullupRefresh
+				      }
+				   	},			
+					hardwareAccelerated:true, //开启硬件加速		
+					styles:{
+						bounce: 'vertical',bounceBackground:'#fc1',
+					}
+				});	
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				if(mui.os.ios){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed)+'px';
+				}
+//				document.querySelector('.mui-content').style.marginTop=(immersed+10)+'px';
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				var card_id=plus.webview.getWebviewById('payment_history').card_id;
+				var load_len;
+				var page=0;
+				mui.ajax('http://www.zhxft.com/app/creditCard/history_plan',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						cardId:card_id,
+						limit:page
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.code=='0006'){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: '../index/login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}
+						var result=arrParse.info;
+						var list=document.querySelector('.list-wrapper');
+						load_len=(parseFloat(result.length)/10);
+						list.innerHTML='';
+						var repay_state;
+						if(arrParse.code=='0005'){
+							mui.alert('你当前还未产生还款记录','提示','','','div');
+							return;
+						}
+						for (var i=0;i<10;i++) {
+//							if(result[i].state==0){
+//								repay_state='未启动'
+//							}else if(result[i].state==1){
+//								repay_state='还款中'
+//							}else if(result[i].state==2){
+//								repay_state='还款完成'
+//							}else if(result[i].state==3){
+//								repay_state='还款失败'
+//							}
+							list.innerHTML+='<div class="section" title="'+result[i].id+'">'
+								+'<ul class="mui-table-view box-shadow-2" style="border-radius:5px;">'
+									+'<div class="right_jt mui-navigate-right"></div>'
+								    +'<li class="mui-table-view-cell">'
+								        +'<a class="">'
+								        	+'<div class="mui-navigate-right-left">'
+								        		+'<div class="mui-navigate-right-left-logo">'
+								        			+'<img src="'+arrParse.bankLogo+'"/ style="width:100%;height:100%;">'
+								        		+'</div>'
+								        	+'</div>'
+								        	+'<div class="mui-navigate-right-right">'
+								        		+'<p class="bank_type">'
+								        		+'<span style="">'+arrParse.bankName+'<span class="cardNumber">(尾号<span>'+arrParse.account+'</span>)</span></span>'
+								        		+'<span style="margin-left:6%;display: inline-block;width:25%;height:1.28rem;background:#DDDDDD;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;">'+result[i].state+'</span></p>'
+								        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+result[i].created+'</span></p>'
+								        	+'</div>'
+								        +'</a>'
+								    +'</li>'
+								    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+								        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+								        	+'<div id="one_div">'
+								        		+'<p class="pOne">'+result[i].repaymoney+'</p>'
+								        		+'<p class="pTwo">还款金额</p>'
+								        	+'</div>'
+								        	+'<div>'
+								        		+'<p class="pOne">'+result[i].repayment+'</p>'
+								        		+'<p class="pTwo">还款笔数</p>'
+								        	+'</div>'
+								        	+'<div>'
+								        		+'<p class="pOne">'+result[i].fee+'元</p>'
+								        		+'<p class="pTwo">手续费</p>'
+								        	+'</div>'
+								        +'</a>'
+								    +'</li>'
+								+'</ul>'
+							+'</div>';															
+						}						
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+//				if(mui.os.plus) {  
+//				    mui.plusReady(function() {  
+//				        setTimeout(function() { mui('#pullrefresh').pullRefresh().pullupLoading(); }, 1000);  
+//				    });  
+//				} else {  
+//				    mui.ready(function() {
+//				        mui('#pullrefresh').pullRefresh().pullupLoading();   
+//				    });  
+//				} 
+				var count = 0;
+			  /*
+			   * 上拉加载具体业务实现
+			   * mui('#pullrefresh').pullRefresh().refresh(true);     //恢复滚动
+				mui('#pullrefresh').pullRefresh().scrollTo(0,0,100); //滚动置顶
+			   */
+			  function pullupRefresh() 
+			  {
+			    setTimeout(function() {
+			      mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > load_len)); //参数为true代表没有更多数据了。
+			      if(count > load_len){
+			      	mui.alert('已经没有更多可加载的了','提示','','','div');
+			      }
+			      var cells = document.body.querySelectorAll('.section');
+			      page++;
+			      var num=page*10;
+			      mui.ajax('http://www.zhxft.com/app/creditCard/history_plan',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+						cardId:card_id,
+						limit:num
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);	
+						var result=arrParse.info;
+						var list=document.querySelector('.list-wrapper');
+//						if(arrParse.code=='0005'){
+//							mui.alert('你当前还为产生还款记录','提示','','','div');
+//							return;
+//						}
+						for (var i = cells.length, len = i + 10; i < len; i++) {
+							if(result[i].state==0){
+								repay_state='未启动'
+							}else if(result[i].state==1){
+								repay_state='还款中'
+							}else if(result[i].state==2){
+								repay_state='还款完成'
+							}else if(result[i].state==3){
+								repay_state='还款失败'
+							}
+							list.innerHTML+='<div class="section" title="'+result[i].id+'">'
+								+'<ul class="mui-table-view box-shadow-2" style="border-radius:5px;">'
+									+'<div class="right_jt mui-navigate-right"></div>'
+								    +'<li class="mui-table-view-cell">'
+								        +'<a class="">'
+								        	+'<div class="mui-navigate-right-left">'
+								        		+'<div class="mui-navigate-right-left-logo">'
+								        			+'<img src="'+result[i].bankLogo+'"/ style="width:100%;height:100%;">'
+								        		+'</div>'
+								        	+'</div>'
+								        	+'<div class="mui-navigate-right-right">'
+								        		+'<p class="bank_type">'
+								        		+'<span style="">'+result[i].bankName+'<span class="cardNumber">(尾号<span>'+result[i].endNum+'</span>)</span></span>'
+								        		+'<span style="margin-left:6%;display: inline-block;width:25%;height:1.28rem;background:#DDDDDD;border-radius: 10px;font-size: 12px;text-align: center;color:#fff;">'+repay_state+'</span></p>'
+								        		+'<p class="Plan_date">计划日期:<span class="Plan_date_span">'+result[i].planDay+'</span></p>'
+								        	+'</div>'
+								        +'</a>'
+								    +'</li>'
+								    +'<li class="mui-table-view-cell" style="padding-left:0;padding-right:0;">'
+								        +'<a class="mui-table-view-cell mui-table-view-cell-div" style="padding:0;">'
+								        	+'<div id="one_div">'
+								        		+'<p class="pOne">'+result[i].repaymoney+'</p>'
+								        		+'<p class="pTwo">还款金额</p>'
+								        	+'</div>'
+								        	+'<div>'
+								        		+'<p class="pOne">'+result[i].number+'</p>'
+								        		+'<p class="pTwo">还款笔数</p>'
+								        	+'</div>'
+								        	+'<div>'
+								        		+'<p class="pOne">'+result[i].fee+'元</p>'
+								        		+'<p class="pTwo">手续费</p>'
+								        	+'</div>'
+								        +'</a>'
+								    +'</li>'
+								+'</ul>'
+							+'</div>';															
+						}
+					},
+					error:function(xhr,error,errorThrown){
+						//异常处理；								//plus.nativeUI.toast(errorThrown);								alert(xhr);								alert(error);
+						console.log(error);
+					}
+				});
+			    }, 500);
+			  }
+				mui('.list-wrapper').on('tap','.section',function(){
+					var i=this.getAttribute('title');
+					mui.openWindow({
+						url: '../find/Repayment_plan.html',
+						id: 'Repayment_plan',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},extras:{
+					      	plan_id:i
+					    },
+						waiting: {
+							autoShow: true
+						}
+					});	
+				});
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>

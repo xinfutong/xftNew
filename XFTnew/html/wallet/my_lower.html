@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--<link rel="stylesheet" href="../../css/wallet.css" />-->
+	</head>
+	<style>
+		
+		.mui-table-view-cell>.mui-badge{right: 34px;}
+		.mui-badge{background-color: #FFFFFF;border-radius:0;color: #505050;font-size: 15px;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{height: auto;margin-top: 2px;}
+		.mui-table-view .mui-media-object{
+			max-width: none;position: initial;width: 26px;height: 24px;
+		}
+		.mui-media-body{font-size: 16px;color: #000000;margin-top: 3px;display: inline-block;}
+		.mui-pull-right{border-radius: 50%;width: 29px;}
+		.mui-table-view-chevron .mui-table-view-cell{padding-right: 35px;}
+		.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn){margin-right: -35px;}
+		
+		
+        .mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);background-color:#DDDDDD;height: 0.5px;}
+        .B{
+            width:100%;
+            position: absolute;
+            /*top:99.4%;*/
+           	bottom: 0px;
+            border-top:0.5px solid #DDDDDD;
+            -webkit-transform:scaleY(0.25);
+            transform:scaleY(0.25);
+        } 
+        .mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn){padding-top: 0;} 
+        .no_friend img{
+        	width: 36%;
+		    margin-left: 32%;
+		    margin-top: 90px;
+        }  
+        h5{
+        	text-align: center;
+		    margin-top: 19px;
+		    font-size: 12px;
+		    color: #999999;
+        }
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">			
+			<h1 class="mui-title" style="">我的好友</h1>
+			<button style="" class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<ul id="agent_list" class="mui-table-view" style="display: none;">
+				<li class="mui-table-view-cell" title="1">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/1@3x.png">
+			        	<span class="mui-media-body">大掌柜</span>
+			        </a>
+			        <span class="mui-badge"><!--33人--></span>
+			    </li>
+			    <li class="mui-table-view-cell" title="2">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/2@3x.png">
+			        	<span class="mui-media-body">二掌柜</span>
+			        </a>
+			        <span class="mui-badge"><!--33人--></span>
+			    </li>
+			    <li class="mui-table-view-cell" title="3">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/3@3x.png">
+			        	<span class="mui-media-body">三掌柜</span>
+			        </a>
+			        <span class="mui-badge"><!--20人--></span>
+			    </li>
+			    <!--<li class="mui-table-view-cell" title="4">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/4@3x.png">
+			        	<span class="mui-media-body">四掌柜</span>
+			        </a>
+			        <span class="mui-badge"></span>
+			    </li>
+			    <li class="mui-table-view-cell" title="5">
+			        <a class="mui-navigate-right">
+			        	<img class="mui-media-object mui-pull-left" src="../../images/5@3x.png">
+			        	<span class="mui-media-body">五掌柜</span>
+			        </a>
+			        <span class="mui-badge"></span>
+			    </li>-->
+			</ul>
+			<div class="no_friend">
+				<img src="../../images/No-agent@3x.png" />
+				<h5>暂无好友</h5>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  			
+					hardwareAccelerated:true //开启硬件加速	
+				});
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+								
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				mui.ajax('http://www.zhxft.com/app/wallet/index',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,						
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						document.getElementById('total_amount').innerText=arrParse.total_total_money!=undefined?arrParse.total_total_money:0;
+
+						$('#agent_list').children('li').eq(0).children('span').text((arrParse.one!=undefined?arrParse.one:0)+'人');
+						$('#agent_list').children('li').eq(1).children('span').text((arrParse.two!=undefined?arrParse.two:0)+'人');
+						$('#agent_list').children('li').eq(2).children('span').text((arrParse.three!=undefined?arrParse.three:0)+'人');
+//						$('#agent_list').children('li').eq(3).children('span').text((arrParse.four!=undefined?arrParse.four:0)+'人');
+//						$('#agent_list').children('li').eq(4).children('span').text((arrParse.five!=undefined?arrParse.five:0)+'人');
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+													
+				//点击下级
+				mui('#agent_list').on('tap','li',function(){
+					var i=$(this).attr('title');
+					mui.openWindow({
+						url: 'lower_list.html',
+						id: 'lower_list',
+						show: {
+							autoShow:false,
+							aniShow: 'pop-in',
+							duration:'350',
+						},
+					    extras:{
+					      	list_id:i
+					    },styles:{
+//							bounce: 'vertical',bounceBackground:'#fc1',
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+								
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/reg.css" />
+	</head>
+	<style>
+		html, body {
+		    height: 100%;
+		    margin: 0px;
+		    padding: 0px;
+		    overflow: hidden;
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		}
+		body,.mui-content{background-color: #FFFFFF;}
+		.mui-content-padded{text-align: initial;padding: 0 24px;margin: 0;}
+		.mui-bar{background-color: #FFFFFF;}
+		.reg_input{margin-top: 50px;padding: 0 24px;}
+		.logo{text-align: center;padding-top: 21px;}
+		.logo img{width: 70px;border-radius: 5px;}
+		/*.mui-action-back label{font-family: "微软雅黑";}*/
+		.mui-input-group:before{height: 0;}
+		.mui-table-view-cell:after,.mui-table-view:after,.mui-table-view:before{-webkit-transform:scaleY(0.5);
+            transform:scaleY(0.5);}
+        select{margin-top: 7px;} 
+        .mui-input-row label{width: 25%;}   
+        .mui-input-row label~input,.mui-input-row label~select{width: 68%;}
+        h5{text-align: center;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow: none;background-color: #FFFFFF;">			
+			<h1 class="mui-title">划拨激活码</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>返回
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="list-t-wrap">
+			    <div id="pullrefresh" class="mui-scroll-wrapper">
+			        <div class="mui-scroll">
+			            <div class="list-wrapper">
+			                <!--列表一定要放到容器内,因为会有一个div append到mui-scroll中,需要在底部才能起作用-->
+			           		<div class="logo">
+								<img id="user_img" src="../../images/logo_img@3x.png" />
+							</div>
+							<h5>可划拨激活码数<span id="code_num"></span></h5>
+							<div class="reg_input">
+								<form action="" method="post" class="mui-input-group">
+									<div class="mui-input-row">
+								        <label>划拨好友</label>			       
+								        <select id="friend_list">
+											  <option value ="">请选择划拨好友</option>											  
+										</select>					    	
+								    </div>
+									<div class="mui-input-row">
+								        <label>激活码数</label>			       
+								        <!--<select id="agent_list">
+											  <option value ="">请选择好友等级</option>											 	
+										</select>-->
+								    	<input type="number" id="bank" class="mui-input-clear" placeholder="请输入划拨好友激活码数量">
+								    </div>					
+								</form>
+							</div>
+							<div class="mui-content-padded">
+								<button id='login' class="mui-btn mui-btn-block mui-btn-primary">确认划拨</button>
+							</div>							
+			            </div>
+			        </div>
+			    </div>
+			</div>			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/immersed.js" ></script>
+		<script type="text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>		
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				mui.init({  	
+					pullRefresh: 
+				    {
+				      container: '#pullrefresh',
+				      down: {
+				      	height: 50, //可选,默认50.触发下拉刷新拖动距离,
+						auto: false, //可选,默认false.自动下拉刷新一次
+						contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+						contentover: "释放立即回弹", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+						contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				        callback: pulldownRefresh
+				      },//http://www.cnblogs.com/CyLee/p/5324224.html				      
+				   	},
+					hardwareAccelerated:true, //开启硬件加速
+					
+				});
+				function pulldownRefresh() {
+					setTimeout(function() {
+//					alert(&quot;shuaxin&quot;);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					})
+				}
+				// 创建加载内容窗口
+				var topoffset='45px';
+				if(plus.navigator.isImmersedStatusbar()){// 兼容immersed状态栏模式
+					topoffset=(Math.round(plus.navigator.getStatusbarHeight())+45)+'px';
+				} 
+				document.getElementById('header').style.height=(immersed+44)+'px';
+//				document.querySelector('.mui-content').style.marginTop=(immersed)+'px';
+				if(mui.os.ios){
+					document.querySelector('.mui-content').style.marginTop=(immersed+44)+'px';
+					document.querySelector('.mui-scroll').style.marginTop=(immersed+44)+'px';
+				}else if(mui.os.android){
+					document.querySelector('#pullrefresh').style.marginTop=(immersed+44)+'px';
+				}
+				
+				var uid=plus.storage.getItem('uid');
+				var token=plus.storage.getItem('token');
+				
+				mui.ajax('http://www.zhxft.com/app/customer/code_list',{
+					async:false,
+					data:{
+						uid:uid,
+						token:token,
+					},
+					dataType:'JSON',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						console.log(data);
+						var arrParse = JSON.parse(data);
+						if(arrParse.info.code==6){
+							plus.storage.clear();
+							plus.storage.setItem("launchFlag", "林允");
+							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+								if(e.index==0){
+									mui.openWindow({
+										url: 'login.html',
+										id: 'login',
+										show: {
+											autoShow:false,
+											aniShow: 'pop-in',
+											duration:'350',
+										}//额外扩展参数
+										,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+										styles:{softinputMode:'adjustResize'},
+										waiting: {
+											autoShow: true
+										}
+									});
+								}
+							},'div')
+							return;
+						}else if(arrParse.info.code==24){
+							mui.alert('你并非是代理商，当前没有此功能权限！','提示','','','div');
+							return;
+						}
+						document.getElementById('code_num').innerText=arrParse.activation_code;
+						var list=document.getElementById('friend_list');
+						list.innerHTML='';
+						list.innerHTML='<option value ="">请选择划拨好友</option>';
+						for (var i=0;i<arrParse.subordinate.length;i++) {
+							list.innerHTML+='<option value ="'+arrParse.subordinate[i].id+'">'+arrParse.subordinate[i].loginId+'('+arrParse.subordinate[i].phoneNum+')</option>'
+						}						
+					},
+					error:function(xhr,error,errorThrown){
+						console.log(error);
+					}
+				});
+				
+				document.getElementById('login').addEventListener('tap',function(){
+					var lower_id=document.getElementById('friend_list').value;	
+					var lower_agent=document.getElementById('bank').value;			
+					mui.ajax('http://www.zhxft.com/app/customer/code_transfer',{
+						async:false,
+						data:{
+							uid:uid,
+							token:token,
+							subordinate_id:lower_id,
+							num:lower_agent
+						},
+						dataType:'JSON',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						success:function(data){
+							console.log(data);
+							var arrParse = JSON.parse(data);
+							if(arrParse.info.code==6){
+								plus.storage.clear();
+								plus.storage.setItem("launchFlag", "林允");
+								mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
+									if(e.index==0){
+										mui.openWindow({
+											url: 'login.html',
+											id: 'login',
+											show: {
+												autoShow:false,
+												aniShow: 'pop-in',
+												duration:'350',
+											}//额外扩展参数
+											,createNew:true,extras:{type:1},//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+											styles:{softinputMode:'adjustResize'},
+											waiting: {
+												autoShow: true
+											}
+										});
+									}
+								},'div')
+								return;
+							}else if(arrParse.info.code==0){														
+//								mui.alert('划拨好友激活码成功','提示','','','div');	
+								plus.nativeUI.alert('划拨好友激活码成功',function(){
+									mui.back();
+								})
+							}else if(arrParse.info.code==25){
+								mui.alert('当前可用激活码数量不足','提示','','','div');
+							}else if(arrParse.info.code==26){
+								mui.alert('当前输入的激活码数量不正确','提示','','','div');
+							}
+						},
+						error:function(xhr,error,errorThrown){
+							console.log(error);
+						}
+					});
+				})
+				
+				
+				//（跳转到的页面）关闭页面跳转动画
+				plus.nativeUI.closeWaiting();
+				//显示当前页面
+				var self = plus.webview.currentWebview();
+				self.show('pop-in',350);
+			})
+		</script>
+	</body>
+
+</html>
