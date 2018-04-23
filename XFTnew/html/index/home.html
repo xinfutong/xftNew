@@ -57,43 +57,79 @@
 		.icon_list_1{
 			background:url(../../images/home-type-1@2x.png)no-repeat;
 			background-size:100%;	
-			height: 40px;
-    		width: 40px;
+			height: 28px;
+    			width: 26px;
 		}
 		.icon_list_2{
 			background:url(../../images/home-type-2@2x.png)no-repeat;
 			background-size:100%;	
-			height: 40px;
-    		width: 39px;
+			height: 28px;
+    			width: 26px;
 		}
 		.icon_list_3{
 			background:url(../../images/home-type-3@2x.png)no-repeat;
 			background-size:100%;	
-			height: 40px;
-    		width: 40px;
+			height: 28px;
+    			width: 26px;
 		}
 		.icon_list_4{
 			background:url(../../images/home-type-4@2x.png)no-repeat;
 			background-size:100%;background-position-y: center;	
-			height: 40px;
-    		width: 40px;
+			height: 28px;
+    			width: 26px;
 		}
 		.icon_list_5{
 			background:url(../../images/home-type-5@2x.png)no-repeat;
 			background-size:100%;	
-			height: 40px;
-    		width: 34px;
+			height: 28px;
+    			width: 22px;
 		}
 		.icon_list_6{
 			background:url(../../images/home-type-6@2x.png)no-repeat;
 			background-size:100%;	
-			height: 40px;
-    		width: 40px;
+			height: 28px;
+    		    width: 26px;
 		}
+		.more_cell{
+			text-align: center;
+			height: 30px;
+			font-size: 14px;
+			padding-top: 5px;
+		}		
 		.mui-grid-view.mui-grid-9,.mui-grid-view.mui-grid-9 .mui-table-view-cell{
 			/*border: none;*/padding: 0;}
-		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{padding-bottom: 15px;}	
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{padding-bottom: 10px;}	
 		.mui-col-sm-3{width: 33.33333333%;}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body
+		{
+    			font-size: 14px;
+    			line-height: 10px;
+
+    			display: block;
+    			width: 100%;
+    			height: 15px;
+    			margin-top: 8px;
+    			text-overflow: ellipsis;
+    			color: #333;
+    		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn) {
+		    margin: 0;
+		    padding: 20px 0;
+		}
+		.mui-grid-view.mui-grid-9 {
+		    margin: 0;
+		    padding: 0;
+		    border-top: 1px solid #eee;
+		    border-left: 1px solid #eee;
+		    background-color: #f2f2f2;
+		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+		    margin: 0;
+		    /*padding: 11px 15px;*/
+		    vertical-align: top;
+		    border-right: 1px solid #eee;
+		    border-bottom: 1px solid #eee;
+		}
 		.home_logo{
 			text-align: center;
 		    background: #fff;
@@ -174,25 +210,49 @@
 	            </a></li>
 	            <li title="5" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
 	                    <span class="mui-icon icon_list_5"></span>
-	                    <div class="mui-media-body">安全保障</div>
+	                    <div class="mui-media-body">手机充值</div>
 	            </a></li>	
 	            <li title="6" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
 	                    <span class="mui-icon icon_list_6"></span>
-	                    <div class="mui-media-body">专属客服</div>
+	                    <div class="mui-media-body">征信查询</div>
 	            </a></li>
+	            <li title="7" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+	                    <span class="mui-icon icon_list_6"></span>
+	                    <div class="mui-media-body">违章代缴</div>
+	            </a></li>
+	            <li title="8" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+	                    <span class="mui-icon icon_list_6"></span>
+	                    <div class="mui-media-body">安全保障</div>
+	            </a></li>
+	            <li title="9" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+	                    <span class="mui-icon icon_list_6"></span>
+	                    <div class="mui-media-body">更多</div>
+	            </a></li>
+	            <div class="more_more" style="display:none; height: 93px;" id="more_more">
+	            <li title="10" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="background: #FFFFFF;"><a href="#">
+	                    <span class="mui-icon icon_list_1"></span>
+	                    <div class="mui-media-body">收款</div>
+	            </a></li>
+	            <li title="11" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+	                    <span class="mui-icon icon_list_2"></span>
+	                    <div class="mui-media-body">智能还</div>
+	            </a></li>	
+	            <li title="12" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+	                    <span class="mui-icon icon_list_3"></span>
+	                    <div class="mui-media-body">签到</div>
+	            </a></li>
+		        </div>
+		        <div class="more_cell" style="background: #FFFFFF;" id="more_cell">
+		            <div class="more_cell_text" style="color: #999999;" id="more_cell_text">更多</div>
+		        </div>
 	        </ul>
+
 			<div class="home_type-1">				
 				<div class="head-type">						
 					<span class="inte-repay">分享赚钱</span>
 				</div>
 				<img id="home-1" src="../../images/home-1@2x.png" />				
 			</div>	
-			<div class="home_type-2">				
-				<div class="head-type">						
-					<span class="kj-sk">操作指南</span>
-				</div>
-				<img id="home-2" src="../../images/home-2@2x.png" />				
-			</div>
 			<!--<div class="home_type-3">
 				<div class="credit-card">
 					<div class="head-type">						
@@ -657,7 +717,21 @@
 						},'div')
 					}
 				})
-				
+				var openMore = 'yes';
+				document.querySelector('.more_cell').addEventListener('tap',function(){
+					console.log('~~~~~~~~~');
+					if(openMore != 'yes'){
+//						document.getElementById('more_more').style.height='0px';
+						document.getElementById('more_more').style.display ="none";
+						document.getElementById('more_cell_text').textContent='更多';
+						openMore = 'yes';
+					}else{
+						document.getElementById('more_more').style.display='';
+//						document.getElementById('more_more').style.height='93px';
+						document.getElementById('more_cell_text').textContent='收起';
+						openMore = 'no';
+					}
+				});
 				document.querySelector('.home_type-1').addEventListener('tap',function(){
 					if (uid!=null && token!=null) {
 						mui.openWindow({
@@ -698,23 +772,23 @@
 						},'div')
 					}
 				})
-				document.querySelector('.home_type-2').addEventListener('tap',function(){
-					mui.openWindow({
-						url: '../user/novice_guide.html',
-						id: 'novice_guide',
-						show: {
-							autoShow:false,
-							aniShow: 'pop-in',
-							duration:'350',
-						},
-//						extras:{card_id:id},
-						styles:{
-						},
-						waiting: {
-							autoShow: true
-						}
-					});					
-				})
+//				document.querySelector('.home_type-2').addEventListener('tap',function(){
+//					mui.openWindow({
+//						url: '../user/novice_guide.html',
+//						id: 'novice_guide',
+//						show: {
+//							autoShow:false,
+//							aniShow: 'pop-in',
+//							duration:'350',
+//						},
+////						extras:{card_id:id},
+//						styles:{
+//						},
+//						waiting: {
+//							autoShow: true
+//						}
+//					});					
+//				})
 				
 				mui('#home_list').on('tap','li',function(e){
 					var i=$(this).attr('title');
@@ -773,21 +847,22 @@
 							}
 						});
 					}else if(i==3){
-						mui.openWindow({
-							url: '../extension/code_img.html',
-							id: 'code_img',
-							show: {
-								autoShow:false,
-								aniShow: 'pop-in',
-								duration:'350',
-							},
-//							extras:{card_id:id},
-							styles:{
-							},
-							waiting: {
-								autoShow: true
-							}
-						});
+						mui.toast(' 敬请期待 ');
+//						mui.openWindow({
+//							url: '../extension/code_img.html',
+//							id: 'code_img',
+//							show: {
+//								autoShow:false,
+//								aniShow: 'pop-in',
+//								duration:'350',
+//							},
+////							extras:{card_id:id},
+//							styles:{
+//							},
+//							waiting: {
+//								autoShow: true
+//							}
+//						});
 					}else if(i==4){
 						mui.openWindow({
 							url: 'credit_card.html',
@@ -805,6 +880,25 @@
 							}
 						});
 					}else if(i==5){
+						mui.toast(' 敬请期待 ');
+					}else if(i==6){
+						mui.toast(' 敬请期待 ');
+//						if(kf_phone==undefined){
+//							mui.alert('你当前尚未拥有专属客服','提示','','','div');
+//							return;
+//						}
+//						//拨打客服电话						  	 
+//				        var btnArray = ['拨打', '取消']; 
+////				        var Phone = "0371-6331-1799"; 
+//				        mui.confirm('是否拨打 ' + kf_phone + ' ？', '提示', btnArray, function(e) { 
+//				            if (e.index == 0) { 
+//				                plus.device.dial(kf_phone, false); 
+//				            }  
+//				        },'div'); 
+					}else if(i==7){
+						mui.toast(' 敬请期待 ');
+					}else if(i==8){
+						//安全保障
 						mui.openWindow({
 							url: 'Insurance.html',
 							id: 'Insurance',
@@ -820,20 +914,15 @@
 							}
 						});
 //						plus.runtime.openURL(Insurance_url);
-					}else if(i==6){
-						if(kf_phone==undefined){
-							mui.alert('你当前尚未拥有专属客服','提示','','','div');
-							return;
-						}
-						//拨打客服电话						  	 
-				        var btnArray = ['拨打', '取消']; 
-//				        var Phone = "0371-6331-1799"; 
-				        mui.confirm('是否拨打 ' + kf_phone + ' ？', '提示', btnArray, function(e) { 
-				            if (e.index == 0) { 
-				                plus.device.dial(kf_phone, false); 
-				            }  
-				        },'div'); 
-					}				
+					}else if(i==9){
+						mui.toast(' 敬请期待 ');
+					}else if(i==10){
+						mui.toast(' 敬请期待 ');
+					}else if(i==11){
+						mui.toast(' 敬请期待 ');
+					}else if(i==12){
+						mui.toast(' 敬请期待 ');
+					}
 				})
 				
 				var wgtVer = null;
