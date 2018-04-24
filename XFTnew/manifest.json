@@ -489,7 +489,9 @@
 			},
 			"html/index/home.html": {
 				"resources": [
-					"html/find/find.html"
+					"html/find/find.html",
+					"images/home-type-8@2x.png",
+					"images/home-type-9@2x.png"
 				],
 				"refer": [
 					"html/user/novice_guide.html",

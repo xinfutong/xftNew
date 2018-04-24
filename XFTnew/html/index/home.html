@@ -57,51 +57,71 @@
 		.icon_list_1{
 			background:url(../../images/home-type-1@2x.png)no-repeat;
 			background-size:100%;	
-			height: 28px;
-    			width: 26px;
+			height: 30px;
+    			width: 27px;
 		}
 		.icon_list_2{
 			background:url(../../images/home-type-2@2x.png)no-repeat;
-			background-size:100%;	
-			height: 28px;
-    			width: 26px;
+			background-size:100%;
+			margin-bottom: 3px;	
+			height: 27px;
+    			width: 27px;
 		}
 		.icon_list_3{
 			background:url(../../images/home-type-3@2x.png)no-repeat;
 			background-size:100%;	
-			height: 28px;
-    			width: 26px;
+			height: 30px;
+    			width: 30px;
 		}
 		.icon_list_4{
 			background:url(../../images/home-type-4@2x.png)no-repeat;
 			background-size:100%;background-position-y: center;	
-			height: 28px;
-    			width: 26px;
+			height: 30px;
+    			width: 28px;
 		}
 		.icon_list_5{
 			background:url(../../images/home-type-5@2x.png)no-repeat;
 			background-size:100%;	
-			height: 28px;
-    			width: 22px;
+			height: 30px;
+    			width: 28px;
 		}
 		.icon_list_6{
 			background:url(../../images/home-type-6@2x.png)no-repeat;
 			background-size:100%;	
-			height: 28px;
+			height: 30px;
     		    width: 26px;
 		}
-		.mui-icon_arrowdown{
-			background:url(../../images/home-type-5@2x.png)no-repeat;
+		.icon_list_7{
+			background:url(../../images/home-type-7@2x.png)no-repeat;
+			background-size:100%;background-position-y: center;	
+			height: 30px;
+    			width: 28px;
+		}
+		.icon_list_8{
+			background:url(../../images/home-type-8@2x.png)no-repeat;
 			background-size:100%;	
-			height: 28px;
-    			width: 22px;
+			height: 30px;
+    			width: 28px;
+		}
+		.icon_list_9{
+			background:url(../../images/home-type-9@2x.png)no-repeat;
+			background-size:100%;	
+			height: 30px;
+    		    width: 23px;
+		}
+		.icon_arrowdown{
+			background:url(../../images/more-icon1@2x.png)no-repeat;
+			background-size:100%;	
+			height: 12px;
+    			width: 12px;
 		}
 		.more_cell{
 			text-align: center;
-			height: 30px;
-			font-size: 14px;
-			padding-top: 5px;
-		}		
+			height: 45px;
+			font-size: 12px;
+			padding-top: 15px;
+		}
+		
 		.mui-grid-view.mui-grid-9,.mui-grid-view.mui-grid-9 .mui-table-view-cell{
 			/*border: none;*/padding: 0;}
 		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{padding-bottom: 10px;}	
@@ -114,13 +134,13 @@
     			display: block;
     			width: 100%;
     			height: 15px;
-    			margin-top: 8px;
+    			margin-top: 3px;
     			text-overflow: ellipsis;
     			color: #333;
     		}
 		.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn) {
 		    margin: 0;
-		    padding: 20px 0;
+		    padding: 18px 0;
 		}
 		.mui-grid-view.mui-grid-9 {
 		    margin: 0;
@@ -139,9 +159,26 @@
 		.home_logo{
 			text-align: center;
 		    background: #fff;
-		    margin-top: 13px;padding: 12px 0;
+		    margin-top: 8px;
+		    padding: 12px 0;
 		}
 		.home_logo img{height: 22px;}
+		.home_type-4{
+			color: #FFFFFF;
+			background-color: #FFFFFF;
+    			font-size: 18px;
+    			padding: 14px 0;
+    			height: 93px;
+    			background-position-y: 11px;
+    			margin-top: 8px;
+		}
+		.money-icon{
+			background-size: 100%;
+			height: 58px;
+			width: 58px;
+			padding-top: 10px;
+			/*padding-right: 10px;*/
+		}		
 	</style>
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent" style="background-color: rgba(247, 247, 247, 0);">
@@ -223,43 +260,54 @@
 	                    <div class="mui-media-body">征信查询</div>
 	            </a></li>
 	            <li title="7" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-	                    <span class="mui-icon icon_list_6"></span>
+	                    <span class="mui-icon icon_list_7"></span>
 	                    <div class="mui-media-body">违章代缴</div>
 	            </a></li>
 	            <li title="8" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-	                    <span class="mui-icon icon_list_6"></span>
+	                    <span class="mui-icon icon_list_8"></span>
 	                    <div class="mui-media-body">安全保障</div>
 	            </a></li>
 	            <li title="9" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-	                    <span class="mui-icon icon_list_6"></span>
+	                    <span class="mui-icon icon_list_9"></span>
 	                    <div class="mui-media-body">更多</div>
 	            </a></li>
 	            <div class="more_more" style="display:none; height: 93px;" id="more_more">
 	            <li title="10" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="background: #FFFFFF;"><a href="#">
-	                    <span class="mui-icon icon_list_1"></span>
+	                    <span class="mui-icon icon_list_7"></span>
 	                    <div class="mui-media-body">收款</div>
 	            </a></li>
 	            <li title="11" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-	                    <span class="mui-icon icon_list_2"></span>
+	                    <span class="mui-icon icon_list_8"></span>
 	                    <div class="mui-media-body">智能还</div>
 	            </a></li>	
 	            <li title="12" style="background: #FFFFFF;" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-	                    <span class="mui-icon icon_list_3"></span>
+	                    <span class="mui-icon icon_list_9"></span>
 	                    <div class="mui-media-body">签到</div>
 	            </a></li>
 		        </div>
 		        <div class="more_cell" style="background: #FFFFFF;" id="more_cell">
 		        	<span class="more_cell_text" style="color: #999999;" id="more_cell_text">更多</span>
-		            <span class="mui-icon-arrowdown"></span>
+		            <span class="mui-icon icon_arrowdown" id="icon_arrowdown"></span>
 		        </div>
+		        
 	        </ul>
 
-			<div class="home_type-1">				
+			<!--<div class="home_type-1">				
 				<div class="head-type">						
 					<span class="inte-repay">分享赚钱</span>
 				</div>
 				<img id="home-1" src="../../images/home-1@2x.png" />				
-			</div>	
+			</div>	-->
+			<div class="home_type-4">
+				<!--<div class="money-icon"></div>-->
+	       	 	<div style="margin-top: 10px; text-align: left; margin-left: 17px;">
+	       	 		<span style="color: #3e4d54; font-size: 20px; text-align: left;">分享就能</span><span style="color: #ff7e4d; font-size: 20px;">赚大钱</span>
+	       	 	</div>
+	       		<div style="color: #88898a; margin-top: 5px; font-size: 12px; text-align: left; margin-left: 17px;">超高佣金率等你来拿</div>
+	       		
+	       		<div style="color: #88898a; float:right; height:75px;width:75px;margin-top: -65px; margin-right:10px;font-size: 12px; text-align: left;background: url(../../images/home_gift_img.png);background-size: 100%;"></div>
+	       	</div>
+	       	
 			<!--<div class="home_type-3">
 				<div class="credit-card">
 					<div class="head-type">						
@@ -412,8 +460,10 @@
 				});
 				
 				var ino = plus.storage.getItem('launchFlag');
+				console.log("inoinoino的值:",ino);
 				//判断是否第一次安装打开
 			    if(ino == null){
+			    	console.log('进了if');
 			        mui.openWindow({
 						url:'banner.html',
 						id:'banner',
@@ -484,7 +534,7 @@
 					dataType:'JSON',//服务器返回json格式数据
 					type:'POST',//HTTP请求类型
 					success:function(data){
-						console.log(data);
+						console.log('1111111',data);
 						var arrParse = JSON.parse(data);
 						Insurance_url=arrParse.security_link;
 						var banner_2=document.getElementById('slider_find');	
@@ -518,8 +568,8 @@
 								+'<img id="banner_end" src="'+arrParse.banner[0].img+'">'
 							+'</a>'
 						+'</div>';	
-						document.getElementById('home-1').src=arrParse.pic[0].src;
-						document.getElementById('home-2').src=arrParse.pic[1].src;
+//						document.getElementById('home-1').src=arrParse.pic[0].src;
+//						document.getElementById('home-2').src=arrParse.pic[1].src;
 //						document.getElementById('home-3').src=arrParse.pic[2].src;
 					},
 					error:function(xhr,error,errorThrown){
@@ -536,13 +586,16 @@
 					dataType:'JSON',//服务器返回json格式数据
 					type:'POST',//HTTP请求类型
 					success:function(data){
-						console.log(data);
+						console.log('222222222',data);
 						var arrParse = JSON.parse(data);
 						if(arrParse.state==1){
 							kf_phone=arrParse.phoneNum;
 						}else if(arrParse.state==0 && plus.storage.getItem('launchFlag')!=null){
+							console.log('rrrrrrrrrr');
 							plus.storage.clear();	
 							plus.storage.setItem("launchFlag", "林允");
+							console.log("inoinoino的值:",ino);
+
 							mui.confirm('你当前并未登录(或账号在其他手机登录以致此手机账号被退出)，是否前往登录！','提示',['是','否'],function(e){
 								if(e.index==0){
 									mui.openWindow({
@@ -577,7 +630,7 @@
 					dataType:'JSON',//服务器返回json格式数据
 					type:'POST',//HTTP请求类型
 					success:function(data){
-						console.log(data);
+						console.log('333333333',data);
 						var arrParse = JSON.parse(data);
 						mui.alert(arrParse.datas.content,arrParse.datas.title,'','','div');
 					},
@@ -591,7 +644,7 @@
 					version = wgtinfo.version;	
 					localStorage.setItem('ver',wgtinfo.version)
 				});
-												
+				console.log('!!!!!!!!!',uid,' ',token);
 				mui.ajax('http://www.zhxft.com/mobile/index/shengji',{
 					async:false,
 					data:{
@@ -600,7 +653,7 @@
 					dataType:'JSON',//服务器返回json格式数据
 					type:'POST',//HTTP请求类型
 					success:function(data){
-						console.log(data);
+						console.log('44444444444',data);
 						if(version==null){
 							version=localStorage.getItem('ver');
 						}						
@@ -636,9 +689,11 @@
 				} else{
 					
 				}
+				console.log('123456');
 				window.addEventListener('customEvent',function(event){
 					uid=plus.storage.getItem('uid');
 					token=plus.storage.getItem('token');
+					
 					mui.ajax('http://www.zhxft.com/app/account/superior_agent',{
 						async:false,
 						data:{
@@ -648,7 +703,7 @@
 						dataType:'JSON',//服务器返回json格式数据
 						type:'POST',//HTTP请求类型
 						success:function(data){
-							console.log(data);
+							console.log('5555555555',data);
 							var arrParse = JSON.parse(data);
 							if(arrParse.state==1){
 								kf_phone=arrParse.phoneNum;
@@ -677,7 +732,7 @@
 							}						
 						},
 						error:function(xhr,error,errorThrown){
-							console.log(error);
+							console.log('5555555error',error);
 						}
 					});
 				});	
@@ -731,11 +786,13 @@
 //						document.getElementById('more_more').style.height='0px';
 						document.getElementById('more_more').style.display ="none";
 						document.getElementById('more_cell_text').textContent='更多';
+						document.getElementById('icon_arrowdown').style.backgroundImage="url('"+"../../images/more-icon1@2x.png"+"')";
 						openMore = 'yes';
 					}else{
 						document.getElementById('more_more').style.display='';
 //						document.getElementById('more_more').style.height='93px';
 						document.getElementById('more_cell_text').textContent='收起';
+						document.getElementById('icon_arrowdown').style.backgroundImage="url('"+"../../images/more-icon2@2x.png"+"')";
 						openMore = 'no';
 					}
 				});
