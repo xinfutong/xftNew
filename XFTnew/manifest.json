@@ -192,13 +192,13 @@
 					},
 					"tags": [
 						{
-							"tag": "font",
+							"tag": "img",
 							"id": "tabBar31",
-							"text": "\ue60b",
+							"src": "_www/images/tab_income_nor_ico.png",
 							"position": {
 								"top": "4px",
-								"left": "20px",
-								"width": "100%",
+								"left": "58%",
+								"width": "24px",
 								"height": "24px"
 							},
 							"textStyles": {
@@ -488,11 +488,17 @@
 				"priority": 0
 			},
 			"html/index/home.html": {
-				"resources": [],
+				"resources": [
+					"html/find/find.html"
+				],
 				"refer": [
 					"html/user/novice_guide.html",
 					"html/index/repay.html",
-					"html/index/Receivables.html"
+					"html/index/Receivables.html",
+					"html/extension/extension.html",
+					"html/index/banner.html",
+					"html/wallet/wallet.html",
+					"html/user/user.html"
 				],
 				"priority": 0
 			},
@@ -502,7 +508,8 @@
 					"html/index/login.html",
 					"html/wallet/wallet.html",
 					"html/user/bank_card_info.html",
-					"html/user/my_rate.html"
+					"html/user/my_rate.html",
+					"html/user/news.html"
 				],
 				"priority": 0
 			},
@@ -929,7 +936,6 @@
 				"images/qq@3x.png",
 				"js/jlyGlobal.js",
 				"css/feedback-page.css",
-				"html/user/news.html",
 				"images/zu10@3x.png",
 				"images/add-card-img@3x.png",
 				"html/index/kj_two_bind.html",

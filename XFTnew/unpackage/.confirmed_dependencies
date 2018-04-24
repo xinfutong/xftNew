@@ -15,16 +15,25 @@
     "refer": [
       "html/user/novice_guide.html",
       "html/index/repay.html",
-      "html/index/Receivables.html"
+      "html/index/Receivables.html",
+      "html/extension/extension.html",
+      "html/find/find.html",
+      "html/index/banner.html",
+      "html/wallet/wallet.html",
+      "html/user/user.html",
+      "html/index/login.html"
     ],
-    "resources": []
+    "resources": [
+      "html/find/find.html"
+    ]
   },
   "html/user/user.html": {
     "refer": [
       "html/index/login.html",
       "html/wallet/wallet.html",
       "html/user/bank_card_info.html",
-      "html/user/my_rate.html"
+      "html/user/my_rate.html",
+      "html/user/news.html"
     ],
     "resources": []
   },
