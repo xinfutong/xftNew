@@ -192,13 +192,13 @@
 					},
 					"tags": [
 						{
-							"tag": "img",
+							"tag": "font",
 							"id": "tabBar31",
-							"src": "_www/images/tab_income_nor_ico.png",
+							"text": "\ue60b",
 							"position": {
 								"top": "4px",
-								"left": "58%",
-								"width": "24px",
+								"left": "20px",
+								"width": "100%",
 								"height": "24px"
 							},
 							"textStyles": {
@@ -488,19 +488,11 @@
 				"priority": 0
 			},
 			"html/index/home.html": {
-				"resources": [
-					"html/find/find.html",
-					"images/home-type-8@2x.png",
-					"images/home-type-9@2x.png"
-				],
+				"resources": [],
 				"refer": [
 					"html/user/novice_guide.html",
 					"html/index/repay.html",
-					"html/index/Receivables.html",
-					"html/extension/extension.html",
-					"html/index/banner.html",
-					"html/wallet/wallet.html",
-					"html/user/user.html"
+					"html/index/Receivables.html"
 				],
 				"priority": 0
 			},
@@ -510,8 +502,7 @@
 					"html/index/login.html",
 					"html/wallet/wallet.html",
 					"html/user/bank_card_info.html",
-					"html/user/my_rate.html",
-					"html/user/news.html"
+					"html/user/my_rate.html"
 				],
 				"priority": 0
 			},
@@ -938,6 +929,7 @@
 				"images/qq@3x.png",
 				"js/jlyGlobal.js",
 				"css/feedback-page.css",
+				"html/user/news.html",
 				"images/zu10@3x.png",
 				"images/add-card-img@3x.png",
 				"html/index/kj_two_bind.html",
