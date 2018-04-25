@@ -88,7 +88,8 @@
 			"description": "原生对象"
 		},
 		"Share": {},
-		"Payment": {}
+		"Payment": {},
+		"Push": {}
 	},
 	"plus": {
 		"launchwebview": {
@@ -335,17 +336,17 @@
 			]
 		},
 		"safearea": {
-	        "background":"#FFFFFF",    // 安全区域外的背景颜色，默认值为"#FFFFFF"
-	        "bottom":{    // 底部安全区域配置
-	            "offset":"auto"       // 底部安全区域偏移，"none"表示不空出安全区域，"auto"自动计算空出安全区域，默认值为"none"
-	        },
-	        "left": {    // 左侧安全区域配置（横屏显示时有效）
-	            "offset":"auto"
-	        },
-	        "right": {    // 右侧安全区域配置（横屏显示时有效）
-	            "offset":"auto"
-	        }
-	    },
+			"background": "#FFFFFF",    // 安全区域外的背景颜色，默认值为"#FFFFFF"
+			"bottom": {// 底部安全区域配置
+				"offset": "auto"
+			},
+			"left": {// 左侧安全区域配置（横屏显示时有效）
+				"offset": "auto"
+			},
+			"right": {// 右侧安全区域配置（横屏显示时有效）
+				"offset": "auto"
+			}
+		},
 		"statusbar": {
 			"immersed": true,
 			"style": "dark"
@@ -360,6 +361,13 @@
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
 			"plugins": {
+				"push": {
+					"igexin": {
+						"appid": "kZJb8S1Rtw8btgGsIkViq9",
+						"appkey": "pKvxiw2MYG8WEDxJl3wza9",
+						"appsecret": "bBhMUW7bJR6PLfCMXVh8x3"
+					}
+				},
 				"payment": {
 					"alipay": {
 						"description": "阿里支付",
@@ -370,7 +378,12 @@
 					"qq": {
 						"appid": "101460030",
 						"description": "QQ分享"
-					},"weixin":{"appid":"wx3af7108a2dbe66f9","appsecret":"afc2fd8c520bcc293404d7a84d5688a5","description":"可选，微信分享"}
+					},
+					"weixin": {
+						"appid": "wx3af7108a2dbe66f9",
+						"appsecret": "afc2fd8c520bcc293404d7a84d5688a5",
+						"description": "可选，微信分享"
+					}
 				}
 			},
 			"apple": {
@@ -387,7 +400,30 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
 			},
 			"orientation": [
 				"portrait-primary",
@@ -450,7 +486,12 @@
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
 						"retina35": "unpackage/res/ios/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "unpackage/res/ios/640x1136.png","iphonex":"unpackage/res/ios/1125x2436.png","iphonexl":"unpackage/res/ios/2436x1125.png","retina55":"unpackage/res/ios/1242x2208.png","retina47":"unpackage/res/ios/750x1334.png","retina55l":"unpackage/res/ios/2208x1242.png"
+						"retina40": "unpackage/res/ios/640x1136.png",
+						"iphonex": "unpackage/res/ios/1125x2436.png",
+						"iphonexl": "unpackage/res/ios/2436x1125.png",
+						"retina55": "unpackage/res/ios/1242x2208.png",
+						"retina47": "unpackage/res/ios/750x1334.png",
+						"retina55l": "unpackage/res/ios/2208x1242.png"
 					},
 					"ipad": {
 						"portrait": "unpackage/res/ios/768x1004.png", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -471,7 +512,14 @@
 					"xxhdpi": "unpackage/res/安卓/1080x1882.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
+		},
+		"ads": {
+			"rp": false,
+			"splash": false,
+			"push": false,
+			"spot": false
+		},
+		"adid": ""
 	},
 	"dependencies": {
 		"pages": {
@@ -488,11 +536,16 @@
 				"priority": 0
 			},
 			"html/index/home.html": {
-				"resources": [],
+				"resources": [
+					"html/find/find.html"
+				],
 				"refer": [
 					"html/user/novice_guide.html",
 					"html/index/repay.html",
-					"html/index/Receivables.html"
+					"html/index/Receivables.html",
+					"html/extension/extension.html",
+					"html/wallet/wallet.html",
+					"html/user/user.html"
 				],
 				"priority": 0
 			},
